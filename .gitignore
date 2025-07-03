@@ -4,5 +4,6 @@ init-db.sql
 cursor-logs.md
 backend/client_secret_1048775706645-jka3a5o69ltecsb69ogv0usjev21npvk.apps.googleusercontent.com.json\
 backend/private_key.pem
+backend/venv/
 aftertalk/.cursorrules
 backend/.cursorrules
