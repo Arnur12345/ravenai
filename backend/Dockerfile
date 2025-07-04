@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     git \
     && curl -Ls https://astral.sh/uv/install.sh | bash \
-    && mv ~/.cargo/bin/uv /usr/local/bin/uv \
+    && mv ~/.local/bin/uv /usr/local/bin/uv \
     && rm -rf /var/lib/apt/lists/*
 
 # Create non-root user for security
@@ -29,7 +29,7 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install Python dependencies
-RUN uv pip install --no-cache-dir -r requirements.txt
+RUN uv pip install --system --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY src/ ./src/
