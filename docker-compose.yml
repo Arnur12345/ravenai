@@ -15,7 +15,7 @@ services:
     ports:
       - "5433:5432"
     networks:
-      - aftertalk-network
+      - ravenai-network
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U aftertalk_user -d aftertalk"]
       interval: 10s
@@ -59,7 +59,7 @@ services:
     ports:
       - "8000:8000"
     networks:
-      - aftertalk-network
+      - ravenai-network
     depends_on:
       database:
         condition: service_healthy
@@ -106,6 +106,6 @@ volumes:
 
 # Custom network for service communication
 networks:
-  aftertalk-network:
+  ravenai-network:
     driver: bridge
     name: ravenai-network 
