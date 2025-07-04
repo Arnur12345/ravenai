@@ -1,0 +1,113 @@
+# AfterTalk Frontend Plan: The Dashboard Experience
+
+## 1. Vision & Design Principles
+
+Our dashboard will be a sleek, intuitive, and powerful command center for the user's meeting intelligence. It's not just a list of meetings; it's a workspace designed for focus and productivity.
+
+- **Clarity First:** The UI will be clean and uncluttered, prioritizing information and actions. We will use generous white space, clear typography, and a logical layout.
+- **Fluid & Responsive:** The experience will be seamless, with smooth transitions, fast load times, and a fully responsive design that works beautifully on all screen sizes. We will use skeleton loaders and optimistic UI updates to enhance perceived performance.
+- **Aesthetically Pleasing:** We will use a modern, dark-themed aesthetic with a professional color palette. Subtle animations and micro-interactions will make the application feel alive and delightful to use.
+- **Action-Oriented:** The design will guide the user toward key actions like creating a new meeting or viewing a summary, making the workflow efficient and intuitive.
+
+---
+
+## 2. The User Journey
+
+This is the path a user will take through the dashboard.
+
+1.  **Entry:** After logging in, the user lands on `/dashboard`. They are greeted by a clean workspace.
+2.  **Empty State:** If they have no meetings, a friendly empty state message guides them to create their first one with a prominent "New Meeting" button.
+3.  **Meeting List:** If they have existing meetings, they see a beautifully organized list of `MeetingCard` components, each showing the meeting title, date, duration, and status (e.g., "Live", "Summarizing", "Complete").
+4.  **Creating a Meeting:**
+    - The user clicks the "New Meeting" button.
+    - A modal appears, prompting for the Google Meet URL.
+    - Upon submission, the modal closes, and the user is navigated to the live meeting workspace (`/meetings/:id`).
+5.  **The Live Workspace (`/meetings/:id`):**
+    - A focused, two-panel layout appears.
+    - The left panel displays the **live transcript**, updating in near real-time.
+    - The right panel contains a **rich text editor** for the user's private notes.
+    - A clear status indicator shows that the meeting is being recorded.
+6.  **Ending & Summarizing:**
+    - The user clicks "End & Summarize".
+    - The UI transitions to a "processing" state, showing an animation while the AI generates the summary.
+7.  **Viewing the Summary:**
+    - The workspace updates to display the final, AI-generated summary. The summary is beautifully formatted with clear sections for key points, action items, and decisions.
+    - The user can easily switch between the AI summary, the full transcript, and their own notes.
+
+---
+
+## 3. Visual Design & UI Kit
+
+- **Color Palette (Dark Theme):**
+  - **Background:** Slate 900 (`#1E293B`)
+  - **Card/Panel:** Slate 800 (`#293548`)
+  - **Primary Accent:** Indigo 500 (`#6366F1`) for buttons and active states.
+  - **Text (Primary):** Slate 200 (`#E2E8F0`)
+  - **Text (Secondary):** Slate 400 (`#94A3B8`)
+  - **Borders:** Slate 700 (`#334155`)
+  - **Status Colors:** Green (Live), Blue (Complete), Yellow (Summarizing), Red (Error).
+- **Typography:** `Inter` font family.
+- **Icons:** `lucide-react` for a consistent and modern look.
+- **Animations:** `Framer Motion` for all transitions, modal pop-ups, and list animations.
+
+---
+
+## 4. Technical Architecture & File Structure
+
+We will build out the `dashboard` and create a new `meeting` module.
+
+```
+src/
+├── modules/
+│   ├── dashboard/
+│   │   ├── index.tsx                 # Main dashboard page, lists meetings
+│   │   └── components/
+│   │       ├── DashboardLayout.tsx   # Sidebar + Main Content layout
+│   │       ├── Sidebar.tsx           # Navigation sidebar
+│   │       ├── Header.tsx            # Header with user profile
+│   │       ├── MeetingList.tsx       # Renders the list of MeetingCards
+│   │       ├── MeetingCard.tsx       # Component for a single meeting
+│   │       └── NewMeetingModal.tsx   # Modal for creating a new meeting
+│   └── meeting/
+│       ├── index.tsx                 # Main component for the workspace
+│       └── components/
+│           ├── LiveTranscript.tsx    # Displays real-time transcript
+│           ├── NotesEditor.tsx       # Rich text editor for notes
+│           └── SummaryDisplay.tsx    # Renders the final AI summary
+├── pages/
+│   └── MeetingWorkspacePage.tsx      # The page for route /meetings/:id
+└── shared/
+    ├── api/
+    │   └── dashboardApi.ts           # Centralized API calls for dashboard
+    └── types/
+        └── dashboard.ts              # Frontend types for Meeting, Transcript
+```
+
+---
+
+## 5. Phased Implementation Plan
+
+### Phase 1: Dashboard Foundation & Meeting List
+1.  **Create API Layer:** Implement `shared/api/dashboardApi.ts` and `shared/types/dashboard.ts`.
+2.  **Build Layout:** Create `DashboardLayout.tsx` and `Sidebar.tsx`.
+3.  **Implement Header:** Create the `Header.tsx` component with user info and logout.
+4.  **Fetch & Display Meetings:** In `dashboard/index.tsx`, fetch the list of meetings from the backend.
+5.  **Create Meeting List UI:** Build `MeetingList.tsx` and `MeetingCard.tsx` to display the fetched meetings. Implement skeleton loaders for a smooth loading experience.
+
+### Phase 2: Meeting Creation & Workspace Navigation
+1.  **New Meeting Modal:** Build `NewMeetingModal.tsx` with a form for the meeting URL.
+2.  **API Call:** On submit, call the `createMeeting` function in `dashboardApi.ts`.
+3.  **Navigation:** Upon successful creation, navigate the user to the `/meetings/:id` page.
+4.  **Create Workspace Page:** Set up the new page `pages/MeetingWorkspacePage.tsx` and the corresponding route in `app.tsx`.
+
+### Phase 3: The Live Meeting Workspace
+1.  **Workspace Layout:** In `meeting/index.tsx`, create the two-panel layout for the transcript and notes.
+2.  **Live Transcript:** Build the `LiveTranscript.tsx` component. It should poll the backend's `sync_meeting_transcripts` endpoint every 5-10 seconds to display new transcript entries.
+3.  **Notes Editor:** Implement `NotesEditor.tsx` using a lightweight rich text editor library (e.g., Tiptap) to allow users to take notes. Auto-save functionality will be a plus.
+4.  **End Meeting Flow:** Implement the "End & Summarize" button, which calls the `endMeeting` API endpoint.
+
+### Phase 4: Summary Display & Polish
+1.  **Summary Component:** Build the `SummaryDisplay.tsx` component to render the final, formatted AI summary.
+2.  **Conditional Rendering:** The meeting workspace should conditionally render the live view or the summary view based on the meeting's status.
+3.  **Animations & Finishing Touches:** Add `Framer Motion` animations to modals, list items, and view transitions to make the UI feel fluid and polished.
+4.  **Error Handling:** Implement robust error handling and display user-friendly error messages for all API interactions.

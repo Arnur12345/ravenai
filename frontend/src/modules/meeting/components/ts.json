@@ -1,0 +1,29 @@
+{
+    "notes": {
+      "to_do": [
+        {
+          "task_name": "Task 1 Name",
+          "task_description": "Task 1 description goes here.",
+          "deadline": "2025-07-05", 
+          "assignee": "John Doe"
+        },
+        {
+          "task_name": "Task 2 Name",
+          "task_description": "Task 2 description goes here.",
+          "deadline": "2025-07-10",
+          "assignee": "Jane Doe"
+        }
+      ],
+      "key_updates": [
+        {
+          "update_number": 1,
+          "update_description": "Update 1 details and important information."
+        },
+        {
+          "update_number": 2,
+          "update_description": "Update 2 details and changes that need attention."
+        }
+      ],
+    }
+  }
+  
