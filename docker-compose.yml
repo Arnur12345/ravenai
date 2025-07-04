@@ -2,7 +2,7 @@ services:
   # PostgreSQL Database
   database:
     image: postgres:latest
-    container_name: aftertalk-database
+    container_name: ravenai-database
     restart: unless-stopped
     environment:
       POSTGRES_DB: aftertalk
@@ -28,7 +28,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: aftertalk-backend
+    container_name: ravenai-backend
     restart: unless-stopped
     volumes:
       # Mount Google OAuth credentials file
@@ -73,21 +73,21 @@ services:
   # Frontend Application
   frontend:
     build:
-      context: ./aftertalk
+      context: ./frontend
       dockerfile: Dockerfile
-    container_name: aftertalk-frontend
+    container_name: ravenai-frontend
     restart: unless-stopped
     environment:
       # API Configuration - Use localhost since browser makes the calls from host
       VITE_API_BASE_URL: http://localhost:8000
-      VITE_APP_NAME: AfterTalk
+      VITE_APP_NAME: RavenAI
       VITE_APP_VERSION: 1.0.0
       # For development mode
       NODE_ENV: development
     ports:
               - "3000:3000"
     networks:
-      - aftertalk-network
+      - ravenai-network
     depends_on:
       backend:
         condition: service_healthy
@@ -102,10 +102,10 @@ services:
 volumes:
   postgres_data:
     driver: local
-    name: aftertalk_postgres_data
+    name: ravenai_postgres_data
 
 # Custom network for service communication
 networks:
   aftertalk-network:
     driver: bridge
-    name: aftertalk-network 
+    name: ravenai-network 

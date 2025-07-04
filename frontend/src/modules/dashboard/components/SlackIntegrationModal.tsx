@@ -190,7 +190,7 @@ export const SlackIntegrationModal: React.FC<SlackIntegrationModalProps> = ({
                   className="text-sm leading-relaxed mb-8 max-w-sm mx-auto"
                   style={{ color: 'var(--dashboard-light-blue, #8EB6E8)' }}
                 >
-                  Авторизуйте AfterTalk для отправки итогов встреч в ваше рабочее пространство Slack
+                  Авторизуйте Raven для отправки итогов встреч в ваше рабочее пространство Slack
                 </p>
                 <motion.button
                   onClick={handleSlackConnect}
