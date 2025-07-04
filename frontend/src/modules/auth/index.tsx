@@ -155,7 +155,7 @@ const Auth: React.FC = () => {
               >
                 <img 
                   src={ravenLogo} 
-                  alt="AfterTalk Logo" 
+                  alt="RavenAI Logo" 
                   className={`h-10 w-auto object-contain ${theme === 'dark' ? 'filter brightness-0 invert' : 'filter brightness-0'}`}
                 />
               </a>
@@ -211,7 +211,7 @@ const Auth: React.FC = () => {
             className={`${themeClasses.footer} text-sm`}
             style={{ fontFamily: 'Gilroy, sans-serif' }}
           >
-            © 2024 AfterTalk. All rights reserved.
+            © 2024 RavenAI. All rights reserved.
           </p>
         </div>
       </motion.div>

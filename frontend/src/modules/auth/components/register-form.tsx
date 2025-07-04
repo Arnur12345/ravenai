@@ -140,7 +140,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitchToLogin }) => {
           className={themeClasses.subtitle}
           style={{ fontFamily: 'Gilroy, sans-serif' }}
         >
-          Get started with AfterTalk
+          Get started with RavenAI
         </p>
       </div>
 

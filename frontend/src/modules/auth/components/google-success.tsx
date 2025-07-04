@@ -127,7 +127,7 @@ const GoogleSuccess: React.FC = () => {
               className={`text-2xl font-semibold ${themeClasses.title}`}
               style={{ fontFamily: 'Gilroy, sans-serif' }}
             >
-              Welcome to AfterTalk!
+              Welcome to RavenAI!
             </h2>
             <p 
               className={themeClasses.successText}
