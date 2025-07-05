@@ -14,6 +14,7 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 3000,
+    allowedHosts: ['ravenai.site', 'localhost', '127.0.0.1'],  // Разрешённые хосты
     strictPort: true,
     hmr: {
       port: 3000,
