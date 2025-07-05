@@ -1,5 +1,7 @@
 interface Config {
   API_BASE_URL: string;
+  WS_BASE_URL?: string;
+  TIMEOUT: number;
   AUTH_ENDPOINTS: {
     LOGIN: string;
     REGISTER: string;
@@ -9,33 +11,58 @@ interface Config {
     GOOGLE_AUTH_URL: string;
     GOOGLE_CALLBACK: string;
   };
+  ENVIRONMENT: 'development' | 'staging' | 'production';
 }
 
-const isDevelopment = import.meta.env.MODE === 'development' || 
-  import.meta.env.MODE === undefined ||
-  !import.meta.env.MODE;
+// Улучшенная логика определения окружения
+const getEnvironment = (): 'development' | 'staging' | 'production' => {
+  const mode = import.meta.env.MODE;
+  const nodeEnv = import.meta.env.NODE_ENV;
+  
+  if (mode === 'production' || nodeEnv === 'production') {
+    return 'production';
+  }
+  
+  if (mode === 'staging' || nodeEnv === 'staging') {
+    return 'staging';
+  }
+  
+  return 'development';
+};
 
-const isProduction = import.meta.env.MODE === 'production';
-
-// Get API base URL from environment variable or default to localhost
+// Улучшенная логика для API URL
 const getApiBaseUrl = (): string => {
-  // Check for Vite environment variable first
+  // Приоритет переменной окружения
   if (import.meta.env.VITE_API_BASE_URL) {
     return import.meta.env.VITE_API_BASE_URL;
   }
   
-  // Fallback based on environment mode
-  if (isProduction) {
-    return 'https://ravenai.site';
-  }
+  const environment = getEnvironment();
   
-  return isDevelopment 
-    ? 'http://localhost:8000' 
-    : window.location.origin; // Use same origin as fallback
+  switch (environment) {
+    case 'production':
+      return 'https://ravenai.site';
+    case 'staging':
+      return 'https://staging.ravenai.site'; // если есть staging
+    case 'development':
+    default:
+      return 'http://localhost:8000';
+  }
 };
+
+// Получение WebSocket URL
+const getWsBaseUrl = (): string => {
+  const apiUrl = getApiBaseUrl();
+  return apiUrl.replace('http://', 'ws://').replace('https://', 'wss://');
+};
+
+const environment = getEnvironment();
 
 const config: Config = {
   API_BASE_URL: getApiBaseUrl(),
+  WS_BASE_URL: getWsBaseUrl(),
+  TIMEOUT: 30000,
+  ENVIRONMENT: environment,
   
   AUTH_ENDPOINTS: {
     LOGIN: '/api/auth/login',
@@ -47,5 +74,32 @@ const config: Config = {
     GOOGLE_CALLBACK: '/api/auth/google/callback'
   }
 };
+
+// Логирование для отладки в режиме разработки
+if (environment === 'development') {
+  console.log('🔧 Config loaded:', {
+    API_BASE_URL: config.API_BASE_URL,
+    WS_BASE_URL: config.WS_BASE_URL,
+    ENVIRONMENT: config.ENVIRONMENT,
+    MODE: import.meta.env.MODE,
+    NODE_ENV: import.meta.env.NODE_ENV
+  });
+}
+
+// Валидация URL
+const validateUrl = (url: string): boolean => {
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+// Проверка корректности API URL
+if (!validateUrl(config.API_BASE_URL)) {
+  console.error('❌ Invalid API_BASE_URL:', config.API_BASE_URL);
+  throw new Error('Invalid API_BASE_URL configuration');
+}
 
 export default config; 
