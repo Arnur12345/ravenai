@@ -313,6 +313,13 @@ class NotesExportRequest(BaseModel):
 
 
 # General response schemas
+class StatisticsResponse(BaseModel):
+    """Schema for application statistics response"""
+    total_users: int
+    total_meetings: int
+    total_processed_meetings: int
+
+
 class MessageResponse(BaseModel):
     """Schema for general message response"""
     message: str

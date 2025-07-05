@@ -241,7 +241,7 @@ const Integrations: React.FC = () => {
 
         {/* Enhanced integrations grid */}
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6 mb-16"
+          className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 mb-16 justify-items-center"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -261,9 +261,9 @@ const Integrations: React.FC = () => {
                   duration: 0.3
                 }
               }}
-              className="group"
+              className="group w-full max-w-[140px]"
             >
-              <div className={`relative flex items-center justify-center p-6 rounded-2xl border ${themeClasses.cardBackground} ${themeClasses.cardHover} transition-all duration-500 ease-out`}>
+              <div className={`relative flex items-center justify-center p-6 rounded-2xl border ${themeClasses.cardBackground} ${themeClasses.cardHover} transition-all duration-500 ease-out h-[100px] w-full`}>
                 {/* Hover overlay effect */}
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"
@@ -274,7 +274,7 @@ const Integrations: React.FC = () => {
                 <motion.img
                 src={integration.logo}
                 alt={integration.alt}
-                  className="w-12 h-12 md:w-16 md:h-16 object-contain relative z-10 transition-all duration-300 group-hover:scale-110"
+                  className="w-12 h-12 md:w-16 md:h-16 object-contain relative z-10 transition-all duration-300 group-hover:scale-110 mx-auto"
                 loading="lazy"
                   whileHover={{ 
                     scale: 1.1,
@@ -284,7 +284,7 @@ const Integrations: React.FC = () => {
                 
                 {/* Tooltip on hover */}
                 <motion.div
-                  className={`absolute -bottom-12 left-1/2 transform -translate-x-1/2 px-3 py-1 ${theme === 'dark' ? 'bg-slate-800' : 'bg-gray-900'} text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap`}
+                  className={`absolute -bottom-12 left-1/2 transform -translate-x-1/2 px-3 py-1 ${theme === 'dark' ? 'bg-slate-800' : 'bg-gray-900'} text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap z-20`}
                   style={{ fontFamily: 'Gilroy, sans-serif' }}
                   initial={{ opacity: 0, y: 10 }}
                   whileHover={{ opacity: 1, y: 0 }}

@@ -6,6 +6,7 @@ from datetime import datetime, date, timedelta
 
 from .models import Meeting, Transcript, ComprehensiveNotes, Summary
 from .schemas import MeetingCreate, MeetingUpdate, TranscriptBase, SummaryCreate, SummaryUpdate
+from auth.models import User
 
 
 # Meeting CRUD operations
@@ -605,4 +606,25 @@ async def delete_comprehensive_notes(
     
     await db.delete(notes)
     await db.commit()
-    return True 
+    return True
+
+
+# Global Statistics CRUD operations
+async def get_total_users_count(db: AsyncSession) -> int:
+    """Get total count of all users in the system"""
+    result = await db.execute(select(func.count(User.id)))
+    return result.scalar() or 0
+
+
+async def get_total_meetings_count(db: AsyncSession) -> int:
+    """Get total count of all meetings in the system"""
+    result = await db.execute(select(func.count(Meeting.id)))
+    return result.scalar() or 0
+
+
+async def get_total_processed_meetings_count(db: AsyncSession) -> int:
+    """Get total count of all processed meetings (ended status) in the system"""
+    result = await db.execute(
+        select(func.count(Meeting.id)).where(Meeting.status == "ended")
+    )
+    return result.scalar() or 0 

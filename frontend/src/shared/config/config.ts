@@ -15,6 +15,8 @@ const isDevelopment = import.meta.env.MODE === 'development' ||
   import.meta.env.MODE === undefined ||
   !import.meta.env.MODE;
 
+const isProduction = import.meta.env.MODE === 'production';
+
 // Get API base URL from environment variable or default to localhost
 const getApiBaseUrl = (): string => {
   // Check for Vite environment variable first
@@ -22,10 +24,14 @@ const getApiBaseUrl = (): string => {
     return import.meta.env.VITE_API_BASE_URL;
   }
   
-  // Fallback based on development mode
+  // Fallback based on environment mode
+  if (isProduction) {
+    return 'https://ravenai.site';
+  }
+  
   return isDevelopment 
     ? 'http://localhost:8000' 
-    : window.location.origin; // Use same origin in production
+    : window.location.origin; // Use same origin as fallback
 };
 
 const config: Config = {
