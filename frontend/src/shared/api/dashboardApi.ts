@@ -609,6 +609,18 @@ class DashboardApi {
     document.body.removeChild(link);
     window.URL.revokeObjectURL(url);
   }
+
+  /**
+   * Get global application statistics
+   * GET /api/dashboard/statistics
+   */
+  async getGlobalStatistics(): Promise<{
+    total_users: number;
+    total_meetings: number;
+    total_processed_meetings: number;
+  }> {
+    return this.makeRequest('/statistics');
+  }
 }
 
 // Export singleton instance

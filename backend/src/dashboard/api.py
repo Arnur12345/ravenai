@@ -13,7 +13,8 @@ from .schemas import (
     MessageResponse, ComprehensiveNotesRequest, ComprehensiveNotesResponse, ComprehensiveNotesUpdate,
     NotesSearchRequest, NotesExportRequest, SummaryCreate, SummaryUpdate, SummaryResponse,
     SummaryListResponse, DashboardResponse, DashboardStats, HeatmapData,
-    StructuredNotesResponse, GenerateStructuredNotesRequest, StructuredMeetingNotesResponse
+    StructuredNotesResponse, GenerateStructuredNotesRequest, StructuredMeetingNotesResponse,
+    StatisticsResponse
 )
 from .service import dashboard_service
 from .comprehensive_notes_service import comprehensive_notes_service
@@ -866,4 +867,33 @@ async def download_meeting_pdf(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to generate PDF"
+        )
+
+
+@dashboard_router.get("/statistics", response_model=StatisticsResponse)
+async def get_global_statistics(
+    db: AsyncSession = Depends(get_async_db)
+):
+    """
+    Get global application statistics
+    
+    Returns total counts of users and meetings across the entire platform.
+    This endpoint does not require authentication as it provides public statistics.
+    """
+    try:
+        total_users = await crud.get_total_users_count(db)
+        total_meetings = await crud.get_total_meetings_count(db)
+        total_processed_meetings = await crud.get_total_processed_meetings_count(db)
+        
+        return StatisticsResponse(
+            total_users=total_users,
+            total_meetings=total_meetings,
+            total_processed_meetings=total_processed_meetings
+        )
+        
+    except Exception as e:
+        print(f"❌ Error getting global statistics: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to retrieve statistics"
         ) 

@@ -104,6 +104,10 @@ const translations = {
     // Reviews
     'reviews.title': 'Что говорят наши пользователи',
     'reviews.subtitle': 'Присоединяйтесь к тысячам команд, которые уже трансформировали свои встречи',
+    'reviews.stats.trusted_by': 'Нам доверяют',
+    'reviews.stats.users': 'пользователей',
+    'reviews.stats.meetings': 'встреч проведено',
+    'reviews.stats.processed': 'встреч обработано',
     
     // FAQ
     'faq.title': 'Часто задаваемые вопросы',
@@ -446,6 +450,10 @@ const translations = {
     // Reviews
     'reviews.title': 'What our users say',
     'reviews.subtitle': 'Join thousands of teams who have already transformed their meetings',
+    'reviews.stats.trusted_by': 'Trusted by',
+    'reviews.stats.users': 'users',
+    'reviews.stats.meetings': 'meetings held',
+    'reviews.stats.processed': 'meetings processed',
     
     // FAQ
     'faq.title': 'Frequently Asked Questions',
@@ -511,6 +519,7 @@ const translations = {
     'meetings.start': 'Start',
     'meetings.join_live': 'Join Live',
     'meetings.view_meeting': 'View Meeting',
+    'meetings.create': 'Create Meeting',
 
     // Integrations Page
     'integrations.title': 'Integrations',
