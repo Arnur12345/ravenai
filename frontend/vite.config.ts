@@ -23,31 +23,31 @@ export default defineConfig(({ command, mode }) => {
   })
 
   return {
-    plugins: [react(), tailwindcss()],
-    resolve: {
-      alias: {
-        "@": path.resolve(__dirname, "./src"),
-      },
+  plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
     },
-    server: {
-      host: '0.0.0.0',
-      port: 3000,
-      strictPort: true,
-      allowedHosts: [
-        'localhost',
-        '127.0.0.1',
-        'ravenai.site'
-      ],
+  },
+  server: {
+    host: '0.0.0.0',
+    port: 3000,
+    strictPort: true,
+    allowedHosts: [
+      'localhost',
+      '127.0.0.1',
+      'ravenai.site'
+    ],
       // HMR настройки в зависимости от окружения
       hmr: isLocalDev ? {
-        port: 3000,
-        clientPort: 3000,
+      port: 3000,
+      clientPort: 3000,
         overlay: true
       } : false, // Отключаем HMR если используется продакшн API
-      watch: {
-        usePolling: true,
-      },
+    watch: {
+      usePolling: true,
     },
+  },
     build: {
       // Оптимизация для продакшена
       rollupOptions: {
