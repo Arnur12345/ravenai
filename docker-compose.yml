@@ -48,8 +48,8 @@ services:
       VEXA_ADMIN_KEY: ${VEXA_ADMIN_KEY}  # Required for meeting transcription
       OPENAI_API_KEY: ${OPENAI_API_KEY}  # Required for AI summaries
       
-      # CORS Origins - Updated for Docker network
-      CORS_ORIGINS: '["http://localhost:3000", "http://localhost:5173", "http://127.0.0.1:3000", "http://127.0.0.1:5173"]'
+      # CORS Origins - Updated for Docker network and production domain
+      CORS_ORIGINS: '["http://localhost:3000", "http://localhost:5173", "http://127.0.0.1:3000", "http://127.0.0.1:5173", "https://ravenai.site", "https://ravenai.site:3000"]'
       
       # Email Configuration (optional)
       # SMTP_SERVER: smtp.gmail.com

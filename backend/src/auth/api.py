@@ -266,7 +266,13 @@ async def google_oauth_callback_redirect(
     then redirects to the frontend with the result.
     """
     try:
-        frontend_url = "http://localhost:3000"  # Updated to match current Vite dev server port
+        # Determine frontend URL based on environment or referrer
+        frontend_url = "http://localhost:3000"  # Default for development
+        
+        # Check if we should use production domain
+        import os
+        if os.getenv('NODE_ENV') == 'production' or 'ravenai.site' in (state or ''):
+            frontend_url = "https://ravenai.site"
         
         if error:
             # OAuth error from Google
@@ -280,7 +286,7 @@ async def google_oauth_callback_redirect(
         
         # Exchange code for tokens - use the same redirect_uri that was used for authorization
         # This should match the redirect_uri sent by the frontend
-        redirect_uri = "http://localhost:3000/auth/google/callback"
+        redirect_uri = f"{frontend_url}/auth/google/callback"
         user, tokens = await auth_service.authenticate_google_user(db, code, redirect_uri)
         
         # Create success URL with tokens
