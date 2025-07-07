@@ -1,0 +1,116 @@
+/* Legal Content Styles */
+.legal-content {
+  line-height: 1.8;
+  color: inherit;
+}
+
+.legal-content h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  margin-top: 3rem;
+  line-height: 1.2;
+}
+
+.legal-content h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+  line-height: 1.3;
+}
+
+.legal-content h4 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.legal-content p {
+  margin-bottom: 1rem;
+  line-height: 1.8;
+}
+
+.legal-content ul, .legal-content ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.legal-content li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+
+.legal-content strong {
+  font-weight: 700;
+}
+
+.legal-content a {
+  text-decoration: underline;
+  transition: opacity 0.2s ease;
+}
+
+.legal-content a:hover {
+  opacity: 0.8;
+}
+
+/* Contact info box styling */
+.legal-content .contact-info {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid;
+}
+
+/* Dark theme support */
+.dark .legal-content {
+  color: #e5e7eb;
+}
+
+.dark .legal-content h2,
+.dark .legal-content h3,
+.dark .legal-content h4 {
+  color: #ffffff;
+}
+
+.dark .legal-content .contact-info {
+  background-color: rgba(75, 85, 99, 0.2);
+  border-color: #4b5563;
+}
+
+/* Light theme support */
+.legal-content {
+  color: #374151;
+}
+
+.legal-content h2,
+.legal-content h3,
+.legal-content h4 {
+  color: #000000;
+}
+
+.legal-content .contact-info {
+  background-color: #caf0f8;
+  border-color: #8EB6E8;
+}
+
+/* Ensure proper spacing for sections */
+.legal-content section {
+  scroll-margin-top: 100px;
+}
+
+/* Responsive text sizing */
+@media (max-width: 768px) {
+  .legal-content h2 {
+    font-size: 1.5rem;
+  }
+  
+  .legal-content h3 {
+    font-size: 1.25rem;
+  }
+  
+  .legal-content ul, .legal-content ol {
+    padding-left: 1rem;
+  }
+} 

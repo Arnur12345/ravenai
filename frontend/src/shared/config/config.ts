@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 interface Config {
   API_BASE_URL: string;
   WS_BASE_URL?: string;
@@ -14,12 +15,56 @@ interface Config {
   ENVIRONMENT: 'development' | 'staging' | 'production';
 }
 
+// Улучшенная логика определения окружения
+const getEnvironment = (): 'development' | 'staging' | 'production' => {
+  const mode = import.meta.env.MODE;
+  const nodeEnv = import.meta.env.NODE_ENV;
+
+  if (mode === 'production' || nodeEnv === 'production') {
+    return 'production';
+  }
+
+  if (mode === 'staging' || nodeEnv === 'staging') {
+    return 'staging';
+  }
+
+  return 'development';
+};
+
+// Улучшенная логика для API URL
+const getApiBaseUrl = (): string => {
+  // Приоритет переменной окружения
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL;
+  }
+
+  const environment = getEnvironment();
+
+  switch (environment) {
+    case 'production':
+      return 'https://ravenai.site';
+    case 'staging':
+      return 'https://staging.ravenai.site'; // если есть staging
+    case 'development':
+    default:
+      return 'http://localhost:8000';
+  }
+};
+
+// Получение WebSocket URL
+const getWsBaseUrl = (): string => {
+  const apiUrl = getApiBaseUrl();
+  return apiUrl.replace('http://', 'ws://').replace('https://', 'wss://');
+};
+
+const environment = getEnvironment(); // Определяем environment один раз для использования в config
+
 const config: Config = {
-  API_BASE_URL: 'https://ravenai.site',
-  WS_BASE_URL: 'wss://ravenai.site',
+  API_BASE_URL: getApiBaseUrl(),
+  WS_BASE_URL: getWsBaseUrl(),
   TIMEOUT: 30000,
-  ENVIRONMENT: 'production',
-  
+  ENVIRONMENT: environment, // Используем определенное окружение
+
   AUTH_ENDPOINTS: {
     LOGIN: '/api/auth/login',
     REGISTER: '/api/auth/register',
@@ -31,8 +76,31 @@ const config: Config = {
   }
 };
 
-<<<<<<< HEAD
-export default config; 
-=======
+// Логирование для отладки в режиме разработки
+if (environment === 'development') {
+  console.log('🔧 Config loaded:', {
+    API_BASE_URL: config.API_BASE_URL,
+    WS_BASE_URL: config.WS_BASE_URL,
+    ENVIRONMENT: config.ENVIRONMENT,
+    MODE: import.meta.env.MODE,
+    NODE_ENV: import.meta.env.NODE_ENV
+  });
+}
+
+// Валидация URL
+const validateUrl = (url: string): boolean => {
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+// Проверка корректности API URL
+if (!validateUrl(config.API_BASE_URL)) {
+  console.error('❌ Invalid API_BASE_URL:', config.API_BASE_URL);
+  throw new Error('Invalid API_BASE_URL configuration');
+}
+
 export default config;
->>>>>>> c80c8bef1db86d0a461deeeb26437bf315161327

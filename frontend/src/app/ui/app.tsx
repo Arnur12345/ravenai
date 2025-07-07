@@ -4,6 +4,7 @@ import Landing from '../../modules/landing'
 import Auth from '../../modules/auth'
 import Dashboard from '../../modules/dashboard'
 import MeetingWorkspace from '../../modules/meeting'
+import Legal from '../../modules/legal'
 import { MeetingSummaryPage } from '../../modules/meeting/pages/MeetingSummaryPage'
 import GoogleCallback from '../../modules/auth/components/google-callback'
 import GoogleSuccess from '../../modules/auth/components/google-success'
@@ -28,6 +29,10 @@ function App() {
             <Routes>
               {/* Public routes - accessible without authentication */}
               <Route path="/" element={<Landing />} />
+              
+              {/* Legal routes - accessible to everyone */}
+              <Route path="/privacy-policy" element={<Legal />} />
+              <Route path="/terms-of-service" element={<Legal />} />
               
               {/* Auth routes - redirect authenticated users to dashboard */}
               <Route path="/register" element={<PublicRoute><Auth /></PublicRoute>} />
