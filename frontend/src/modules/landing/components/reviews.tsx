@@ -136,6 +136,15 @@ const Reviews: React.FC = () => {
       avatar: "https://res.cloudinary.com/dq2pbzrtu/image/upload/v1751729150/Gaziz_t56jur.jpg",
       quote: "Благодаря Raven наша команда стала более продуктивной. Автоматическое создание задач после встреч экономит нам часы работы каждую неделю.",
       rating: 5
+    },
+    {
+      id: 7,
+      name: "Aimurat Zhetkizgenov",
+      title: "AI Engineer",
+      company: "Surfaice",
+      avatar: "https://res.cloudinary.com/dq2pbzrtu/image/upload/v1751869082/Aimurat_qev7ss.jpg",
+      quote: "Часто бываю на митингах с разными часовыми поясами. Иногда не успеваю быть на всех, а по работе очень надо. Благодаря ноуттейкеру Raven могу быть в курсе событий даже если пропустил встречу.",
+      rating: 5
     }
   ];
 

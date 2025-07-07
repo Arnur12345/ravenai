@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Github, Twitter, Linkedin } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '@/shared/contexts/LanguageContext';
 import { useTheme } from '@/shared/contexts/ThemeContext';
 
@@ -9,14 +10,12 @@ const Footer: React.FC = () => {
   const { theme } = useTheme();
   
   const links = [
-    { name: 'Privacy Policy', href: '#' },
-    { name: 'Terms of Service', href: '#' },
+    { name: 'Privacy Policy', href: '/privacy-policy' },
+    { name: 'Terms of Service', href: '/terms-of-service' },
     { name: 'Support', href: '#' },
-    { name: 'Documentation', href: '#' },
   ];
 
   const socialLinks = [
-    { name: 'GitHub', icon: Github, href: '#' },
     { name: 'Twitter', icon: Twitter, href: '#' },
     { name: 'LinkedIn', icon: Linkedin, href: '#' },
   ];
@@ -59,17 +58,36 @@ const Footer: React.FC = () => {
             {/* Links */}
             <div className="flex flex-wrap gap-6">
               {links.map((link, index) => (
-                <motion.a
-                  key={index}
-                  href={link.href}
-                  className={`${themeClasses.linkText} transition-colors duration-200`}
-                  style={{ fontFamily: 'Gilroy, sans-serif' }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ type: "spring", duration: 0.2 }}
-                >
-                  {link.name}
-                </motion.a>
+                link.href.startsWith('/') ? (
+                  <motion.div key={index}>
+                    <Link
+                      to={link.href}
+                      className={`${themeClasses.linkText} transition-colors duration-200 block`}
+                      style={{ fontFamily: 'Gilroy, sans-serif' }}
+                    >
+                      <motion.span
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        transition={{ type: "spring", duration: 0.2 }}
+                        className="block"
+                      >
+                        {link.name}
+                      </motion.span>
+                    </Link>
+                  </motion.div>
+                ) : (
+                  <motion.a
+                    key={index}
+                    href={link.href}
+                    className={`${themeClasses.linkText} transition-colors duration-200`}
+                    style={{ fontFamily: 'Gilroy, sans-serif' }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", duration: 0.2 }}
+                  >
+                    {link.name}
+                  </motion.a>
+                )
               ))}
             </div>
 
