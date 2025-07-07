@@ -94,7 +94,7 @@ async def create_password_reset_request(db: AsyncSession, user_id: str) -> Passw
     
     # Create new reset token
     token = generate_password_reset_token()
-    expires_at = datetime.utcnow() + timedelta(hours=1)  # Token expires in 1 hour
+    expires_at = datetime.utcnow() + timedelta(hours=24)  # Token expires in 24 hour
     
     db_reset = PasswordReset(
         user_id=user_id,
