@@ -1,5 +1,7 @@
 interface Config {
   API_BASE_URL: string;
+  WS_BASE_URL?: string;
+  TIMEOUT: number;
   AUTH_ENDPOINTS: {
     LOGIN: string;
     REGISTER: string;
@@ -9,33 +11,14 @@ interface Config {
     GOOGLE_AUTH_URL: string;
     GOOGLE_CALLBACK: string;
   };
+  ENVIRONMENT: 'development' | 'staging' | 'production';
 }
 
-const isDevelopment = import.meta.env.MODE === 'development' || 
-  import.meta.env.MODE === undefined ||
-  !import.meta.env.MODE;
-
-const isProduction = import.meta.env.MODE === 'production';
-
-// Get API base URL from environment variable or default to localhost
-const getApiBaseUrl = (): string => {
-  // Check for Vite environment variable first
-  if (import.meta.env.VITE_API_BASE_URL) {
-    return import.meta.env.VITE_API_BASE_URL;
-  }
-  
-  // Fallback based on environment mode
-  if (isProduction) {
-    return 'https://ravenai.site';
-  }
-  
-  return isDevelopment 
-    ? 'http://localhost:8000' 
-    : window.location.origin; // Use same origin as fallback
-};
-
 const config: Config = {
-  API_BASE_URL: getApiBaseUrl(),
+  API_BASE_URL: 'https://ravenai.site',
+  WS_BASE_URL: 'wss://ravenai.site',
+  TIMEOUT: 30000,
+  ENVIRONMENT: 'production',
   
   AUTH_ENDPOINTS: {
     LOGIN: '/api/auth/login',
