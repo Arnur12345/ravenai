@@ -440,20 +440,6 @@ export const MeetingsPage: React.FC = () => {
                 : t('meetings.create_first')
               }
             </p>
-            {!searchTerm && selectedFilter === 'all' && (
-              <Button 
-                onClick={() => setIsNewMeetingModalOpen(true)}
-                className="flex items-center rounded-xl px-6 py-3 font-medium shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 border border-gray-600/50 hover:border-gray-500/50"
-                style={{
-                  background: 'linear-gradient(to bottom, #3B3B3B, #636363)',
-                  color: 'white',
-                  fontFamily: 'Gilroy, Inter, sans-serif'
-                }}
-              >
-                <Plus className="h-4 w-4 mr-2" />
-                {t('meetings.create')}
-              </Button>
-            )}
           </motion.div>
         )}
       </div>

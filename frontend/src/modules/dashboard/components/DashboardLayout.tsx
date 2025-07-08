@@ -33,7 +33,7 @@ const DashboardContent: React.FC<DashboardLayoutProps> = ({ children }) => {
       
       {/* Main Content Area */}
       <motion.div 
-        className="relative z-10 flex flex-col min-h-screen"
+        className="relative flex flex-col min-h-screen"
         animate={{ 
           paddingLeft: isCollapsed ? 120 : 384 
         }}

@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import config from '@/shared/config/config';
-import type { User, AuthResponse, AuthError } from '@/shared/types/auth';
-import { parseAuthError } from '@/shared/utils/error-handler';
+import config from '../config/config';
+import type { User, AuthResponse, AuthError } from '../types/auth';
+import { parseAuthError } from '../utils/error-handler';
 
 interface AuthContextType {
   user: User | null;

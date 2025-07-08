@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Eye, EyeOff, Mail, Lock } from 'lucide-react';
 import { useAuth } from '../../../shared/contexts/AuthContext';
 import { useTheme } from '../../../shared/contexts/ThemeContext';
+import config from '../../../shared/config/config';
 
 interface LoginFormProps {
   onSwitchToRegister: () => void;
@@ -37,11 +38,35 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToRegister, onSwitchToFor
   const handleGoogleLogin = async () => {
     try {
       setIsLoading(true);
+      setError('');
+      
+      // Determine the correct redirect URI based on environment
+      const frontendUrl = window.location.origin;
+      const redirectUri = `${frontendUrl}/auth/google/callback`;
+      
+      // Get Google OAuth URL from backend
+      const response = await fetch(
+        `${config.API_BASE_URL}${config.AUTH_ENDPOINTS.GOOGLE_AUTH_URL}?redirect_uri=${encodeURIComponent(redirectUri)}&state=${encodeURIComponent(frontendUrl)}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Failed to get Google auth URL');
+      }
+
+      const data = await response.json();
+      
       // Redirect to Google OAuth
-      window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
-    } catch (error) {
+      window.location.href = data.auth_url;
+    } catch (error: any) {
       console.error('Google login error:', error);
-      setError('Google login failed');
+      setError(error.message || 'Google login failed');
     } finally {
       setIsLoading(false);
     }

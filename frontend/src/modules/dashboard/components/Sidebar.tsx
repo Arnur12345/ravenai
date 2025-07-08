@@ -74,7 +74,7 @@ export const Sidebar: React.FC = () => {
 
   return (
     <motion.div 
-      className="hidden lg:fixed lg:inset-y-0 lg:z-20 lg:flex lg:flex-col relative"
+      className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-20 lg:flex lg:flex-col"
       animate={{ width: isCollapsed ? 120 : 384 }}
       transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
       style={{ padding: '16px' }}
@@ -82,7 +82,7 @@ export const Sidebar: React.FC = () => {
       {/* Enhanced Collapse Toggle Button - выносим наружу */}
       <motion.button
         onClick={toggleCollapse}
-        className="absolute top-6 -right-3 z-40 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 group shadow-lg"
+        className="absolute top-6 -right-3 z-50 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 group shadow-lg"
         style={{
           background: `linear-gradient(135deg, var(--dashboard-bright-blue), var(--dashboard-light-blue))`,
           boxShadow: `0 4px 15px var(--dashboard-bright-blue)40, 0 0 0 1px rgba(255, 255, 255, 0.3)`,

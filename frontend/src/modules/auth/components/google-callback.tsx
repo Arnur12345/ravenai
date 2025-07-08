@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '@/shared/contexts/AuthContext';
-import { useTheme } from '@/shared/contexts/ThemeContext';
+import { useAuth } from '../../../shared/contexts/AuthContext';
+import { useTheme } from '../../../shared/contexts/ThemeContext';
 import { motion } from 'framer-motion';
 import { Loader2, CheckCircle, XCircle } from 'lucide-react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import ErrorMessage from '@/shared/ui/error-message';
-import type { AuthError } from '@/shared/types/auth';
-import { parseAuthError } from '@/shared/utils/error-handler';
+import ErrorMessage from '../../../shared/ui/error-message';
+import type { AuthError } from '../../../shared/types/auth';
+import { parseAuthError } from '../../../shared/utils/error-handler';
+import config from '../../../shared/config/config';
 
 const GoogleCallback: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -122,7 +123,7 @@ const GoogleCallback: React.FC = () => {
               className={`text-2xl font-semibold ${themeClasses.title}`}
               style={{ fontFamily: 'Gilroy, sans-serif' }}
             >
-              Welcome to RavenAI!
+              Welcome to AfterTalk!
             </h2>
             <p 
               className={themeClasses.successText}

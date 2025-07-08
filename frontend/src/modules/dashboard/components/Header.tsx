@@ -131,7 +131,7 @@ export const Header: React.FC = () => {
 
   return (
     <header 
-      className="sticky top-0 z-40 backdrop-blur-sm"
+      className="sticky top-0 z-30 backdrop-blur-sm"
       style={{ 
         backgroundColor: '#F5F7FB',
         fontFamily: 'Gilroy, Inter, sans-serif',
