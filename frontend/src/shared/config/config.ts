@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 interface Config {
   API_BASE_URL: string;
   WS_BASE_URL?: string;
@@ -23,15 +24,15 @@ interface Config {
 const getEnvironment = (): 'development' | 'staging' | 'production' => {
   const mode = import.meta.env.MODE;
   const nodeEnv = import.meta.env.NODE_ENV;
-  
+
   if (mode === 'production' || nodeEnv === 'production') {
     return 'production';
   }
-  
+
   if (mode === 'staging' || nodeEnv === 'staging') {
     return 'staging';
   }
-  
+
   return 'development';
 };
 
@@ -41,9 +42,9 @@ const getApiBaseUrl = (): string => {
   if (import.meta.env.VITE_API_BASE_URL) {
     return import.meta.env.VITE_API_BASE_URL;
   }
-  
+
   const environment = getEnvironment();
-  
+
   switch (environment) {
     case 'production':
       return 'https://ravenai.site';
@@ -61,14 +62,14 @@ const getWsBaseUrl = (): string => {
   return apiUrl.replace('http://', 'ws://').replace('https://', 'wss://');
 };
 
-const environment = getEnvironment();
+const environment = getEnvironment(); // Определяем environment один раз для использования в config
 
 const config: Config = {
   API_BASE_URL: getApiBaseUrl(),
   WS_BASE_URL: getWsBaseUrl(),
   TIMEOUT: 30000,
-  ENVIRONMENT: environment,
-  
+  ENVIRONMENT: environment, // Используем определенное окружение
+
   AUTH_ENDPOINTS: {
     LOGIN: '/api/auth/login',
     REGISTER: '/api/auth/register',
@@ -112,4 +113,4 @@ if (!validateUrl(config.API_BASE_URL)) {
   throw new Error('Invalid API_BASE_URL configuration');
 }
 
-export default config; 
+export default config;
