@@ -10,6 +10,11 @@ interface Config {
     REFRESH_TOKEN: string;
     GOOGLE_AUTH_URL: string;
     GOOGLE_CALLBACK: string;
+    SEND_2FA_CODE: string;
+    VERIFY_2FA_CODE: string;
+    RESEND_2FA_CODE: string;
+    GET_2FA_STATUS: string;
+    GET_2FA_INFO: string;
   };
   ENVIRONMENT: 'development' | 'staging' | 'production';
 }
@@ -71,7 +76,12 @@ const config: Config = {
     RESET_PASSWORD: '/api/auth/reset-password',
     REFRESH_TOKEN: '/api/auth/refresh',
     GOOGLE_AUTH_URL: '/api/auth/google/auth-url',
-    GOOGLE_CALLBACK: '/api/auth/google/callback'
+    GOOGLE_CALLBACK: '/api/auth/google/callback',
+    SEND_2FA_CODE: '/api/auth/send-2fa-code',
+    VERIFY_2FA_CODE: '/api/auth/verify-2fa-code',
+    RESEND_2FA_CODE: '/api/auth/resend-2fa-code',
+    GET_2FA_STATUS: '/api/auth/2fa-code-status',
+    GET_2FA_INFO: '/api/auth/2fa-info'
   }
 };
 

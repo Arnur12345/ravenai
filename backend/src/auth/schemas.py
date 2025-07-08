@@ -110,3 +110,19 @@ class MessageResponse(BaseModel):
 class ErrorResponse(BaseModel):
     detail: str
     message: Optional[str] = None
+
+
+class TwoFactorRequest(BaseModel):
+    email: EmailStr
+    purpose: str = "verification"
+    
+class TwoFactorVerifyRequest(BaseModel):
+    email: EmailStr
+    code: str
+    purpose: str = "verification"
+
+class PendingAuthResponse(BaseModel):
+    requires_2fa: bool = True
+    email: str
+    purpose: str
+    message: str

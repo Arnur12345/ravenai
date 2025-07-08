@@ -43,7 +43,7 @@ export const PrivacyPolicyPage: React.FC = () => {
         <section id="overview">
           <h2>1. Overview</h2>
           <p>
-            Welcome to RavenAI ("we," "our," or "us"). This Privacy Policy explains how we collect, use, 
+            Welcome to Raven AI ("we," "our," or "us"). This Privacy Policy explains how we collect, use, 
             disclose, and safeguard your information when you use our meeting intelligence platform and related services 
             (collectively, the "Service"). 
           </p>

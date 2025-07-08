@@ -370,8 +370,8 @@ async def get_avg_meeting_duration_by_user(db: AsyncSession, user_id: str) -> fl
     """Get average meeting duration in minutes for a user"""
     result = await db.execute(
         select(func.avg(
-            func.extract('EPOCH', Meeting.ended_at - Meeting.started_at) / 60
-        )).where(
+            func.julianday(Meeting.ended_at) - func.julianday(Meeting.started_at)
+        ) * 24 * 60).where(
             and_(
                 Meeting.user_id == user_id,
                 Meeting.started_at.isnot(None),

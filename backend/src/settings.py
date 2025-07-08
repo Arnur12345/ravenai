@@ -34,11 +34,13 @@ class Settings(BaseSettings):
         "https://ravenai.site"
     ]
     
-    # Email (for future implementation)
-    SMTP_SERVER: Optional[str] = os.getenv('SMTP_SERVER')
+    # Email Configuration for 2FA
+    SMTP_SERVER: Optional[str] = os.getenv('SMTP_SERVER', 'smtp.gmail.com')
     SMTP_PORT: int = int(os.getenv('SMTP_PORT', '587'))
     SMTP_USERNAME: Optional[str] = os.getenv('SMTP_USERNAME')
     SMTP_PASSWORD: Optional[str] = os.getenv('SMTP_PASSWORD')
+    SMTP_FROM_EMAIL: str = os.getenv('SMTP_FROM_EMAIL', 'noreply@ravenai.site')
+    SMTP_USE_TLS: bool = os.getenv('SMTP_USE_TLS', 'true').lower() == 'true'
     
     class Config:
         env_file = ".env"
