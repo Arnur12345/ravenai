@@ -34,11 +34,7 @@ export default defineConfig(({ command, mode }) => {
     port: 3000,
     allowedHosts: ['ravenai.site', 'localhost', '127.0.0.1'],  // Разрешённые хосты
     strictPort: true,
-    allowedHosts: [
-      'localhost',
-      '127.0.0.1',
-      'ravenai.site'
-    ],
+    
       // HMR настройки в зависимости от окружения
       hmr: isLocalDev ? {
       port: 3000,
