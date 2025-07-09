@@ -3,7 +3,8 @@ from typing import Optional
 from dotenv import load_dotenv
 from pydantic_settings import BaseSettings
 
-load_dotenv()
+# Load .env from the project root directory
+load_dotenv(os.path.join(os.path.dirname(__file__), '..', '..', '.env'))
 
 class Settings(BaseSettings):
     # Database
@@ -43,7 +44,7 @@ class Settings(BaseSettings):
     SMTP_USE_TLS: bool = os.getenv('SMTP_USE_TLS', 'true').lower() == 'true'
     
     class Config:
-        env_file = ".env"
+        env_file = os.path.join(os.path.dirname(__file__), '..', '..', '.env')
 
 # Global settings instance
 settings = Settings()
