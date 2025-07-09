@@ -18,27 +18,11 @@ const GoogleCallback: React.FC = () => {
   const [error, setError] = useState<AuthError | null>(null);
 
   useEffect(() => {
-    // Prevent double execution in React Strict Mode
-    let isProcessed = false;
-    
     const processCallback = async () => {
-      if (isProcessed) {
-        console.log('🔍 OAuth callback already processed, skipping...');
-        return;
-      }
-      
-      isProcessed = true;
-      
       try {
         const code = searchParams.get('code');
         const state = searchParams.get('state');
         const error = searchParams.get('error');
-
-        console.log('🔍 OAuth callback parameters:', { 
-          code: code?.substring(0, 20) + '...', 
-          state, 
-          error 
-        });
 
         // Check for OAuth errors
         if (error) {
@@ -52,14 +36,6 @@ const GoogleCallback: React.FC = () => {
 
         // Build redirect URI (same as used in the initial request)
         const redirectUri = `${window.location.origin}/auth/google/callback`;
-
-        console.log('🔍 Processing OAuth callback:', {
-          redirectUri,
-          hasCode: !!code,
-          hasState: !!state,
-          codeLength: code?.length,
-          stateValue: state
-        });
 
         // Handle the callback
         await handleGoogleCallback(code, state, redirectUri);
@@ -80,11 +56,6 @@ const GoogleCallback: React.FC = () => {
     };
 
     processCallback();
-    
-    // Cleanup function
-    return () => {
-      isProcessed = true;
-    };
   }, [searchParams, handleGoogleCallback, navigate]);
 
   const handleRetry = () => {

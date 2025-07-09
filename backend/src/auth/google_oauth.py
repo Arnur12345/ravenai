@@ -6,9 +6,6 @@ from google.auth.transport.requests import Request
 from google.oauth2 import id_token
 from google_auth_oauthlib.flow import Flow
 from fastapi import HTTPException, status
-import secrets
-import hashlib
-import base64
 
 from .schemas import GoogleUserInfo
 from .exceptions import AuthenticationException
@@ -147,22 +144,6 @@ class GoogleOAuthService:
         print(f"❌ No Google OAuth credentials file found in any location")
         return None
     
-    def _generate_pkce_challenge(self) -> Dict[str, str]:
-        """Generate PKCE code verifier and challenge for enhanced security"""
-        # Generate a cryptographically secure random code verifier
-        code_verifier = base64.urlsafe_b64encode(secrets.token_bytes(32)).decode('utf-8').rstrip('=')
-        
-        # Create code challenge using SHA256
-        code_challenge = base64.urlsafe_b64encode(
-            hashlib.sha256(code_verifier.encode('utf-8')).digest()
-        ).decode('utf-8').rstrip('=')
-        
-        return {
-            'code_verifier': code_verifier,
-            'code_challenge': code_challenge,
-            'code_challenge_method': 'S256'
-        }
-    
     def _check_availability(self):
         """Check if Google OAuth service is available"""
         if not self.is_available:
@@ -172,7 +153,7 @@ class GoogleOAuthService:
             )
     
     def get_authorization_url(self, redirect_uri: str, state: Optional[str] = None) -> str:
-        """Generate Google OAuth authorization URL with enhanced security"""
+        """Generate Google OAuth authorization URL"""
         self._check_availability()
         
         try:
@@ -189,39 +170,23 @@ class GoogleOAuthService:
             
             print(f"✅ Redirect URI validation passed")
             
-            # Use granular scopes for better permission management
-            scopes = [
-                'openid',
-                'https://www.googleapis.com/auth/userinfo.email',
-                'https://www.googleapis.com/auth/userinfo.profile',
-                'https://www.googleapis.com/auth/calendar.readonly'
-            ]
-            
-            # Create OAuth flow with enhanced security
+            # Use the full credentials config instead of creating a new one
+            # Include calendar scope for calendar integration
             flow = Flow.from_client_config(
                 self.credentials,
-                scopes=scopes
+                scopes=['openid', 'email', 'profile', 'https://www.googleapis.com/auth/calendar.readonly']
             )
             flow.redirect_uri = redirect_uri
             
             print(f"🔍 Flow configured with redirect_uri: {flow.redirect_uri}")
-            print(f"🔍 Using granular scopes: {scopes}")
             
-            # Generate authorization URL with enhanced security parameters
-            # Note: Removed PKCE for now as it may cause issues with Google OAuth
             auth_url, _ = flow.authorization_url(
-                # Access type for refresh tokens
                 access_type='offline',
-                # Enable incremental authorization
                 include_granted_scopes='true',
-                # State parameter for CSRF protection
-                state=state,
-                # Prompt for consent to ensure fresh permissions
-                prompt='consent'
+                state=state
             )
             
-            print(f"🔗 Generated auth URL with enhanced security: {auth_url[:100]}...")
-            print(f"🔒 Security features enabled: incremental auth, CSRF protection")
+            print(f"🔗 Generated auth URL: {auth_url[:100]}...")
             
             return auth_url
             
@@ -233,18 +198,13 @@ class GoogleOAuthService:
                 status_code=500,
                 detail=f"Failed to generate authorization URL: {str(e)}"
             )
-
-    async def exchange_code_for_tokens(self, code: str, redirect_uri: str, state: Optional[str] = None) -> Dict[str, Any]:
-        """Exchange authorization code for access tokens with enhanced security"""
+    
+    async def exchange_code_for_tokens(self, code: str, redirect_uri: str) -> Dict[str, Any]:
+        """Exchange authorization code for access tokens"""
         self._check_availability()
         
         try:
-            print(f"🔍 Starting token exchange:")
-            print(f"  Code: {code[:20]}...")
-            print(f"  Redirect URI: {redirect_uri}")
-            print(f"  State: {state[:20] if state else 'None'}...")
-            
-            # Prepare token exchange request with enhanced security
+            # Prepare token exchange request
             token_data = {
                 'client_id': self.client_id,
                 'client_secret': self.client_secret,
@@ -253,154 +213,94 @@ class GoogleOAuthService:
                 'redirect_uri': redirect_uri,
             }
             
-            print(f"🔍 Token request data prepared (without secrets)")
-            
-            async with httpx.AsyncClient(timeout=30.0) as client:
+            async with httpx.AsyncClient() as client:
                 response = await client.post(
                     self.token_uri,
                     data=token_data,
                     headers={'Content-Type': 'application/x-www-form-urlencoded'}
                 )
                 
-                print(f"🔍 Token exchange response status: {response.status_code}")
-                
                 if response.status_code != 200:
-                    error_detail = response.text
-                    print(f"❌ Token exchange failed with status {response.status_code}: {error_detail}")
-                    
-                    # Try to parse error details
-                    try:
-                        error_json = response.json()
-                        error_description = error_json.get('error_description', error_json.get('error', 'Unknown error'))
-                        print(f"❌ Google OAuth error: {error_description}")
-                        raise AuthenticationException(
-                            status_code=400,
-                            detail=f"Google OAuth error: {error_description}"
-                        )
-                    except:
-                        raise AuthenticationException(
-                            status_code=400,
-                            detail=f"Token exchange failed: {error_detail}"
-                        )
+                    raise AuthenticationException(
+                        status_code=400,
+                        detail=f"Token exchange failed: {response.text}"
+                    )
                 
-                token_response = response.json()
-                print(f"✅ Token exchange successful")
-                print(f"🔍 Token response keys: {list(token_response.keys())}")
-                
-                return token_response
+                return response.json()
                 
         except httpx.RequestError as e:
-            print(f"❌ Network error during token exchange: {str(e)}")
             raise AuthenticationException(
                 status_code=500,
                 detail=f"Network error during token exchange: {str(e)}"
             )
-        except AuthenticationException:
-            raise
         except Exception as e:
-            print(f"❌ Exception in token exchange: {str(e)}")
-            import traceback
-            traceback.print_exc()
             raise AuthenticationException(
                 status_code=500,
                 detail=f"Failed to exchange code for tokens: {str(e)}"
             )
     
     async def get_user_info(self, access_token: str) -> GoogleUserInfo:
-        """Get user information from Google using access token with enhanced error handling"""
+        """Get user information from Google using access token"""
         self._check_availability()
         
         try:
-            # Use the updated userinfo endpoint with proper error handling
-            async with httpx.AsyncClient(timeout=30.0) as client:
+            async with httpx.AsyncClient() as client:
                 response = await client.get(
-                    'https://www.googleapis.com/oauth2/v3/userinfo',
+                    'https://www.googleapis.com/oauth2/v2/userinfo',
                     headers={'Authorization': f'Bearer {access_token}'}
                 )
                 
                 if response.status_code != 200:
-                    error_detail = response.text
-                    print(f"❌ Failed to get user info: {error_detail}")
                     raise AuthenticationException(
                         status_code=400,
-                        detail=f"Failed to get user info: {error_detail}"
+                        detail=f"Failed to get user info: {response.text}"
                     )
                 
                 user_data = response.json()
-                print(f"✅ Successfully retrieved user info for: {user_data.get('email', 'unknown')}")
                 
                 return GoogleUserInfo(
-                    id=user_data['sub'],  # Use 'sub' instead of 'id' for OAuth 2.0 compliance
+                    id=user_data['id'],
                     email=user_data['email'],
                     name=user_data.get('name', ''),
                     avatar_url=user_data.get('picture'),
-                    verified_email=user_data.get('email_verified', False)
+                    verified_email=user_data.get('verified_email', False)
                 )
                 
         except httpx.RequestError as e:
-            print(f"❌ Network error getting user info: {str(e)}")
             raise AuthenticationException(
                 status_code=500,
                 detail=f"Network error getting user info: {str(e)}"
             )
         except Exception as e:
-            print(f"❌ Exception getting user info: {str(e)}")
             raise AuthenticationException(
                 status_code=500,
                 detail=f"Failed to get user info: {str(e)}"
             )
     
     def verify_id_token(self, id_token_str: str) -> Dict[str, Any]:
-        """Verify Google ID token and extract user info with enhanced security"""
+        """Verify Google ID token and extract user info"""
         self._check_availability()
         
         try:
-            print(f"🔍 Verifying ID token...")
-            
-            # Verify the token with enhanced security checks
+            # Verify the token
             idinfo = id_token.verify_oauth2_token(
                 id_token_str, 
                 Request(), 
                 self.client_id
             )
             
-            print(f"✅ ID token signature verified")
-            
-            # Enhanced issuer verification for better security
-            valid_issuers = ['accounts.google.com', 'https://accounts.google.com']
-            if idinfo['iss'] not in valid_issuers:
-                print(f"❌ Invalid token issuer: {idinfo['iss']}")
-                raise ValueError(f'Invalid issuer: {idinfo["iss"]}. Expected one of: {valid_issuers}')
-            
-            # Verify audience matches our client ID
-            if idinfo['aud'] != self.client_id:
-                print(f"❌ Token audience mismatch: {idinfo['aud']}")
-                raise ValueError(f'Invalid audience: {idinfo["aud"]}. Expected: {self.client_id}')
+            # Verify the issuer
+            if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
+                raise ValueError('Wrong issuer.')
                 
-            # Check token expiration
-            import time
-            current_time = time.time()
-            if idinfo['exp'] < current_time:
-                print(f"❌ Token expired: {idinfo['exp']} < {current_time}")
-                raise ValueError('Token has expired')
-            
-            # Check token not used before issued time
-            if idinfo['iat'] > current_time:
-                print(f"❌ Token issued in future: {idinfo['iat']} > {current_time}")
-                raise ValueError('Token issued in the future')
-            
-            print(f"✅ ID token verified successfully for user: {idinfo.get('email', 'unknown')}")
-            
             return idinfo
             
         except ValueError as e:
-            print(f"❌ ID token validation error: {str(e)}")
             raise AuthenticationException(
                 status_code=400,
                 detail=f"Invalid ID token: {str(e)}"
             )
         except Exception as e:
-            print(f"❌ Exception verifying ID token: {str(e)}")
             raise AuthenticationException(
                 status_code=500,
                 detail=f"Failed to verify ID token: {str(e)}"

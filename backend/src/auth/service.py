@@ -242,15 +242,14 @@ class AuthService:
                 detail=f"Failed to generate Google OAuth URL: {str(e)}"
             )
 
-    async def authenticate_google_user(self, db: AsyncSession, code: str, redirect_uri: str, state: Optional[str] = None) -> Tuple[User, Token]:
+    async def authenticate_google_user(self, db: AsyncSession, code: str, redirect_uri: str) -> Tuple[User, Token]:
         """
-        Authenticate user with Google OAuth with enhanced security
+        Authenticate user with Google OAuth
         
         Args:
             db: Database session
             code: Authorization code from Google
             redirect_uri: OAuth redirect URI
-            state: Optional state parameter for CSRF protection and PKCE
             
         Returns:
             Tuple of authenticated user and tokens
@@ -259,19 +258,12 @@ class AuthService:
             AuthenticationError: If Google authentication fails
         """
         try:
-            print(f"🔍 Starting Google user authentication with enhanced security:")
+            print(f"🔍 Starting Google user authentication:")
             print(f"  Code: {code[:10]}...")
             print(f"  Redirect URI: {redirect_uri}")
-            print(f"  State: {state[:20] if state else 'None'}...")
-            
-            # Exchange code for tokens with enhanced security
+            # Exchange code for tokens
             print("🔍 Exchanging code for tokens...")
-            print(f"🔍 Parameters being sent to Google:")
-            print(f"  Code: {code[:20]}...")
-            print(f"  Redirect URI: {redirect_uri}")
-            print(f"  State: {state}")
-            
-            token_response = await google_oauth_service.exchange_code_for_tokens(code, redirect_uri, state)
+            token_response = await google_oauth_service.exchange_code_for_tokens(code, redirect_uri)
             print(f"🔍 Token exchange response: {list(token_response.keys()) if token_response else 'None'}")
             
             access_token = token_response.get('access_token')

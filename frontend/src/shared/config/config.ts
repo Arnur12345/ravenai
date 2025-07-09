@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 interface Config {
   API_BASE_URL: string;
   WS_BASE_URL?: string;
