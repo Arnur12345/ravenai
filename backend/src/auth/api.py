@@ -234,7 +234,20 @@ async def get_google_auth_url(
     Returns the URL to redirect users to for Google OAuth authentication.
     """
     try:
+        print(f"🔍 Auth URL request received:")
+        print(f"  redirect_uri: {redirect_uri}")
+        print(f"  state: {state}")
+        print(f"  state type: {type(state)}")
+        print(f"  state length: {len(state) if state else 0}")
+        
         auth_url = auth_service.get_google_auth_url(redirect_uri, state)
+        
+        print(f"🔍 Generated auth URL: {auth_url[:100]}...")
+        if state and state in auth_url:
+            print(f"✅ State '{state}' found in generated URL")
+        else:
+            print(f"❌ State '{state}' NOT found in generated URL")
+            
         return {"auth_url": auth_url}
     except AuthenticationException as e:
         # Preserve the original status code and message from the service
@@ -287,7 +300,7 @@ async def google_oauth_callback_redirect(
         # Exchange code for tokens - use the same redirect_uri that was used for authorization
         # This should match the redirect_uri sent by the frontend
         redirect_uri = f"{frontend_url}/auth/google/callback"
-        user, tokens = await auth_service.authenticate_google_user(db, code, redirect_uri)
+        user, tokens = await auth_service.authenticate_google_user(db, code, redirect_uri, state)
         
         # Create success URL with tokens
         success_url = f"{frontend_url}/auth/google/success?access_token={tokens.access_token}&refresh_token={tokens.refresh_token}&user_id={user.id}"
@@ -317,8 +330,57 @@ async def google_oauth_callback_api(
         print(f"🔍 Google OAuth callback API called with:")
         print(f"  Code: {auth_data.code[:10]}...")
         print(f"  Redirect URI: {auth_data.redirect_uri}")
+        print(f"  State: {auth_data.state}")
+        print(f"  Code length: {len(auth_data.code)}")
+        print(f"  Full code: {auth_data.code}")
+        
+        # Validate auth data
+        if not auth_data.code:
+            raise HTTPException(
+                status_code=400,
+                detail="Authorization code is required"
+            )
+        
+        if not auth_data.redirect_uri:
+            raise HTTPException(
+                status_code=400,
+                detail="Redirect URI is required"
+            )
+        
+        # Google OAuth codes are typically 4/0AX4XfWh... format
+        if not auth_data.code.startswith('4/'):
+            print(f"⚠️  Warning: Authorization code doesn't start with '4/' - this might be invalid")
+        
+        # Handle Google OAuth state parameter bug
+        if auth_data.state and auth_data.state.startswith('http'):
+            print(f"🔍 DETECTED GOOGLE OAUTH BUG: State parameter contains URL!")
+            print(f"  State value: {auth_data.state}")
+            print(f"  This is a known issue where Google OAuth returns redirect_uri as state")
+            print(f"  Workaround: Setting state to None to avoid processing issues")
+            auth_data.state = None
+        
+        # Check for code reuse
+        from used_codes_cache import used_codes_cache
+        
+        if used_codes_cache.is_code_used(auth_data.code):
+            print(f"❌ Authorization code has already been used: {auth_data.code[:20]}...")
+            raise HTTPException(
+                status_code=400,
+                detail="Authorization code has already been used"
+            )
+        
+        # Mark code as used
+        if not used_codes_cache.mark_code_used(auth_data.code):
+            print(f"❌ Failed to mark code as used (race condition): {auth_data.code[:20]}...")
+            raise HTTPException(
+                status_code=400,
+                detail="Authorization code processing conflict"
+            )
+        
+        print(f"✅ Authorization code marked as used: {auth_data.code[:20]}...")
+        
         user, tokens = await auth_service.authenticate_google_user(
-            db, auth_data.code, auth_data.redirect_uri
+            db, auth_data.code, auth_data.redirect_uri, auth_data.state
         )
         
         return {
@@ -338,14 +400,24 @@ async def google_oauth_callback_api(
     except OAuthException as e:
         # OAuth-specific errors (400 Bad Request)
         print(f"🔍 OAuth error in API: {e.detail}")
+        import traceback
+        traceback.print_exc()
         raise e
     except AuthenticationException as e:
         # Other authentication errors
         print(f"🔍 Auth error in API: {e.detail}")
+        import traceback
+        traceback.print_exc()
         raise e
     except Exception as e:
         print(f"🔍 Unexpected error in API: {type(e).__name__} - {str(e)}")
+        import traceback
+        traceback.print_exc()
+        
+        # More detailed error handling
+        error_msg = str(e) if str(e) else f"Unknown error of type {type(e).__name__}"
+        
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Google authentication failed: {str(e)}"
+            detail=f"Google authentication failed: {error_msg}"
         )

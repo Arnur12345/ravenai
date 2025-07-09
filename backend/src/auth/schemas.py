@@ -84,6 +84,7 @@ class ResetPasswordResponse(BaseModel):
 class GoogleAuthRequest(BaseModel):
     code: str
     redirect_uri: str
+    state: Optional[str] = None
 
 
 class GoogleAuthResponse(BaseModel):

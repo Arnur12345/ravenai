@@ -277,11 +277,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       sessionStorage.removeItem('google_oauth_state');
       
       // Exchange code for tokens
+      console.log('🔍 Sending Google OAuth callback request:', {
+        code: code.substring(0, 20) + '...',
+        redirect_uri: redirectUri,
+        state: state,
+        endpoint: config.AUTH_ENDPOINTS.GOOGLE_CALLBACK
+      });
+      
       const response: AuthResponse = await makeAPICall(config.AUTH_ENDPOINTS.GOOGLE_CALLBACK, {
         method: 'POST',
         body: JSON.stringify({ 
           code, 
-          redirect_uri: redirectUri 
+          redirect_uri: redirectUri,
+          state: state
         }),
       });
       
