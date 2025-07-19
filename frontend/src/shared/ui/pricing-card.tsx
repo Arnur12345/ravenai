@@ -28,22 +28,21 @@ const PricingCard: React.FC<PricingCardProps> = ({ plan, index, isAnnual }) => {
   const { t } = useLanguage();
   const { theme } = useTheme();
   
-  // Theme-based styling
+  // Black theme styling for consistency with hero and reviews
   const getCardStyles = () => {
     if (plan.popular) {
       return {
-        background: theme === 'dark' ? '#1f2937' : '#ffffff',
-        borderColor: theme === 'dark' ? '#374151' : '#111827',
-        textColor: theme === 'dark' ? '#ffffff' : '#111827',
-        textColorSecondary: theme === 'dark' ? '#d1d5db' : '#6b7280',
+        background: 'rgba(255, 255, 255, 0.1)',
+        borderColor: 'rgba(255, 255, 255, 0.2)',
+        textColor: '#ffffff',
+        textColorSecondary: 'rgba(255, 255, 255, 0.8)',
       };
     } else {
-      // Non-popular cards - ensure dark text in light theme
       return {
-        background: theme === 'dark' ? '#374151' : '#ffffff',
-        borderColor: theme === 'dark' ? '#4b5563' : '#e5e7eb',
-        textColor: theme === 'dark' ? '#ffffff' : '#1f2937', // Darker color for better contrast in light theme
-        textColorSecondary: theme === 'dark' ? '#d1d5db' : '#4b5563', // Darker secondary color for light theme
+        background: 'rgba(255, 255, 255, 0.05)',
+        borderColor: 'rgba(255, 255, 255, 0.1)',
+        textColor: '#ffffff',
+        textColorSecondary: 'rgba(255, 255, 255, 0.7)',
       };
     }
   };
@@ -84,7 +83,7 @@ const PricingCard: React.FC<PricingCardProps> = ({ plan, index, isAnnual }) => {
             <div 
               className="absolute top-0 left-0 right-0 text-white text-center py-3 z-10"
               style={{
-                backgroundColor: theme === 'dark' ? '#2563eb' : '#111827'
+                backgroundColor: '#2563eb'
               }}
             >
               <span 
@@ -181,29 +180,20 @@ const PricingCard: React.FC<PricingCardProps> = ({ plan, index, isAnnual }) => {
                 transition={{ type: "spring", duration: 0.2 }}
               >
                 <ClickSpark 
-                  sparkColor={plan.popular ? "#ffffff" : "#000000"} 
+                  sparkColor="#ffffff" 
                   sparkCount={plan.popular ? 12 : 8} 
                   sparkSize={plan.popular ? 6 : 4}
                 >
                   <Button
                     className={`w-full py-4 text-lg font-semibold rounded-xl transition-all duration-300 transform-gpu ${
                       plan.popular 
-                        ? theme === 'dark'
-                          ? 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-lg hover:shadow-2xl'
-                          : 'bg-gradient-to-r from-gray-900 to-gray-800 hover:from-gray-800 hover:to-gray-700 shadow-lg hover:shadow-2xl'
-                        : theme === 'dark'
-                          ? 'bg-gray-600 border-2 border-gray-500 hover:bg-gray-500 hover:border-gray-400'
-                          : 'bg-white border-2 border-gray-900 hover:bg-gray-300 hover:border-gray-900'
+                        ? 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-lg hover:shadow-2xl'
+                        : 'bg-white/10 border-2 border-white/20 hover:bg-white/20 hover:border-white/30'
                     }`}
                     style={{ 
                       fontFamily: 'Gilroy, sans-serif',
                       boxShadow: plan.popular ? '0 10px 25px rgba(0, 0, 0, 0.15)' : undefined,
-                      color: plan.popular 
-                        ? '#ffffff' 
-                        : theme === 'dark' 
-                          ? '#ffffff' 
-                          : '#1f2937',
-                      '--hover-color': !plan.popular && theme !== 'dark' ? '#ffffff' : undefined
+                      color: '#ffffff'
                     } as React.CSSProperties}
                   >
                     {t('plan.get_started')}
@@ -240,7 +230,7 @@ const PricingCard: React.FC<PricingCardProps> = ({ plan, index, isAnnual }) => {
                     >
                       <Check 
                         className="w-5 h-5" 
-                        style={{ color: theme === 'dark' ? '#3b82f6' : '#374151' }}
+                        style={{ color: '#3b82f6' }}
                       />
                     </motion.div>
                   </div>
@@ -263,4 +253,4 @@ const PricingCard: React.FC<PricingCardProps> = ({ plan, index, isAnnual }) => {
   );
 };
 
-export default PricingCard; 
+export default PricingCard;

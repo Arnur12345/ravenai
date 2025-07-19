@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Brain, PenLine, Share2, Search, Sparkles, Zap } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../shared/ui/card';
+import BorderBeam from '../../../shared/ui/border-beam';
 import { Button } from '@/shared/ui/button';
 import { useLanguage } from '@/shared/contexts/LanguageContext';
 import { useTheme } from '@/shared/contexts/ThemeContext';
@@ -10,68 +11,44 @@ const Features: React.FC = () => {
   const { t } = useLanguage();
   const { theme } = useTheme();
   
-  // Enhanced monotonic theme with better contrast and smoother colors
+  // Black theme matching hero and reviews components
   const getThemeClasses = () => {
     return {
-      // Enhanced backgrounds with subtle blue-gray tints
-      sectionBackground: theme === 'dark' 
-        ? 'bg-gradient-to-b from-[rgb(31,34,40)] via-slate-800 to-slate-900' 
-        : 'bg-gradient-to-b from-slate-50 to-white',
+      // Black background matching hero
+      sectionBackground: 'bg-black',
       
-      // Subtle background elements with better visibility
-      backgroundElement: theme === 'dark'
-        ? 'bg-slate-600/15'
-        : 'bg-gray-300/20',
+      // Subtle background elements with white/gray
+      backgroundElement: 'bg-white/5',
+        
+      // White badge with black text (hero style)
+      badge: 'bg-white/90 border border-white/20 backdrop-blur-md',
+      badgeIcon: 'text-black',
+      badgeText: 'text-black',
       
-      // Enhanced badge with better contrast
-      badge: theme === 'dark'
-        ? 'bg-slate-800/90 border border-slate-600/60 backdrop-blur-md'
-        : 'bg-white/90 border border-gray-200/60 backdrop-blur-sm',
-      badgeIcon: theme === 'dark' ? 'text-blue-400' : 'text-blue-600',
-      badgeText: theme === 'dark' ? 'text-slate-200' : 'text-gray-700',
+      // White text on black background
+      titleText: 'text-white',
+      subtitleText: 'text-white/80',
       
-      // Better text contrast - fix wash-out issue
-      titleText: theme === 'dark' ? 'text-slate-100' : 'text-gray-900',
-      subtitleText: theme === 'dark' ? 'text-slate-200' : 'text-gray-600',
+      // Dark cards with white borders (hero button style)
+      cardBackground: 'bg-white/10 border-white/20',
+      cardBorder: 'shadow-xl shadow-black/20 hover:shadow-2xl hover:shadow-white/10',
+      cardHover: 'hover:bg-white/15 hover:border-white/30',
       
-      // Enhanced card styling with better contrast
-      cardBackground: theme === 'dark' 
-        ? 'bg-slate-800/70 backdrop-blur-md border-slate-700/60' 
-        : 'bg-white/80 backdrop-blur-sm border-gray-200/60',
-      cardBorder: theme === 'dark' 
-        ? 'shadow-xl shadow-black/20 hover:shadow-2xl hover:shadow-slate-900/30' 
-        : 'shadow-lg shadow-gray-200/20 hover:shadow-xl hover:shadow-gray-300/30',
-      cardHover: theme === 'dark' 
-        ? 'hover:bg-slate-700/80 hover:border-slate-600/70' 
-        : 'hover:bg-gray-50/90 hover:border-gray-300/70',
+      // White text for cards
+      cardTitle: 'text-white group-hover:text-white transition-colors duration-300',
+      cardDescription: 'text-white/70 group-hover:text-white/90 transition-colors duration-300',
       
-      // Card text with proper contrast for both themes
-      cardTitle: theme === 'dark' 
-        ? 'text-white group-hover:text-blue-100 transition-colors duration-300' 
-        : 'text-gray-900',
-      cardDescription: theme === 'dark' 
-        ? 'text-gray-300 group-hover:text-gray-100 transition-colors duration-300' 
-        : 'text-gray-600',
+      // Icon background with white styling
+      iconBackground: 'bg-white/10 group-hover:bg-white/20 transition-all duration-300',
       
-      // Icon background with proper contrast for both themes
-      iconBackground: theme === 'dark'
-        ? 'bg-gradient-to-br from-slate-700 via-slate-600 to-slate-700 group-hover:bg-blue-600 transition-all duration-300'
-        : 'bg-gradient-to-br from-gray-600 via-gray-700 to-gray-600',
+      // White icon color
+      iconColor: 'text-white group-hover:text-white transition-colors duration-300',
       
-      // Icon color with proper visibility
-      iconColor: theme === 'dark'
-        ? 'text-white group-hover:text-white transition-colors duration-300'
-        : 'text-white',
-      
-      // Enhanced CTA styling
-      ctaContainer: theme === 'dark'
-        ? 'bg-slate-800/80 border-slate-600/50 backdrop-blur-md'
-        : 'bg-white/70 border-gray-200/50 backdrop-blur-sm',
-      ctaIcon: theme === 'dark' ? 'text-blue-400' : 'text-blue-600',
-      ctaText: theme === 'dark' ? 'text-slate-200' : 'text-gray-700',
-      ctaButton: theme === 'dark'
-        ? 'bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-600/25'
-        : 'bg-gray-900 hover:bg-gray-800 shadow-lg shadow-gray-900/25',
+      // CTA styling matching the black theme
+      ctaContainer: 'bg-white/10 border-white/20 backdrop-blur-md',
+      ctaIcon: 'text-white',
+      ctaText: 'text-white/80',
+      ctaButton: 'bg-white hover:bg-white/90 text-black shadow-lg shadow-white/25',
     };
   };
 
@@ -270,6 +247,15 @@ const Features: React.FC = () => {
                 className="group"
               >
                 <Card className={`h-full relative overflow-hidden border ${themeClasses.cardBorder} transition-all duration-700 ease-out ${themeClasses.cardBackground} ${themeClasses.cardHover}`}>
+                  {index === 0 && (
+                    <BorderBeam 
+                      size={300} 
+                      duration={12} 
+                      colorFrom="#ffffff" 
+                      colorTo="#9ca3af" 
+                      borderWidth={2}
+                    />
+                  )}
                   <CardHeader className="text-center pb-4">
                     {/* Enhanced icon container with smooth animations */}
                     <motion.div 

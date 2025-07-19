@@ -1,152 +1,181 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Button } from '@/shared/ui/button';
-import ClickSpark from '@/shared/ui/click-spark';
-import { useLanguage } from '@/shared/contexts/LanguageContext';
-import { useTheme } from '@/shared/contexts/ThemeContext';
+import { useNavigate } from 'react-router-dom';
+import ldbackground from '@/assets/ldbackground.png';
+import lddemo from '@/assets/lddemo.png';
 
-const Hero: React.FC = () => {
-  const { t } = useLanguage();
-  const { theme } = useTheme();
-  
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 24 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-  };
-
-  // Theme-based classes
-  const getThemeClasses = () => {
-    return {
-      // Matching Features background for smooth transition
-      sectionBackground: theme === 'dark' 
-        ? 'bg-gradient-to-b from-[rgb(31,34,40)] via-slate-800 to-slate-900' 
-        : 'bg-gradient-to-b from-slate-50 to-white',
-      
-      // Subtle background elements with better visibility (matching Features)
-      backgroundElement: theme === 'dark'
-        ? 'bg-slate-600/15'
-        : 'bg-gray-300/20',
-        
-      titleText: theme === 'dark' ? 'text-white' : 'text-black',
-      descriptionText: theme === 'dark' ? 'text-gray-300' : 'text-gray-600',
-      primaryButton: theme === 'dark' 
-        ? 'bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500/50' 
-        : 'bg-black hover:bg-gray-800 text-white focus:ring-gray-300',
-      secondaryButton: theme === 'dark'
-        ? 'border-gray-600 text-gray-200 hover:bg-gray-800 hover:text-white focus:ring-gray-600/50'
-        : 'border-gray-300 text-gray-800 hover:bg-gray-50 focus:ring-gray-300',
-      sparkColor: theme === 'dark' ? '#60a5fa' : '#000000',
-    };
-  };
-
-  const themeClasses = getThemeClasses();
-
-  const BlurText = ({ text, className, style }: { text: string; className?: string; style?: React.CSSProperties }) => {
-    const words = text.split(' ');
-    
-    return (
-      <div className={className} style={style}>
-        {words.map((word, i) => (
-          <motion.span
-            key={i}
-            initial={{ filter: "blur(10px)", opacity: 0 }}
-            animate={{ filter: "blur(0px)", opacity: 1 }}
-            transition={{
-              duration: 0.8,
-              delay: i * 0.1,
-              ease: "easeOut"
-            }}
-            className="inline-block mr-2"
-          >
-            {word}
-          </motion.span>
-        ))}
-      </div>
-    );
-  };
+const Hero = () => {
+  const navigate = useNavigate();
 
   return (
-    <section 
-      className={`min-h-screen flex items-center justify-center px-4 py-20 transition-all duration-300 ${themeClasses.sectionBackground}`}
-    >
-      <motion.div
-        className="w-full max-w-3xl mx-auto flex flex-col items-center text-center space-y-10"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
+    <section className="relative w-full min-h-screen bg-black overflow-hidden pt-20 pb-8 flex items-center justify-center">
+      {/* Main Background Container - Contains everything */}
+      <div 
+        className="relative w-full max-w-[1400px] mx-auto rounded-[14px] overflow-hidden"
+        style={{
+          height: '800px',
+          backgroundImage: `url(${ldbackground})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
       >
-          <BlurText
-            text={t('hero.title')}
-            className={`text-4xl md:text-5xl lg:text-6xl font-bold ${themeClasses.titleText} leading-tight transition-colors duration-300`}
-            style={{ fontFamily: 'Gilroy, sans-serif' }}
-          />
-
-          <motion.p
-            className={`text-xl md:text-2xl ${themeClasses.descriptionText} leading-relaxed max-w-2xl mx-auto transition-colors duration-300`}
-            variants={itemVariants}
-            style={{ fontFamily: 'Gilroy, sans-serif' }}
-          >
-            {t('hero.description')}
-          </motion.p>
-
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-            variants={itemVariants}
-          >
-            <motion.div
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", duration: 0.2 }}
+        {/* Content Container - All text and elements inside background */}
+        <div className="relative w-full h-full flex flex-col items-center p-8">
+          
+          {/* Text Content Section - Upper portion */}
+          <div className="w-full flex flex-col items-center text-center space-y-6 pt-12">
+            {/* Main Heading */}
+            <h1 
+              className="text-white text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal leading-[1.2em] tracking-[-0.02em] max-w-full px-4"
+              style={{
+                fontFamily: 'Helvetica, Arial, sans-serif',
+              }}
             >
-                <Button
-                  size="lg"
-                  className={`px-8 py-4 text-lg font-semibold shadow-lg transition-all duration-300 ${themeClasses.primaryButton} focus:ring-1`}
-                  style={{ fontFamily: 'Gilroy, sans-serif' }}
-                  onClick={() => window.location.href = '/register'}
-                >
-                  {t('hero.cta')}
-                </Button>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", duration: 0.2 }}
+              Never Type Meeting Notes
+            </h1>
+            
+            {/* Subheading */}
+            <p 
+              className="text-white text-center text-sm sm:text-base md:text-lg lg:text-xl font-normal leading-[1.4em] max-w-[500px] px-4"
+              style={{
+                fontFamily: 'Helvetica, Arial, sans-serif',
+              }}
             >
-              <ClickSpark sparkColor={themeClasses.sparkColor} sparkCount={10} sparkSize={5}>
-                <Button
-                  variant="ghost"
-                  size="lg"
-                  className={`px-8 py-4 text-lg font-semibold border shadow-lg transition-all duration-300 ${themeClasses.secondaryButton} focus:ring-1`}
-                  style={{ fontFamily: 'Gilroy, sans-serif' }}
+              Get ready-to-send summaries in seconds with AI transcription and smart formatting.
+            </p>
+            
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 lg:gap-6 mt-6">
+              {/* Get Started Button */}
+              <div className="relative">
+                {/* Shade/Glow Effect */}
+                <div className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-80 transition-opacity">
+                  <div 
+                    className="absolute inset-0 rounded-[9px]"
+                    style={{
+                      background: 'rgba(0, 0, 0, 0.3)',
+                      border: '1px solid rgba(255, 255, 255, 0.8)',
+                      filter: 'blur(0px)',
+                    }}
+                  />
+                </div>
+                
+                {/* Gradient Border Effect */}
+                <div 
+                  className="absolute inset-0"
+                  style={{
+                    background: 'linear-gradient(180deg, #9D9D9D 0%, #FFFFFF 61.54%, #D8D8D8 100%)',
+                    borderRadius: '9px',
+                    padding: '1px'
+                  }}
                 >
-                  {t('hero.cta_demo')}
-                </Button>
-              </ClickSpark>
-            </motion.div>
-          </motion.div>
-
-      </motion.div>
+                  <div 
+                    className="w-full h-full bg-black"
+                    style={{
+                      borderRadius: '8px'
+                    }}
+                  />
+                </div>
+                
+                {/* Button Content */}
+                <button 
+                  onClick={() => navigate('/auth')}
+                  className="relative bg-white hover:bg-gray-100 transition-colors duration-200 w-[200px] lg:w-[244px] h-[48px] lg:h-[60px]"
+                  style={{
+                    borderRadius: '9px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <span 
+                    className="text-black text-base lg:text-lg xl:text-[20.98px]"
+                    style={{
+                      fontFamily: 'Poppins, sans-serif',
+                      fontWeight: 'normal',
+                      lineHeight: '1.5em'
+                    }}
+                  >
+                    Get started
+                  </span>
+                </button>
+              </div>
+              
+              {/* View Demo Button */}
+              <div className="relative">
+                {/* Shade/Glow Effect */}
+                <div className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-80 transition-opacity">
+                  <div 
+                    className="absolute inset-0 rounded-[9px]"
+                    style={{
+                      background: 'rgba(0, 0, 0, 0.3)',
+                      border: '1px solid rgba(255, 255, 255, 0.8)',
+                      filter: 'blur(0px)',
+                    }}
+                  />
+                </div>
+                
+                {/* Gradient Border */}
+                <div 
+                  className="absolute inset-0"
+                  style={{
+                    background: 'linear-gradient(180deg, #9C9C9C 0%, #ABABAB 61.54%, #979797 100%)',
+                    borderRadius: '9px',
+                    padding: '1px'
+                  }}
+                >
+                  <div 
+                    className="w-full h-full bg-black"
+                    style={{
+                      borderRadius: '8px'
+                    }}
+                  />
+                </div>
+                
+                {/* Button Content */}
+                <button 
+                  className="relative bg-transparent hover:bg-white/5 transition-colors duration-200 w-[200px] lg:w-[244px] h-[48px] lg:h-[60px]"
+                  style={{
+                    borderRadius: '9px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <span 
+                    className="text-white text-sm lg:text-base xl:text-[17.63px]"
+                    style={{
+                      fontFamily: 'Poppins, sans-serif',
+                      fontWeight: 'normal',
+                      lineHeight: '1.5em'
+                    }}
+                  >
+                    View Demo
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          {/* Demo Image Section - Lower portion, contained within background */}
+          <div className="flex-1 w-full flex items-center justify-center mt-12">
+            <div 
+              className="rounded-[10px] w-full max-w-[85%] lg:max-w-[1000px]"
+              style={{
+                aspectRatio: '1178 / 527',
+                height: 'auto',
+                maxHeight: '400px',
+                backgroundImage: `url(${lddemo})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+              }}
+            />
+          </div>
+          
+        </div>
+      </div>
     </section>
   );
 };
 
-export default Hero; 
+export default Hero;

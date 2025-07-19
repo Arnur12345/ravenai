@@ -20,34 +20,22 @@ const Pricing: React.FC = () => {
   const { theme } = useTheme();
   const [isAnnual, setIsAnnual] = useState(false);
 
-  // Enhanced theme-based classes
+  // Black theme styling for consistency with hero and reviews
   const getThemeClasses = () => {
     return {
-      sectionBackground: theme === 'dark' 
-        ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900' 
-        : 'bg-gradient-to-br from-slate-50 via-white to-blue-50/30',
-      backgroundElement1: theme === 'dark'
-        ? 'bg-gradient-to-r from-blue-600/15 via-purple-600/10 to-cyan-600/15'
-        : 'bg-gradient-to-r from-blue-200/30 to-purple-200/25',
-      backgroundElement2: theme === 'dark'
-        ? 'bg-gradient-to-r from-emerald-600/10 via-teal-600/15 to-blue-600/10'
-        : 'bg-gradient-to-r from-emerald-200/25 to-blue-200/30',
-      title: theme === 'dark' 
-        ? 'bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent'
-        : 'bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 bg-clip-text text-transparent',
-      subtitle: theme === 'dark' ? 'text-gray-300' : 'text-slate-600',
-      toggleActiveText: theme === 'dark' ? 'text-white' : 'text-black',
-      toggleInactiveText: theme === 'dark' ? 'text-gray-400' : 'text-gray-500',
-      toggleBackground: theme === 'dark' ? '#374151' : '#e5e7eb',
-      toggleBackgroundActive: theme === 'dark' ? '#1f2937' : '#374151',
-      discountBadge: theme === 'dark' 
-        ? 'bg-blue-900/50 text-blue-200 border-blue-700/50' 
-        : 'bg-blue-50 text-blue-800 border-blue-200',
-      noteText: theme === 'dark' ? 'text-gray-400' : 'text-gray-500',
-      mobileCard: theme === 'dark' 
-        ? 'bg-gray-800/80 border-gray-700/50 backdrop-blur-xl' 
-        : 'bg-white/80 border-gray-200 backdrop-blur-xl',
-      mobileText: theme === 'dark' ? 'text-gray-300' : 'text-gray-600',
+      sectionBackground: 'bg-black',
+      backgroundElement1: 'bg-gradient-to-r from-blue-600/15 via-purple-600/10 to-cyan-600/15',
+      backgroundElement2: 'bg-gradient-to-r from-emerald-600/10 via-teal-600/15 to-blue-600/10',
+      title: 'bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent',
+      subtitle: 'text-white/80',
+      toggleActiveText: 'text-white',
+      toggleInactiveText: 'text-white/60',
+      toggleBackground: 'rgba(255, 255, 255, 0.1)',
+      toggleBackgroundActive: 'rgba(255, 255, 255, 0.2)',
+      discountBadge: 'bg-blue-900/50 text-blue-200 border-blue-700/50',
+      noteText: 'text-white/60',
+      mobileCard: 'bg-white/10 border-white/20 backdrop-blur-xl',
+      mobileText: 'text-white/80',
     };
   };
 
