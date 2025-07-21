@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import ldbackground from '@/assets/ldbackground.png';
 import lddemo from '@/assets/ravenscreen.png';
+import peerlistLogo from '@/assets/peerlist.svg';
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -23,6 +24,15 @@ const Hero = () => {
           
           {/* Text Content Section - Upper portion */}
           <div className="w-full flex flex-col items-center text-center space-y-6 pt-12">
+            {/* Peerlist Logo */}
+            <div className="mb-4">
+              <img 
+                src={peerlistLogo} 
+                alt="Peerlist" 
+                className="h-8 sm:h-10 md:h-12 opacity-80 hover:opacity-100 transition-opacity duration-300"
+              />
+            </div>
+            
             {/* Main Heading */}
             <h1 
               className="text-white text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal leading-[1.2em] tracking-[-0.02em] max-w-full px-4"

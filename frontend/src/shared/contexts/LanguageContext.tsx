@@ -106,8 +106,8 @@ const translations = {
     'reviews.subtitle': 'Join thousands of teams that have already transformed their meetings.',
     'reviews.stats.trusted_by': 'Trusted by',
     'reviews.stats.users': 'users',
-    'reviews.stats.meetings': 'встреч проведено',
-    'reviews.stats.processed': 'встреч обработано',
+    'reviews.stats.meetings': 'meetings held',
+    'reviews.stats.processed': 'meetings summarized',
     
     // FAQ
     'faq.title': 'Frequently Asked Questions',
