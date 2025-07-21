@@ -27,23 +27,23 @@ const Integrations: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 bg-black group">
-      <div className="max-w-6xl mx-auto px-4 text-center">
-        <h2 className="text-sm font-medium text-white mb-12 tracking-wider uppercase">
+    <section id="integrations" className="py-12 sm:py-16 bg-black group">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
+        <h2 className="text-xs sm:text-sm font-medium text-white mb-8 sm:mb-12 tracking-wider uppercase">
           INTEGRATED WITH 10+ PLATFORMS
         </h2>
         
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 items-center justify-items-center">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-5 gap-3 sm:gap-4 items-center justify-items-center">
           {tools.map((tool, index) => (
             <div
               key={index}
-              className="relative cursor-pointer transition-all duration-300 ease-in-out"
+              className="relative cursor-pointer transition-all duration-300 ease-in-out w-full flex justify-center"
             >
               <div className="relative overflow-hidden rounded-lg">
                 <img
                   src={tool.image}
                   alt={tool.name}
-                  className="w-full h-auto max-w-[120px] opacity-50 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
+                  className="w-full h-auto max-w-[80px] sm:max-w-[100px] md:max-w-[120px] opacity-50 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
                 />
               </div>
             </div>

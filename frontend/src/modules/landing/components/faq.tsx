@@ -82,7 +82,7 @@ const FAQ: React.FC = () => {
   const themeClasses = getThemeClasses();
 
   return (
-    <section id="faq" className={`${themeClasses.sectionBackground} py-32 px-4 transition-all duration-500 relative overflow-hidden`}>
+    <section id="faq" className={`${themeClasses.sectionBackground} py-16 sm:py-24 md:py-32 px-4 transition-all duration-500 relative overflow-hidden`}>
       {/* Minimal background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className={`absolute top-1/4 left-1/4 w-96 h-96 ${themeClasses.backgroundElement} rounded-full blur-3xl opacity-30`} />
@@ -92,7 +92,7 @@ const FAQ: React.FC = () => {
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Enhanced Header */}
         <motion.div
-          className="text-center mb-20"
+          className="text-center mb-12 sm:mb-16 md:mb-20"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -113,7 +113,7 @@ const FAQ: React.FC = () => {
           </motion.div>
           
           <motion.h2 
-            className={`text-4xl md:text-5xl font-bold ${themeClasses.titleText} mb-8`}
+            className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold ${themeClasses.titleText} mb-6 sm:mb-8 px-2 sm:px-0`}
             style={{ fontFamily: 'Gilroy, sans-serif' }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -122,7 +122,7 @@ const FAQ: React.FC = () => {
             {t('faq.title')}
           </motion.h2>
           <motion.p 
-            className={`text-xl ${themeClasses.subtitleText} max-w-4xl mx-auto leading-relaxed`}
+            className={`text-base sm:text-lg md:text-xl ${themeClasses.subtitleText} max-w-4xl mx-auto leading-relaxed px-4 sm:px-0`}
             style={{ fontFamily: 'Gilroy, sans-serif' }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -139,7 +139,7 @@ const FAQ: React.FC = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <Accordion type="single" className="space-y-8">
+          <Accordion type="single" className="space-y-4 sm:space-y-6 md:space-y-8 px-2 sm:px-0">
             {faqs.map((faq, index) => {
               const IconComponent = faq.icon;
               return (
@@ -156,7 +156,7 @@ const FAQ: React.FC = () => {
                 >
                   <AccordionItem 
                     value={`item-${index}`}
-                    className={`relative border ${themeClasses.cardBorder} ${themeClasses.cardBackground} backdrop-blur-sm rounded-2xl px-8 py-2 transition-all duration-500 overflow-hidden`}
+                    className={`relative border ${themeClasses.cardBorder} ${themeClasses.cardBackground} backdrop-blur-sm rounded-2xl px-4 sm:px-6 md:px-8 py-2 transition-all duration-500 overflow-hidden`}
                   >
                     {/* BorderBeam for first item */}
                     {index === 0 && (
@@ -170,20 +170,20 @@ const FAQ: React.FC = () => {
                     )}
                     
                     <AccordionTrigger 
-                      className={`text-left text-lg font-bold ${themeClasses.questionText} py-8 transition-all duration-300 group-hover:scale-[1.02] flex items-center gap-4`}
+                      className={`text-left text-base sm:text-lg font-bold ${themeClasses.questionText} py-6 sm:py-8 transition-all duration-300 group-hover:scale-[1.02] flex items-center gap-3 sm:gap-4`}
                       style={{ fontFamily: 'Gilroy, sans-serif' }}
                     >
                       <motion.div
-                        className={`w-10 h-10 ${theme === 'dark' ? 'bg-blue-500/20' : 'bg-blue-100'} rounded-xl flex items-center justify-center flex-shrink-0`}
+                        className={`w-8 h-8 sm:w-10 sm:h-10 ${theme === 'dark' ? 'bg-blue-500/20' : 'bg-blue-100'} rounded-xl flex items-center justify-center flex-shrink-0`}
                         whileHover={{ scale: 1.1, rotate: 5 }}
                         transition={{ duration: 0.3 }}
                       >
-                        <IconComponent className={`w-5 h-5 ${themeClasses.iconColor}`} />
+                        <IconComponent className={`w-4 h-4 sm:w-5 sm:h-5 ${themeClasses.iconColor}`} />
                       </motion.div>
                       <span className="flex-1">{faq.question}</span>
                     </AccordionTrigger>
                     <AccordionContent 
-                      className={`${themeClasses.answerText} leading-relaxed pb-8 text-base ml-14 transition-colors duration-300`}
+                      className={`${themeClasses.answerText} leading-relaxed pb-6 sm:pb-8 text-sm sm:text-base ml-11 sm:ml-14 transition-colors duration-300`}
                       style={{ fontFamily: 'Gilroy, sans-serif' }}
                     >
                       {faq.answer}

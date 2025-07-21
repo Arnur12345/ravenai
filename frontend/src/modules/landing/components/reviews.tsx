@@ -59,7 +59,7 @@ const Reviews: React.FC = () => {
       title: "iOS Developer",
       company: "Kolesa Group",
       avatar: "https://res.cloudinary.com/dq2pbzrtu/image/upload/v1751632110/alikhan_gubayev_qjumtg.jpg",
-      quote: "Raven помог мне оптимизировать мои многочисленные собрания с колегами",
+      quote: "Raven has helped me optimize my many meetings with colleagues.",
       rating: 5
     },
     {
@@ -68,7 +68,7 @@ const Reviews: React.FC = () => {
       title: "Backend Developer",
       company: "Surfaice",
       avatar: "https://res.cloudinary.com/dq2pbzrtu/image/upload/v1751727668/Bahauddin_zpik1q.jpg",
-      quote: "Я как разработчик на ремоуте у которого каждый день 2-3 митинга. Сталкиваюсь с тем чтобы запомнить ключевые моменты встреч и делать заметки. Но, с помощью Raven это стало автоматизировано 🦅",
+      quote: "I'm like a developer on a remote, who has 2-3 meetings every day. I'm faced with remembering the key points of meetings and taking notes. But, with Raven's help, it became automated.🦅",
       rating: 5
     },
     {
@@ -77,7 +77,7 @@ const Reviews: React.FC = () => {
       title: "DevOps Engineer",
       company: "Bereke Bank",
       avatar: "https://res.cloudinary.com/dq2pbzrtu/image/upload/v1751729144/1678534239853_row9v1.jpg",
-      quote: "Как DevOps инженеру, у которого очень частые созвоны, Raven помог мне упростить процессы планирования после встреч.",
+      quote: "As a DevOps engineer who has very frequent phone calls, Raven helped me simplify the planning processes after meetings.",
       rating: 5
     },
     {
@@ -86,7 +86,7 @@ const Reviews: React.FC = () => {
       title: "Middle Backend Developer",
       company: "Bank CenterCredit",
       avatar: "https://res.cloudinary.com/dq2pbzrtu/image/upload/v1751729705/abay_olkju8.jpg",
-      quote: "Raven полезный помощник для разработчика с плотным графиком, часто бывает что работники забывают выполнять свои таски, Raven помог с решением этой проблемы.",
+      quote: "Raven is a useful assistant for a developer with a busy schedule, it often happens that employees forget to perform their tasks, Raven helped with solving this problem.",
       rating: 5
     },
     {
@@ -95,7 +95,7 @@ const Reviews: React.FC = () => {
       title: "Middle Typescript Developer",
       company: "Bank CenterCredit",
       avatar: "https://res.cloudinary.com/dq2pbzrtu/image/upload/v1751729919/bakhredin_bvilcl.jpg",
-      quote: "Raven революционизировал наш подход к проведению встреч. Теперь мы можем сосредоточиться на важных решениях, а не на ведении заметок.",
+      quote: "Raven revolutionized our approach to meetings. Now we can focus on important solutions, rather than note-taking.",
       rating: 5
     },
     {
@@ -104,7 +104,7 @@ const Reviews: React.FC = () => {
       title: "Middle Frontend Developer",
       company: "Invictus Go",
       avatar: "https://res.cloudinary.com/dq2pbzrtu/image/upload/v1751729150/Gaziz_t56jur.jpg",
-      quote: "Благодаря Raven наша команда стала более продуктивной. Автоматическое создание задач после встреч экономит нам часы работы каждую неделю.",
+      quote: "Thanks to Raven, our team has become more productive. Automatic task creation after meetings saves us hours of work each week.",
       rating: 5
     },
     {
@@ -113,7 +113,7 @@ const Reviews: React.FC = () => {
       title: "AI Engineer",
       company: "Surfaice",
       avatar: "https://res.cloudinary.com/dq2pbzrtu/image/upload/v1751869082/Aimurat_qev7ss.jpg",
-      quote: "Часто бываю на митингах с разными часовыми поясами. Иногда не успеваю быть на всех, а по работе очень надо. Благодаря ноуттейкеру Raven могу быть в курсе событий даже если пропустил встречу.",
+      quote: "I often attend meetings with different time zones. Sometimes I don't have time to be at all, but I really need to be at work. Thanks to Raven's nottaker, I can keep up to date even if I missed an appointment.",
       rating: 5
     }
   ];
@@ -172,13 +172,13 @@ const Reviews: React.FC = () => {
   }) => {
     return (
       <motion.figure
-        className="relative h-full w-[550px] cursor-pointer overflow-hidden border p-8 flex-shrink-0"
+        className="relative h-full w-[280px] sm:w-[400px] md:w-[450px] lg:w-[500px] xl:w-[550px] cursor-pointer overflow-hidden border p-4 sm:p-6 md:p-8 flex-shrink-0"
         style={{
           background: 'linear-gradient(180deg, #212121 0%, #040404 100%)',
           borderRadius: '25px',
           borderColor: '#474747',
           borderWidth: '1px',
-          height: '250px'
+          height: '220px'
         }}
         whileHover={{ 
           scale: 1.02,
@@ -193,10 +193,10 @@ const Reviews: React.FC = () => {
           {/* Header with avatar and info */}
           <div className="flex items-center gap-4 mb-4">
             <div 
-              className="rounded-full object-cover"
+              className="rounded-full object-cover flex-shrink-0"
               style={{
-                width: '60px',
-                height: '60px',
+                width: '50px',
+                height: '50px',
                 backgroundColor: '#D9D9D9',
                 backgroundImage: `url(${avatar})`,
                 backgroundSize: 'cover',
@@ -205,10 +205,10 @@ const Reviews: React.FC = () => {
             />
             <div className="flex flex-col">
               <figcaption 
-                className="font-medium text-white" 
+                className="font-medium text-white truncate" 
                 style={{ 
                   fontFamily: "'Gilroy', 'Inter', system-ui, sans-serif",
-                  fontSize: '16px',
+                  fontSize: '14px',
                   fontWeight: 500,
                   lineHeight: '1.3'
                 }}
@@ -216,10 +216,10 @@ const Reviews: React.FC = () => {
                 {name}
               </figcaption>
               <p 
-                className="text-[#C1C1C1]" 
+                className="text-[#C1C1C1] truncate" 
                 style={{ 
                   fontFamily: "'Gilroy', 'Inter', system-ui, sans-serif",
-                  fontSize: '14px',
+                  fontSize: '12px',
                   fontWeight: 500,
                   lineHeight: '1.3'
                 }}
@@ -231,12 +231,15 @@ const Reviews: React.FC = () => {
 
           {/* Quote */}
           <blockquote 
-            className="text-white leading-relaxed" 
+            className="text-white leading-relaxed overflow-hidden" 
             style={{ 
               fontFamily: "'Gilroy', 'Inter', system-ui, sans-serif",
-              fontSize: '15px',
+              fontSize: '13px',
               fontWeight: 500,
-              lineHeight: '1.4'
+              lineHeight: '1.4',
+              display: '-webkit-box',
+              WebkitLineClamp: 4,
+              WebkitBoxOrient: 'vertical'
             }}
           >
             "{quote}"
@@ -247,7 +250,7 @@ const Reviews: React.FC = () => {
   };
 
   return (
-    <section className={`relative ${themeClasses.sectionBackground} py-32 px-4 overflow-hidden transition-all duration-700 ease-out`}>
+    <section id="reviews" className={`relative ${themeClasses.sectionBackground} py-32 px-4 overflow-hidden transition-all duration-700 ease-out`}>
       {/* Static background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div

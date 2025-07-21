@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import ldbackground from '@/assets/ldbackground.png';
-import lddemo from '@/assets/lddemo.png';
+import lddemo from '@/assets/ravenscreen.png';
 
 const Hero = () => {
   const navigate = useNavigate();

@@ -55,9 +55,9 @@ const Landing: React.FC = () => {
       <Header />
       <Hero />
       <Features />
+      <Pricing />
       <Integrations />
       <Reviews />
-      <Pricing />
       <FAQ />
       <Footer />
       <MobileCTA />
@@ -65,4 +65,4 @@ const Landing: React.FC = () => {
   );
 };
 
-export default Landing; 
+export default Landing;

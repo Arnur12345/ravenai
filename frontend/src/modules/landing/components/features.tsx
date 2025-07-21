@@ -110,7 +110,7 @@ const Features: React.FC = () => {
   };
 
   return (
-    <section className={`relative ${themeClasses.sectionBackground} py-32 px-4 overflow-hidden transition-all duration-700 ease-out`}>
+    <section id="features" className={`relative ${themeClasses.sectionBackground} py-12 sm:py-16 md:py-20 lg:py-32 px-4 overflow-hidden transition-all duration-700 ease-out`}>
       {/* Enhanced subtle background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
@@ -145,7 +145,7 @@ const Features: React.FC = () => {
       {/* Content with enhanced animations */}
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
-          className="text-center mb-24"
+          className="text-center mb-10 sm:mb-12 md:mb-16 lg:mb-24"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -189,7 +189,7 @@ const Features: React.FC = () => {
           
           {/* Enhanced title with better contrast */}
           <motion.h2 
-            className={`text-3xl md:text-4xl font-bold ${themeClasses.titleText} mb-8 transition-all duration-500`}
+            className={`text-2xl sm:text-3xl md:text-4xl font-bold ${themeClasses.titleText} mb-4 sm:mb-6 md:mb-8 transition-all duration-500`}
             style={{ fontFamily: 'Gilroy, sans-serif' }}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -206,7 +206,7 @@ const Features: React.FC = () => {
           
           {/* Enhanced subtitle with better contrast */}
           <motion.p 
-            className={`text-lg md:text-xl ${themeClasses.subtitleText} max-w-4xl mx-auto leading-relaxed transition-colors duration-500`}
+            className={`text-base sm:text-lg md:text-xl ${themeClasses.subtitleText} max-w-4xl mx-auto leading-relaxed transition-colors duration-500 px-4 sm:px-0`}
             style={{ fontFamily: 'Gilroy, sans-serif' }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -222,7 +222,7 @@ const Features: React.FC = () => {
 
         {/* Enhanced features grid with smooth animations */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -256,10 +256,10 @@ const Features: React.FC = () => {
                       borderWidth={2}
                     />
                   )}
-                  <CardHeader className="text-center pb-4">
+                  <CardHeader className="text-center pb-3 sm:pb-4 px-4 sm:px-6">
                     {/* Enhanced icon container with smooth animations */}
                     <motion.div 
-                      className={`w-16 h-16 mx-auto mb-6 ${themeClasses.iconBackground} rounded-2xl flex items-center justify-center shadow-lg transition-all duration-500 ease-out`}
+                      className={`w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-4 sm:mb-6 ${themeClasses.iconBackground} rounded-2xl flex items-center justify-center shadow-lg transition-all duration-500 ease-out`}
                       whileHover={{ 
                         scale: 1.15,
                         rotate: [0, -12, 12, 0],
@@ -277,21 +277,21 @@ const Features: React.FC = () => {
                         whileHover={{ scale: 1.1 }}
                         transition={{ duration: 0.3 }}
                       >
-                        <IconComponent className={`w-8 h-8 ${themeClasses.iconColor} drop-shadow-sm`} />
+                        <IconComponent className={`w-6 h-6 sm:w-8 sm:h-8 ${themeClasses.iconColor} drop-shadow-sm`} />
                       </motion.div>
                     </motion.div>
                     
                     <CardTitle 
-                      className={`text-lg font-bold ${themeClasses.cardTitle} transition-all duration-500 group-hover:scale-105`}
+                      className={`text-base sm:text-lg font-bold ${themeClasses.cardTitle} transition-all duration-500 group-hover:scale-105`}
                       style={{ fontFamily: 'Gilroy, sans-serif' }}
                     >
                       {feature.title}
                     </CardTitle>
                   </CardHeader>
                   
-                  <CardContent className="px-6 pb-8">
+                  <CardContent className="px-4 sm:px-6 pb-6 sm:pb-8">
                     <CardDescription 
-                      className={`${themeClasses.cardDescription} text-center leading-relaxed transition-all duration-500 group-hover:text-opacity-90`}
+                      className={`${themeClasses.cardDescription} text-center leading-relaxed transition-all duration-500 group-hover:text-opacity-90 text-sm sm:text-base`}
                       style={{ fontFamily: 'Gilroy, sans-serif' }}
                     >
                       {feature.description}
@@ -312,7 +312,7 @@ const Features: React.FC = () => {
 
         {/* Enhanced CTA section */}
         <motion.div
-          className="text-center mt-24"
+          className="text-center mt-12 sm:mt-16 md:mt-20 lg:mt-24"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -325,7 +325,7 @@ const Features: React.FC = () => {
           }}
         >
           <motion.div 
-            className={`inline-flex items-center gap-4 ${themeClasses.ctaContainer} px-8 py-4 rounded-xl shadow-lg border transition-all duration-500`}
+            className={`inline-flex items-center gap-3 sm:gap-4 ${themeClasses.ctaContainer} px-4 sm:px-6 md:px-8 py-3 sm:py-4 rounded-xl shadow-lg border transition-all duration-500 mx-4 sm:mx-0`}
             whileHover={{ 
               scale: 1.02,
               y: -2,
@@ -346,13 +346,13 @@ const Features: React.FC = () => {
               <Zap className={`w-6 h-6 ${themeClasses.ctaIcon}`} />
             </motion.div>
             <span 
-              className={`${themeClasses.ctaText} font-semibold text-base transition-colors duration-300`}
+              className={`${themeClasses.ctaText} font-semibold text-sm sm:text-base transition-colors duration-300`}
               style={{ fontFamily: 'Gilroy, sans-serif' }}
             >
               {t('features.cta')}
             </span>
             <Button
-              className={`ml-4 ${themeClasses.ctaButton} text-white px-6 py-2 rounded-lg font-semibold transition-all duration-500 hover:shadow-xl transform hover:scale-105`}
+              className={`ml-2 sm:ml-4 ${themeClasses.ctaButton} text-white px-4 sm:px-6 py-2 rounded-lg font-semibold transition-all duration-500 hover:shadow-xl transform hover:scale-105 text-sm sm:text-base`}
               style={{ fontFamily: 'Gilroy, sans-serif' }}
             >
               {t('features.cta_button')}

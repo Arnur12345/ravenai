@@ -102,7 +102,7 @@ const Footer: React.FC = () => {
 
   return (
     <>
-      <footer className={`${themeClasses.sectionBackground} py-20 px-4 transition-all duration-500 relative overflow-hidden`}>
+      <footer className={`${themeClasses.sectionBackground} py-12 sm:py-16 md:py-20 px-4 transition-all duration-500 relative overflow-hidden`}>
         {/* Background decorative elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className={`absolute top-1/4 right-1/4 w-96 h-96 ${themeClasses.backgroundElement} rounded-full blur-3xl opacity-20`} />
@@ -112,14 +112,14 @@ const Footer: React.FC = () => {
         <div className="max-w-7xl mx-auto relative z-10">
           {/* Main Footer Content */}
           <motion.div
-            className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16"
+            className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 md:gap-12 mb-12 sm:mb-14 md:mb-16"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
             {/* Brand Section */}
-            <div className="lg:col-span-4">
+            <div className="lg:col-span-4 text-center lg:text-left">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -143,14 +143,14 @@ const Footer: React.FC = () => {
                 </div>
                 
                 <p 
-                  className={`${themeClasses.contactText} text-base leading-relaxed mb-8 max-w-sm`}
+                  className={`${themeClasses.contactText} text-sm sm:text-base leading-relaxed mb-6 sm:mb-8 max-w-sm mx-auto lg:mx-0`}
                   style={{ fontFamily: 'Gilroy, sans-serif' }}
                 >
                   AI-powered meeting assistant that transforms your conversations into actionable insights.
                 </p>
                 
                 {/* Contact Info */}
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4 flex flex-col items-center lg:items-start">
                   {contactInfo.map((contact, index) => {
                     const IconComponent = contact.icon;
                     return (
@@ -173,7 +173,7 @@ const Footer: React.FC = () => {
             </div>
             
             {/* Footer Sections */}
-            <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mt-8 lg:mt-0">
               {footerSections.map((section, sectionIndex) => (
                 <motion.div
                   key={sectionIndex}
@@ -184,18 +184,18 @@ const Footer: React.FC = () => {
                 >
                   <div>
                     <h4 
-                      className={`${themeClasses.sectionTitle} font-bold text-lg mb-6`}
+                      className={`${themeClasses.sectionTitle} font-bold text-base sm:text-lg mb-4 sm:mb-6`}
                       style={{ fontFamily: 'Gilroy, sans-serif' }}
                     >
                       {section.title}
                     </h4>
-                    <ul className="space-y-3">
+                    <ul className="space-y-2 sm:space-y-3">
                       {section.links.map((link, linkIndex) => (
                         <li key={linkIndex}>
                           {link.href.startsWith('/') ? (
                             <Link
                               to={link.href}
-                              className={`${themeClasses.linkText} block`}
+                              className={`${themeClasses.linkText} block text-sm sm:text-base`}
                               style={{ fontFamily: 'Gilroy, sans-serif' }}
                             >
                               {link.name}
@@ -203,7 +203,7 @@ const Footer: React.FC = () => {
                           ) : (
                             <a
                               href={link.href}
-                              className={`${themeClasses.linkText} block`}
+                              className={`${themeClasses.linkText} block text-sm sm:text-base`}
                               style={{ fontFamily: 'Gilroy, sans-serif' }}
                             >
                               {link.name}
@@ -220,7 +220,7 @@ const Footer: React.FC = () => {
           
           {/* Still have questions button */}
           <motion.div
-            className="flex justify-center mb-16"
+            className="flex justify-center mb-12 sm:mb-14 md:mb-16 px-4 sm:px-0"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -228,12 +228,12 @@ const Footer: React.FC = () => {
           >
             <motion.button
               onClick={() => setIsContactModalOpen(true)}
-              className="bg-white/10 border border-white/20 backdrop-blur-sm text-white px-8 py-4 rounded-2xl font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 flex items-center gap-3"
+              className="bg-white/10 border border-white/20 backdrop-blur-sm text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 flex items-center gap-2 sm:gap-3 text-sm sm:text-base"
               style={{ fontFamily: 'Gilroy, sans-serif' }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <MessageCircle className="w-5 h-5" />
+              <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
               Still have questions?
             </motion.button>
           </motion.div>

@@ -87,7 +87,7 @@ const Pricing: React.FC = () => {
   ];
 
   return (
-    <section id="pricing" className={`min-h-screen ${themeClasses.sectionBackground} py-32 px-4 relative overflow-hidden transition-all duration-500`}>
+    <section id="pricing" className={`min-h-screen ${themeClasses.sectionBackground} py-16 sm:py-24 md:py-32 px-4 relative overflow-hidden transition-all duration-500`}>
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
@@ -121,14 +121,14 @@ const Pricing: React.FC = () => {
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Enhanced Header */}
           <motion.div
-          className="text-center mb-20"
+          className="text-center mb-12 sm:mb-16 md:mb-20"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
         >
           <motion.h2 
-            className={`text-3xl md:text-4xl font-bold ${themeClasses.title} mb-8`}
+            className={`text-2xl sm:text-3xl md:text-4xl font-bold ${themeClasses.title} mb-6 sm:mb-8 px-2 sm:px-0`}
             style={{ fontFamily: 'Gilroy, sans-serif' }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -137,7 +137,7 @@ const Pricing: React.FC = () => {
               {t('pricing.title')}
             </motion.h2>
             <motion.p 
-            className={`text-lg ${themeClasses.subtitle} max-w-4xl mx-auto mb-16 leading-relaxed`}
+            className={`text-base sm:text-lg ${themeClasses.subtitle} max-w-4xl mx-auto mb-12 sm:mb-16 leading-relaxed px-4 sm:px-0`}
               style={{ fontFamily: 'Gilroy, sans-serif' }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -148,7 +148,7 @@ const Pricing: React.FC = () => {
 
             {/* Enhanced Pricing Toggle */}
             <motion.div 
-            className="flex items-center justify-center space-x-8 mb-16"
+            className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 md:space-x-8 mb-12 sm:mb-16 px-4 sm:px-0"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.4, duration: 0.8 }}
@@ -202,7 +202,7 @@ const Pricing: React.FC = () => {
           </motion.div>
 
         {/* Enhanced Pricing Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12 max-w-6xl mx-auto px-2 sm:px-0">
           {plans.map((plan, index) => (
             <motion.div
               key={index}
@@ -226,7 +226,7 @@ const Pricing: React.FC = () => {
 
         {/* Enhanced Footer Note */}
           <motion.div
-          className="text-center mt-24"
+          className="text-center mt-16 sm:mt-20 md:mt-24 px-4 sm:px-0"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -242,7 +242,7 @@ const Pricing: React.FC = () => {
 
         {/* Enhanced Mobile Tip */}
         <motion.div 
-          className={`lg:hidden text-center mt-12 p-6 ${themeClasses.mobileCard} rounded-2xl shadow-xl border`}
+          className={`lg:hidden text-center mt-8 sm:mt-12 p-4 sm:p-6 mx-4 sm:mx-0 ${themeClasses.mobileCard} rounded-2xl shadow-xl border`}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.6 }}
