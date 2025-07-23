@@ -63,10 +63,10 @@ export const TermsOfServicePage: React.FC = () => {
         </section>
 
         <section id="service-description">
-          <h2 style={{ color: 'var(--dashboard-black, #000000)' }}>2. Service Description</h2>
+          <h2>2. Service Description</h2>
           
           <div id="platform-overview">
-            <h3 style={{ color: 'var(--dashboard-black, #000000)' }}>2.1 Platform Overview</h3>
+            <h3>2.1 Platform Overview</h3>
             <p>Raven AI provides a comprehensive meeting intelligence platform that includes:</p>
             <ul>
               <li>Real-time meeting recording and transcription</li>
@@ -79,7 +79,7 @@ export const TermsOfServicePage: React.FC = () => {
           </div>
 
           <div id="ai-features">
-            <h3 style={{ color: 'var(--dashboard-black, #000000)' }}>2.2 AI-Powered Features</h3>
+            <h3>2.2 AI-Powered Features</h3>
             <p>Our AI technology provides:</p>
             <ul>
               <li><strong>Intelligent Transcription:</strong> Speech-to-text conversion with speaker identification</li>
@@ -92,10 +92,11 @@ export const TermsOfServicePage: React.FC = () => {
           </div>
 
           <div id="integrations">
-            <h3 style={{ color: 'var(--dashboard-black, #000000)' }}>2.3 Third-Party Integrations</h3>
-            <p>We integrate with various third-party services, including:</p>
+            <h3>2.3 Third-Party Integrations</h3>
+            <p>Our Service integrates with various third-party applications to enhance functionality. By using these integrations, you grant us permission to access your data from those services as required for the integration to function. Your use of third-party services is subject to their respective terms and privacy policies.</p>
+            <p>Key integrations include:</p>
             <ul>
-              <li>Google Calendar and Google Workspace</li>
+              <li><strong>Google Calendar:</strong> To schedule and manage meeting recordings, we access your calendar data with your explicit consent. You are responsible for the data you authorize us to access from your Google Calendar. Our use of this data is governed by our Privacy Policy and is in compliance with the Google API Services User Data Policy.</li>
               <li>Slack for team communication</li>
               <li>Popular video conferencing platforms</li>
               <li>Project management tools</li>
@@ -105,10 +106,10 @@ export const TermsOfServicePage: React.FC = () => {
         </section>
 
         <section id="user-accounts">
-          <h2 style={{ color: 'var(--dashboard-black, #000000)' }}>3. User Accounts</h2>
+          <h2>3. User Accounts</h2>
           
           <div id="registration">
-            <h3 style={{ color: 'var(--dashboard-black, #000000)' }}>3.1 Account Registration</h3>
+            <h3>3.1 Account Registration</h3>
             <ul>
               <li>You must provide accurate, current, and complete information during registration</li>
               <li>You are responsible for maintaining the confidentiality of your account credentials</li>
@@ -119,7 +120,7 @@ export const TermsOfServicePage: React.FC = () => {
           </div>
 
           <div id="account-security">
-            <h3 style={{ color: 'var(--dashboard-black, #000000)' }}>3.2 Account Security</h3>
+            <h3>3.2 Account Security</h3>
             <ul>
               <li>You are responsible for all activities that occur under your account</li>
               <li>You must immediately notify us of any unauthorized use of your account</li>
@@ -129,7 +130,7 @@ export const TermsOfServicePage: React.FC = () => {
           </div>
 
           <div id="account-termination">
-            <h3 style={{ color: 'var(--dashboard-black, #000000)' }}>3.3 Account Termination</h3>
+            <h3>3.3 Account Termination</h3>
             <ul>
               <li>You may terminate your account at any time through your account settings</li>
               <li>We may suspend or terminate accounts that violate these Terms</li>
@@ -140,10 +141,10 @@ export const TermsOfServicePage: React.FC = () => {
         </section>
 
         <section id="acceptable-use">
-          <h2 style={{ color: 'var(--dashboard-black, #000000)' }}>4. Acceptable Use Policy</h2>
+          <h2>4. Acceptable Use Policy</h2>
           
           <div id="permitted-activities">
-            <h3 style={{ color: 'var(--dashboard-black, #000000)' }}>4.1 Permitted Activities</h3>
+            <h3>4.1 Permitted Activities</h3>
             <p>You may use our Service to:</p>
             <ul>
               <li>Record and transcribe business meetings with proper consent</li>
@@ -155,7 +156,7 @@ export const TermsOfServicePage: React.FC = () => {
           </div>
 
           <div id="prohibited-content">
-            <h3 style={{ color: 'var(--dashboard-black, #000000)' }}>4.2 Prohibited Content and Activities</h3>
+            <h3>4.2 Prohibited Content and Activities</h3>
             <p>You may not use our Service to:</p>
             <ul>
               <li>Record meetings without proper consent from all participants</li>
@@ -170,7 +171,7 @@ export const TermsOfServicePage: React.FC = () => {
           </div>
 
           <div id="meeting-consent">
-            <h3 style={{ color: 'var(--dashboard-black, #000000)' }}>4.3 Meeting Consent Requirements</h3>
+            <h3>4.3 Meeting Consent Requirements</h3>
             <p><strong>Critical Requirement:</strong> You must obtain proper consent before recording any meeting:</p>
             <ul>
               <li>All participants must be informed that recording is taking place</li>
@@ -184,10 +185,10 @@ export const TermsOfServicePage: React.FC = () => {
         </section>
 
         <section id="intellectual-property">
-          <h2 style={{ color: 'var(--dashboard-black, #000000)' }}>5. Intellectual Property</h2>
+          <h2>5. Intellectual Property</h2>
           
           <div id="our-rights">
-            <h3 style={{ color: 'var(--dashboard-black, #000000)' }}>5.1 Our Intellectual Property Rights</h3>
+            <h3>5.1 Our Intellectual Property Rights</h3>
             <ul>
               <li>The Service, including software, algorithms, and AI models, is our proprietary property</li>
               <li>Our trademarks, logos, and brand elements are protected intellectual property</li>
@@ -197,7 +198,7 @@ export const TermsOfServicePage: React.FC = () => {
           </div>
 
           <div id="user-content">
-            <h3 style={{ color: 'var(--dashboard-black, #000000)' }}>5.2 User Content Ownership</h3>
+            <h3>5.2 User Content Ownership</h3>
             <ul>
               <li>You retain ownership of your original meeting recordings and content</li>
               <li>You own the transcripts and summaries generated from your meetings</li>
@@ -389,4 +390,4 @@ export const TermsOfServicePage: React.FC = () => {
       </div>
     </LegalLayout>
   );
-}; 
+};

@@ -7,6 +7,7 @@ const sections = [
   { id: 'personal-information', title: 'Personal Information', level: 2 },
   { id: 'meeting-data', title: 'Meeting Data and Transcripts', level: 2 },
   { id: 'technical-information', title: 'Technical Information', level: 2 },
+  { id: 'google-calendar-data', title: 'Google Calendar Data', level: 2 },
   { id: 'how-we-use-information', title: 'How We Use Information', level: 1 },
   { id: 'service-provision', title: 'Service Provision', level: 2 },
   { id: 'communication', title: 'Communication', level: 2 },
@@ -100,6 +101,24 @@ export const PrivacyPolicyPage: React.FC = () => {
               <li><strong>Cookies and Tracking:</strong> Session tokens, preference cookies, analytics cookies</li>
             </ul>
           </div>
+
+          <div id="google-calendar-data">
+            <h3>2.4 Google Calendar Data</h3>
+            <p>
+                To enhance your experience, Raven AI integrates with your Google Calendar with your explicit permission. When you connect your Google Calendar, we access the following information about your meetings:
+            </p>
+            <ul>
+                <li><strong>Meeting Details:</strong> Event titles, start and end times, and descriptions.</li>
+                <li><strong>Participant Information:</strong> A list of attendees for each meeting.</li>
+                <li><strong>Meeting Links:</strong> URLs for video conferencing (e.g., Google Meet links).</li>
+            </ul>
+            <p>
+                This information is used solely to identify upcoming meetings that you may want to record and analyze with our Service. We do not store your Google Calendar data long-term; we only access it to schedule and manage meeting processing on your behalf.
+            </p>
+            <p>
+                <strong>Compliance with Google Limited Use Policy:</strong> Our use and transfer of information received from Google APIs to any other app will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy#limited_use_requirements" target="_blank" rel="noopener noreferrer">Google API Services User Data Policy</a>, including the Limited Use requirements.
+            </p>
+          </div>
         </section>
 
         <section id="how-we-use-information">
@@ -142,9 +161,9 @@ export const PrivacyPolicyPage: React.FC = () => {
           <p>We do not sell your personal information. We may share your information in the following limited circumstances:</p>
           
           <div id="third-party-integrations">
-            <h3 style={{ color: 'var(--dashboard-black, #000000)' }}>4.1 Third-Party Integrations</h3>
+            <h3>4.1 Third-Party Integrations</h3>
             <ul>
-              <li><strong>Google Services:</strong> Calendar data and OAuth authentication</li>
+              <li><strong>Google Calendar:</strong> We use the Google Calendar API to access your meeting schedule to allow you to select which meetings to record and analyze. This access is based on your explicit authorization via Google's OAuth authentication system.</li>
               <li><strong>Slack Integration:</strong> Workspace and channel information (with your authorization)</li>
               <li><strong>Cloud Storage:</strong> Secure data storage with enterprise-grade providers</li>
               <li><strong>Analytics Providers:</strong> Aggregated, anonymized usage statistics</li>
@@ -152,7 +171,7 @@ export const PrivacyPolicyPage: React.FC = () => {
           </div>
 
           <div id="legal-requirements">
-            <h3 style={{ color: 'var(--dashboard-black, #000000)' }}>4.2 Legal Requirements</h3>
+            <h3>4.2 Legal Requirements</h3>
             <p>We may disclose your information if required by law or in good faith belief that such action is necessary to:</p>
             <ul>
               <li>Comply with legal process or government requests</li>
@@ -164,10 +183,10 @@ export const PrivacyPolicyPage: React.FC = () => {
         </section>
 
         <section id="data-security">
-          <h2 style={{ color: 'var(--dashboard-black, #000000)' }}>5. Data Security</h2>
+          <h2>5. Data Security</h2>
           
           <div id="encryption">
-            <h3 style={{ color: 'var(--dashboard-black, #000000)' }}>5.1 Encryption Standards</h3>
+            <h3>5.1 Encryption Standards</h3>
             <ul>
               <li><strong>In Transit:</strong> All data transmitted using TLS 1.3 encryption</li>
               <li><strong>At Rest:</strong> AES-256 encryption for stored data</li>
@@ -177,7 +196,7 @@ export const PrivacyPolicyPage: React.FC = () => {
           </div>
 
           <div id="access-controls">
-            <h3 style={{ color: 'var(--dashboard-black, #000000)' }}>5.2 Access Controls</h3>
+            <h3>5.2 Access Controls</h3>
             <ul>
               <li>Multi-factor authentication for administrative access</li>
               <li>Role-based access controls within our systems</li>
@@ -187,7 +206,7 @@ export const PrivacyPolicyPage: React.FC = () => {
           </div>
 
           <div id="data-retention">
-            <h3 style={{ color: 'var(--dashboard-black, #000000)' }}>5.3 Data Retention</h3>
+            <h3>5.3 Data Retention</h3>
             <ul>
               <li><strong>Meeting Data:</strong> Retained until user deletion or account termination</li>
               <li><strong>Account Information:</strong> Retained for active accounts plus 90 days after deactivation</li>
@@ -198,10 +217,10 @@ export const PrivacyPolicyPage: React.FC = () => {
         </section>
 
         <section id="your-rights">
-          <h2 style={{ color: 'var(--dashboard-black, #000000)' }}>6. Your Rights</h2>
+          <h2>6. Your Rights</h2>
           
           <div id="access-portability">
-            <h3 style={{ color: 'var(--dashboard-black, #000000)' }}>6.1 Access and Portability</h3>
+            <h3>6.1 Access and Portability</h3>
             <ul>
               <li>Request a copy of your personal data</li>
               <li>Export your meeting transcripts and summaries</li>
@@ -211,7 +230,7 @@ export const PrivacyPolicyPage: React.FC = () => {
           </div>
 
           <div id="correction-deletion">
-            <h3 style={{ color: 'var(--dashboard-black, #000000)' }}>6.2 Correction and Deletion</h3>
+            <h3>6.2 Correction and Deletion</h3>
             <ul>
               <li>Update or correct your profile information</li>
               <li>Delete specific meetings or transcripts</li>
@@ -221,7 +240,7 @@ export const PrivacyPolicyPage: React.FC = () => {
           </div>
 
           <div id="opt-out">
-            <h3 style={{ color: 'var(--dashboard-black, #000000)' }}>6.3 Opt-Out Preferences</h3>
+            <h3>6.3 Opt-Out Preferences</h3>
             <ul>
               <li>Unsubscribe from marketing communications</li>
               <li>Disable non-essential analytics tracking</li>
@@ -232,10 +251,10 @@ export const PrivacyPolicyPage: React.FC = () => {
         </section>
 
         <section id="international-users">
-          <h2 style={{ color: 'var(--dashboard-black, #000000)' }}>7. International Users</h2>
+          <h2>7. International Users</h2>
           
           <div id="kazakhstan-law">
-            <h3 style={{ color: 'var(--dashboard-black, #000000)' }}>7.1 Kazakhstan Law Compliance</h3>
+            <h3>7.1 Kazakhstan Law Compliance</h3>
             <p>
               As a company based in Kazakhstan, we comply with the Republic of Kazakhstan's data protection laws, 
               including the Law on Personal Data and its Protection. We ensure that:
@@ -249,7 +268,7 @@ export const PrivacyPolicyPage: React.FC = () => {
           </div>
 
           <div id="gdpr-considerations">
-            <h3 style={{ color: 'var(--dashboard-black, #000000)' }}>7.2 GDPR Considerations</h3>
+            <h3>7.2 GDPR Considerations</h3>
             <p>For users in the European Union, we provide additional protections under GDPR:</p>
             <ul>
               <li>Clear legal basis for all data processing activities</li>
@@ -260,7 +279,7 @@ export const PrivacyPolicyPage: React.FC = () => {
           </div>
 
           <div id="data-transfers">
-            <h3 style={{ color: 'var(--dashboard-black, #000000)' }}>7.3 International Data Transfers</h3>
+            <h3>7.3 International Data Transfers</h3>
             <p>
               We may transfer data internationally to provide our services. All transfers are protected by:
             </p>
@@ -274,7 +293,7 @@ export const PrivacyPolicyPage: React.FC = () => {
         </section>
 
         <section id="children-privacy">
-          <h2 style={{ color: 'var(--dashboard-black, #000000)' }}>8. Children's Privacy</h2>
+          <h2>8. Children's Privacy</h2>
           <p>
             Our Service is not intended for use by children under the age of 16. We do not knowingly collect 
             personal information from children under 16. If you become aware that a child has provided us with 
@@ -284,7 +303,7 @@ export const PrivacyPolicyPage: React.FC = () => {
         </section>
 
         <section id="changes-to-policy">
-          <h2 style={{ color: 'var(--dashboard-black, #000000)' }}>9. Changes to This Policy</h2>
+          <h2>9. Changes to This Policy</h2>
           <p>
             We may update this Privacy Policy from time to time. We will notify you of any changes by:
           </p>
@@ -300,7 +319,7 @@ export const PrivacyPolicyPage: React.FC = () => {
         </section>
 
         <section id="contact-us">
-          <h2 style={{ color: 'var(--dashboard-black, #000000)' }}>10. Contact Us</h2>
+          <h2>10. Contact Us</h2>
           <p>
             If you have any questions about this Privacy Policy or our privacy practices, please contact us at:
           </p>
@@ -308,9 +327,9 @@ export const PrivacyPolicyPage: React.FC = () => {
             <p><strong>Raven AI</strong></p>
             <p><strong>CEO:</strong> Arnur Artykbay</p>
             <p><strong>Address:</strong> Almaty, Kazakhstan</p>
-            <p><strong>Email:</strong> <a href="mailto:arnurartyqbay@gmail.com" style={{ color: 'var(--dashboard-bright-blue, #83BAFF)' }}>arnurartyqbay@gmail.com</a></p>
-            <p><strong>Phone:</strong> <a href="tel:+77083883090" style={{ color: 'var(--dashboard-bright-blue, #83BAFF)' }}>+7 708 388 3090</a></p>
-            <p><strong>Website:</strong> <a href="https://ravenai.site" style={{ color: 'var(--dashboard-bright-blue, #83BAFF)' }}>https://ravenai.site</a></p>
+            <p><strong>Email:</strong> <a href="mailto:arnurartyqbay@gmail.com">arnurartyqbay@gmail.com</a></p>
+            <p><strong>Phone:</strong> <a href="tel:+77083883090">+7 708 388 3090</a></p>
+            <p><strong>Website:</strong> <a href="https://ravenai.site">https://ravenai.site</a></p>
           </div>
           <p>
             For data protection inquiries, please include "Privacy Policy" in the subject line of your email. 
@@ -320,4 +339,4 @@ export const PrivacyPolicyPage: React.FC = () => {
       </div>
     </LegalLayout>
   );
-}; 
+};

@@ -65,13 +65,17 @@
 
 /* Dark theme support */
 .dark .legal-content {
-  color: #e5e7eb;
+  color: #f9fafb;
 }
 
 .dark .legal-content h2,
 .dark .legal-content h3,
 .dark .legal-content h4 {
   color: #ffffff;
+}
+
+.dark .legal-content a {
+  color: #93c5fd; /* blue-300 */
 }
 
 .dark .legal-content .contact-info {
@@ -113,4 +117,4 @@
   .legal-content ul, .legal-content ol {
     padding-left: 1rem;
   }
-} 
+}
