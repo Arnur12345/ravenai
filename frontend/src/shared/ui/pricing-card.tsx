@@ -16,15 +16,18 @@ interface PricingPlan {
   features: string[];
   popular?: boolean;
   isEnterprise?: boolean;
+  planId?: string;
 }
 
 interface PricingCardProps {
   plan: PricingPlan;
   index: number;
   isAnnual: boolean;
+  onUpgrade?: (planId: string, billingCycle: 'monthly' | 'yearly') => void;
+  loading?: boolean;
 }
 
-const PricingCard: React.FC<PricingCardProps> = ({ plan, index, isAnnual }) => {
+const PricingCard: React.FC<PricingCardProps> = ({ plan, index, isAnnual, onUpgrade, loading }) => {
   const { t } = useLanguage();
   const { theme } = useTheme();
   
@@ -189,14 +192,40 @@ const PricingCard: React.FC<PricingCardProps> = ({ plan, index, isAnnual }) => {
                       plan.popular 
                         ? 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-lg hover:shadow-2xl'
                         : 'bg-white/10 border-2 border-white/20 hover:bg-white/20 hover:border-white/30'
-                    }`}
+                    } ${loading ? 'opacity-75 cursor-not-allowed' : ''}`}
                     style={{ 
                       fontFamily: 'Gilroy, sans-serif',
                       boxShadow: plan.popular ? '0 10px 25px rgba(0, 0, 0, 0.15)' : undefined,
                       color: '#ffffff'
                     } as React.CSSProperties}
+                    disabled={loading}
+                    onClick={() => {
+                      if (plan.planId && plan.planId !== 'free' && onUpgrade) {
+                        onUpgrade(plan.planId, isAnnual ? 'yearly' : 'monthly');
+                      } else if (plan.planId === 'free') {
+                        // Redirect to sign up for free plan
+                        window.location.href = '/auth/register';
+                      } else if (plan.isEnterprise) {
+                        // Handle enterprise contact
+                        window.location.href = 'mailto:contact@ravenai.site?subject=Enterprise Plan Inquiry';
+                      }
+                    }}
                   >
-                    {t('plan.get_started')}
+                    {loading ? (
+                      <span className="flex items-center justify-center">
+                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        {t('plan.processing')}
+                      </span>
+                    ) : plan.isEnterprise ? (
+                      t('plan.contact_sales')
+                    ) : plan.planId === 'free' ? (
+                      t('plan.get_started')
+                    ) : (
+                      t('plan.upgrade_now')
+                    )}
                   </Button>
                 </ClickSpark>
               </motion.div>

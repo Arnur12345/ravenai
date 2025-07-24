@@ -4,6 +4,7 @@ import PricingCard from '@/shared/ui/pricing-card';
 import { Button } from '@/shared/ui/button';
 import { useLanguage } from '@/shared/contexts/LanguageContext';
 import { useTheme } from '@/shared/contexts/ThemeContext';
+import { subscriptionApi } from '@/shared/api/subscriptionApi';
 
 interface PricingPlan {
   name: string;
@@ -13,12 +14,14 @@ interface PricingPlan {
   features: string[];
   popular?: boolean;
   isEnterprise?: boolean;
+  planId?: string; // Add plan ID for subscription
 }
 
 const Pricing: React.FC = () => {
   const { t } = useLanguage();
   const { theme } = useTheme();
   const [isAnnual, setIsAnnual] = useState(false);
+  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
 
   // Black theme styling for consistency with hero and reviews
   const getThemeClasses = () => {
@@ -41,6 +44,28 @@ const Pricing: React.FC = () => {
 
   const themeClasses = getThemeClasses();
 
+  // Handle subscription upgrade
+  const handleUpgrade = async (planId: string, billingCycle: 'monthly' | 'yearly') => {
+    try {
+      setLoadingPlan(planId);
+      
+      // Check if user is logged in
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        // Redirect to login with return URL
+        window.location.href = `/auth/login?returnUrl=${encodeURIComponent('/pricing')}`;
+        return;
+      }
+
+      await subscriptionApi.redirectToCheckout(planId as 'pro' | 'enterprise', billingCycle);
+    } catch (error) {
+      console.error('Subscription error:', error);
+      alert('Failed to start subscription. Please try again or contact support.');
+    } finally {
+      setLoadingPlan(null);
+    }
+  };
+
   const plans: PricingPlan[] = [
     {
       name: t('plan.lite.name'),
@@ -53,7 +78,8 @@ const Pricing: React.FC = () => {
         t('feature.lite.3'),
         t('feature.lite.4')
       ],
-      popular: false
+      popular: false,
+      planId: 'free'
     },
     {
       name: t('plan.pro.name'),
@@ -67,7 +93,8 @@ const Pricing: React.FC = () => {
         t('feature.pro.4'),
         t('feature.pro.5')
       ],
-      popular: true
+      popular: true,
+      planId: 'pro'
     },
     {
       name: t('plan.enterprise.name'),
@@ -82,7 +109,8 @@ const Pricing: React.FC = () => {
         t('feature.enterprise.5')
       ],
       popular: false,
-      isEnterprise: true
+      isEnterprise: true,
+      planId: 'enterprise'
     }
   ];
 
@@ -219,6 +247,8 @@ const Pricing: React.FC = () => {
               plan={plan}
               index={index}
               isAnnual={isAnnual}
+              onUpgrade={handleUpgrade}
+              loading={loadingPlan === plan.planId}
             />
             </motion.div>
           ))}

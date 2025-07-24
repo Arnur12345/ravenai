@@ -181,8 +181,8 @@ async def get_available_plans():
                     "Priority support"
                 ],
                 "pricing": {
-                    "monthly": {"amount": 2900, "currency": "USD"},  # $29/month
-                    "yearly": {"amount": 29000, "currency": "USD"}   # $290/year (2 months free)
+                    "monthly": {"amount": 300, "currency": "USD"},  # $3/month to match your pricing.tsx
+                    "yearly": {"amount": 3000, "currency": "USD"}   # $30/year (save 2 months)
                 }
             },
             {

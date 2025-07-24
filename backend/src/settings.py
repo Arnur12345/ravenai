@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440  # 24 hours instead of 30 minutes
     REFRESH_TOKEN_EXPIRE_DAYS: int = 30  # 30 days instead of 7 days
     
-    # API Keys
+    # AI APIs
     GEMINI_API_KEY: Optional[str] = os.getenv('GEMINI_API_KEY')
     VEXA_ADMIN_KEY: str = os.getenv('VEXA_ADMIN_KEY', '')
     OPENAI_API_KEY: Optional[str] = os.getenv('OPENAI_API_KEY')
@@ -27,10 +27,16 @@ class Settings(BaseSettings):
     POLAR_ENVIRONMENT: str = os.getenv('POLAR_ENVIRONMENT', 'sandbox')  # sandbox or production
     POLAR_ORGANIZATION_ID: Optional[str] = os.getenv('POLAR_ORGANIZATION_ID')
     
-    # Application URLs for Polar
+    # Application URLs for Polar (support multiple naming conventions)
     APP_BASE_URL: str = os.getenv('APP_BASE_URL', 'http://localhost:3000')
-    FRONTEND_SUCCESS_URL: str = os.getenv('FRONTEND_SUCCESS_URL', 'http://localhost:3000/subscription/success')
-    FRONTEND_CANCEL_URL: str = os.getenv('FRONTEND_CANCEL_URL', 'http://localhost:3000/subscription/cancel')
+    FRONTEND_SUCCESS_URL: str = os.getenv('FRONTEND_SUCCESS_URL') or os.getenv('POLAR_SUCCESS_URL', 'http://localhost:3000/subscription/success')
+    FRONTEND_CANCEL_URL: str = os.getenv('FRONTEND_CANCEL_URL') or os.getenv('POLAR_CANCEL_URL', 'http://localhost:3000/subscription/cancel')
+    
+    # Polar Product Price IDs (support multiple naming conventions)
+    POLAR_PRO_MONTHLY_PRICE_ID: Optional[str] = os.getenv('POLAR_PRO_MONTHLY_PRICE_ID') or os.getenv('POLAR_PRODUCT_ID')
+    POLAR_PRO_YEARLY_PRICE_ID: Optional[str] = os.getenv('POLAR_PRO_YEARLY_PRICE_ID')
+    POLAR_ENTERPRISE_MONTHLY_PRICE_ID: Optional[str] = os.getenv('POLAR_ENTERPRISE_MONTHLY_PRICE_ID')
+    POLAR_ENTERPRISE_YEARLY_PRICE_ID: Optional[str] = os.getenv('POLAR_ENTERPRISE_YEARLY_PRICE_ID')
     
     # Slack Integration
     SLACK_CLIENT_ID: Optional[str] = os.getenv('SLACK_CLIENT_ID')
@@ -56,6 +62,7 @@ class Settings(BaseSettings):
     
     class Config:
         env_file = os.path.join(os.path.dirname(__file__), '..', '..', '.env')
+        extra = "ignore"  # This allows extra fields without validation errors
 
 # Global settings instance
 settings = Settings()
