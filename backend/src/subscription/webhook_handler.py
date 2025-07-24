@@ -126,7 +126,7 @@ async def handle_subscription_created(data: Dict[str, Any], db: AsyncSession) ->
             price_id=price_id,
             current_period_start=subscription_data.get('current_period_start'),
             current_period_end=subscription_data.get('current_period_end'),
-            metadata=json.dumps(metadata)
+            subscription_metadata=json.dumps(metadata)
         )
         db.add(subscription)
         

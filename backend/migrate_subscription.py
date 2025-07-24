@@ -89,7 +89,7 @@ async def migrate_postgresql(conn):
             current_period_end TIMESTAMP WITH TIME ZONE,
             cancel_at_period_end BOOLEAN DEFAULT FALSE,
             canceled_at TIMESTAMP WITH TIME ZONE,
-            metadata TEXT,
+            subscription_metadata TEXT,
             created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
             updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
         )
@@ -155,7 +155,7 @@ async def migrate_sqlite(conn):
             current_period_end DATETIME,
             cancel_at_period_end BOOLEAN DEFAULT FALSE,
             canceled_at DATETIME,
-            metadata TEXT,
+            subscription_metadata TEXT,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
             updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (user_id) REFERENCES users (id)
