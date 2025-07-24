@@ -48,6 +48,23 @@ services:
       VEXA_ADMIN_KEY: ${VEXA_ADMIN_KEY}  # Required for meeting transcription
       OPENAI_API_KEY: ${OPENAI_API_KEY}  # Required for AI summaries
       
+      # Polar Payment Configuration
+      POLAR_ACCESS_TOKEN: ${POLAR_ACCESS_TOKEN}
+      POLAR_WEBHOOK_SECRET: ${POLAR_WEBHOOK_SECRET}
+      POLAR_ENVIRONMENT: ${POLAR_ENVIRONMENT:-sandbox}
+      POLAR_ORGANIZATION_ID: ${POLAR_ORGANIZATION_ID}
+      
+      # Polar Product Price IDs
+      POLAR_PRO_MONTHLY_PRICE_ID: ${POLAR_PRO_MONTHLY_PRICE_ID}
+      POLAR_PRO_YEARLY_PRICE_ID: ${POLAR_PRO_YEARLY_PRICE_ID}
+      POLAR_ENTERPRISE_MONTHLY_PRICE_ID: ${POLAR_ENTERPRISE_MONTHLY_PRICE_ID}
+      POLAR_ENTERPRISE_YEARLY_PRICE_ID: ${POLAR_ENTERPRISE_YEARLY_PRICE_ID}
+      
+      # Application URLs for Polar
+      APP_BASE_URL: ${APP_BASE_URL:-http://localhost:3000}
+      FRONTEND_SUCCESS_URL: ${FRONTEND_SUCCESS_URL:-http://localhost:3000/subscription/success}
+      FRONTEND_CANCEL_URL: ${FRONTEND_CANCEL_URL:-http://localhost:3000/subscription/cancel}
+      
       # CORS Origins - Updated for Docker network and production domain
       CORS_ORIGINS: '["http://localhost:3000", "http://localhost:5173", "http://127.0.0.1:3000", "http://127.0.0.1:5173", "https://ravenai.site"]'
       

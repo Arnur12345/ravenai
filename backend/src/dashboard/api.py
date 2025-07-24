@@ -19,6 +19,7 @@ from .schemas import (
 from .service import dashboard_service
 from .comprehensive_notes_service import comprehensive_notes_service
 from .pdf_service import pdf_service
+from subscription.usage_tracker import can_create_meeting, track_meeting_created
 
 from . import crud
 
@@ -36,13 +37,32 @@ async def create_meeting(
     Create a new meeting and start the Vexa bot
     
     This endpoint:
-    1. Creates a meeting record in the database
-    2. Starts a Vexa bot for the meeting URL
-    3. Returns the meeting details with bot status
+    1. Checks subscription limits
+    2. Creates a meeting record in the database
+    3. Starts a Vexa bot for the meeting URL
+    4. Tracks usage for billing
+    5. Returns the meeting details with bot status
     """
     try:
+        # Check if user can create a meeting based on their subscription tier
+        if not await can_create_meeting(current_user, db):
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail={
+                    "message": "Monthly meeting limit reached for your subscription tier",
+                    "upgrade_required": True,
+                    "current_tier": current_user.subscription_tier
+                }
+            )
+        
         meeting = await dashboard_service.create_meeting(db, meeting_data, current_user.id)
+        
+        # Track the meeting creation for usage billing
+        await track_meeting_created(current_user, db)
+        
         return meeting
+    except HTTPException:
+        raise  # Re-raise HTTP exceptions
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,

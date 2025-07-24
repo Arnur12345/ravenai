@@ -21,6 +21,17 @@ class Settings(BaseSettings):
     VEXA_ADMIN_KEY: str = os.getenv('VEXA_ADMIN_KEY', '')
     OPENAI_API_KEY: Optional[str] = os.getenv('OPENAI_API_KEY')
     
+    # Polar Payment Configuration
+    POLAR_ACCESS_TOKEN: Optional[str] = os.getenv('POLAR_ACCESS_TOKEN')
+    POLAR_WEBHOOK_SECRET: Optional[str] = os.getenv('POLAR_WEBHOOK_SECRET')
+    POLAR_ENVIRONMENT: str = os.getenv('POLAR_ENVIRONMENT', 'sandbox')  # sandbox or production
+    POLAR_ORGANIZATION_ID: Optional[str] = os.getenv('POLAR_ORGANIZATION_ID')
+    
+    # Application URLs for Polar
+    APP_BASE_URL: str = os.getenv('APP_BASE_URL', 'http://localhost:3000')
+    FRONTEND_SUCCESS_URL: str = os.getenv('FRONTEND_SUCCESS_URL', 'http://localhost:3000/subscription/success')
+    FRONTEND_CANCEL_URL: str = os.getenv('FRONTEND_CANCEL_URL', 'http://localhost:3000/subscription/cancel')
+    
     # Slack Integration
     SLACK_CLIENT_ID: Optional[str] = os.getenv('SLACK_CLIENT_ID')
     SLACK_CLIENT_SECRET: Optional[str] = os.getenv('SLACK_CLIENT_SECRET')

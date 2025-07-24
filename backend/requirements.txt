@@ -28,3 +28,4 @@ slack-sdk
 slack-bolt
 reportlab
 markdown
+polar-sdk

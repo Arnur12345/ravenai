@@ -22,6 +22,18 @@ class User(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     
+    # Subscription-related fields
+    polar_customer_id = Column(String, unique=True, nullable=True)
+    subscription_status = Column(String, default='free')  # free, active, inactive, canceled
+    subscription_tier = Column(String, default='free')  # free, pro, enterprise
+    current_subscription_id = Column(String, nullable=True)
+    subscription_ends_at = Column(DateTime(timezone=True), nullable=True)
+    
+    # Usage tracking for limits
+    monthly_transcription_minutes = Column(Integer, default=0)
+    monthly_meetings_count = Column(Integer, default=0)
+    usage_reset_date = Column(DateTime(timezone=True), nullable=True)
+    
     # Relationship with password reset tokens
     password_resets = relationship("PasswordReset", back_populates="user", cascade="all, delete-orphan")
     
@@ -34,8 +46,33 @@ class User(Base):
     # Relationship with Google Calendar integration
     google_calendar_integration = relationship("GoogleCalendarIntegration", back_populates="user", uselist=False, cascade="all, delete-orphan")
     
+    # Relationship with subscriptions
+    subscriptions = relationship("Subscription", back_populates="user", cascade="all, delete-orphan")
+    
     def __repr__(self):
         return f"<User(id={self.id}, email={self.email})>"
+    
+    def is_pro_user(self) -> bool:
+        """Check if user has active pro subscription"""
+        return self.subscription_status == 'active' and self.subscription_tier in ['pro', 'enterprise']
+    
+    def can_create_meeting(self) -> bool:
+        """Check if user can create a new meeting based on their plan"""
+        if self.subscription_tier == 'free':
+            return self.monthly_meetings_count < 5  # Free tier limit
+        elif self.subscription_tier == 'pro':
+            return self.monthly_meetings_count < 100  # Pro tier limit
+        else:  # enterprise
+            return True  # Unlimited
+    
+    def can_use_transcription_minutes(self, minutes: int) -> bool:
+        """Check if user has enough transcription minutes remaining"""
+        if self.subscription_tier == 'free':
+            return (self.monthly_transcription_minutes + minutes) <= 60  # 1 hour limit
+        elif self.subscription_tier == 'pro':
+            return (self.monthly_transcription_minutes + minutes) <= 1200  # 20 hours limit
+        else:  # enterprise
+            return True  # Unlimited
 
 
 class PasswordReset(Base):
@@ -115,3 +152,66 @@ class GoogleCalendarIntegration(Base):
     
     def __repr__(self):
         return f"<GoogleCalendarIntegration(id={self.id}, user_id={self.user_id})>"
+
+
+class Subscription(Base):
+    """Subscription model for tracking user subscriptions"""
+    __tablename__ = "subscriptions"
+    
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = Column(String, ForeignKey("users.id"), nullable=False)
+    
+    # Polar subscription details
+    polar_subscription_id = Column(String, unique=True, nullable=False)
+    polar_customer_id = Column(String, nullable=False)
+    
+    # Subscription details
+    status = Column(String, nullable=False)  # active, inactive, canceled, past_due
+    tier = Column(String, nullable=False)  # pro, enterprise
+    product_id = Column(String, nullable=False)
+    price_id = Column(String, nullable=False)
+    
+    # Billing information
+    current_period_start = Column(DateTime(timezone=True), nullable=True)
+    current_period_end = Column(DateTime(timezone=True), nullable=True)
+    cancel_at_period_end = Column(Boolean, default=False)
+    canceled_at = Column(DateTime(timezone=True), nullable=True)
+    
+    # Metadata
+    metadata = Column(Text, nullable=True)  # JSON format for additional data
+    
+    # Timestamps
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    user = relationship("User", back_populates="subscriptions")
+    
+    def __repr__(self):
+        return f"<Subscription(id={self.id}, user_id={self.user_id}, status={self.status})>"
+
+
+class WebhookEvent(Base):
+    """Webhook event model for tracking Polar webhook events"""
+    __tablename__ = "webhook_events"
+    
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    
+    # Event details
+    polar_event_id = Column(String, unique=True, nullable=False)
+    event_type = Column(String, nullable=False)
+    processed = Column(Boolean, default=False)
+    processing_attempts = Column(Integer, default=0)
+    
+    # Event payload
+    payload = Column(Text, nullable=False)  # JSON format
+    
+    # Error tracking
+    last_error = Column(Text, nullable=True)
+    
+    # Timestamps
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    processed_at = Column(DateTime(timezone=True), nullable=True)
+    
+    def __repr__(self):
+        return f"<WebhookEvent(id={self.id}, event_type={self.event_type}, processed={self.processed})>"

@@ -13,9 +13,10 @@ from dashboard.api import dashboard_router
 from slack.api import slack_router
 from google_calendar.api import router as calendar_router
 from user.api import user_router
+from subscription.api import router as subscription_router
 
 # Import models to register them with SQLAlchemy
-from auth.models import User, PasswordReset, SlackIntegration, GoogleCalendarIntegration
+from auth.models import User, PasswordReset, SlackIntegration, GoogleCalendarIntegration, Subscription, WebhookEvent
 from dashboard.models import Meeting, Transcript
 
 
@@ -87,6 +88,9 @@ app.include_router(calendar_router, tags=["Calendar"])
 
 # Include user management routes
 app.include_router(user_router, tags=["User Management"])
+
+# Include subscription routes
+app.include_router(subscription_router, prefix="/api/subscription", tags=["Subscription"])
 
 
 # Global exception handler
