@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Sidebar, SidebarProvider, useSidebar } from './Sidebar';
 import { Header } from './Header';
+import { MobileNavigation } from './MobileNavigation';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -28,28 +29,40 @@ const DashboardContent: React.FC<DashboardLayoutProps> = ({ children }) => {
         }}
       />
       
-      {/* Sidebar */}
-      <Sidebar />
+      {/* Mobile Navigation - shown on mobile and tablet */}
+      <div className="lg:hidden">
+        <MobileNavigation />
+      </div>
+      
+      {/* Desktop Sidebar - hidden on mobile and tablet */}
+      <div className="hidden lg:block">
+        <Sidebar />
+      </div>
       
       {/* Main Content Area */}
       <motion.div 
         className="relative flex flex-col min-h-screen"
         animate={{ 
-          paddingLeft: isCollapsed ? 120 : 384 
+          paddingLeft: window.innerWidth >= 1024 ? (isCollapsed ? 120 : 384) : 0
         }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        style={{ paddingLeft: isCollapsed ? 120 : 384 }}
+        style={{ 
+          paddingLeft: window.innerWidth >= 1024 ? (isCollapsed ? 120 : 384) : 0,
+          paddingTop: window.innerWidth < 1024 ? '70px' : '0px'
+        }}
       >
-        {/* Header */}
-        <Header />
+        {/* Desktop Header - hidden on mobile */}
+        <div className="hidden lg:block">
+          <Header />
+        </div>
         
         {/* Page Content */}
-        <main className="px-4 py-4 flex-1">
+        <main className="px-2 sm:px-4 py-1 sm:py-2 flex-1">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
-            className="h-full rounded-2xl p-6"
+            className="h-full rounded-xl sm:rounded-2xl p-3 sm:p-6"
             style={{
               backgroundColor: '#ffffff',
               boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.02)'
@@ -69,4 +82,4 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
       <DashboardContent>{children}</DashboardContent>
     </SidebarProvider>
   );
-}; 
+};

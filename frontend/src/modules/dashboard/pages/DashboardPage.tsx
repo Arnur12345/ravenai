@@ -163,23 +163,23 @@ export const DashboardPage: React.FC = () => {
 
   return (
     <DashboardLayout>
-      <div className="p-6 space-y-6" style={{ fontFamily: 'Gilroy, Inter, sans-serif' }}>
+      <div className="p-3 sm:p-6 space-y-4 sm:space-y-6" style={{ fontFamily: 'Gilroy, Inter, sans-serif' }}>
         {/* Page Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex items-center justify-between"
+          className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0"
         >
-          <div>
+          <div className="flex-1">
             <h1 
-              className="text-3xl font-bold"
+              className="text-2xl sm:text-3xl font-bold"
               style={{ color: 'var(--dashboard-very-light-blue)' }}
             >
               {t('dashboard.welcome')}
             </h1>
             <p 
-              className="mt-1"
+              className="mt-1 text-sm sm:text-base"
               style={{ color: 'var(--dashboard-light-blue)' }}
             >
               Here's what's happening with your meetings today.
@@ -187,7 +187,7 @@ export const DashboardPage: React.FC = () => {
           </div>
           <Button 
             onClick={() => setIsNewMeetingModalOpen(true)}
-            className="flex items-center rounded-xl px-6 py-3 font-medium shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 border border-gray-200"
+            className="flex items-center rounded-xl px-4 sm:px-6 py-2.5 sm:py-3 font-medium shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 border border-gray-200 w-full sm:w-auto justify-center"
             style={{
               background: 'linear-gradient(to bottom, #3B3B3B, #636363)',
               color: 'white',
@@ -195,7 +195,7 @@ export const DashboardPage: React.FC = () => {
             }}
           >
             <Plus className="h-4 w-4 mr-2" />
-            {t('dashboard.new_meeting')}
+            <span className="text-sm sm:text-base">{t('dashboard.new_meeting')}</span>
           </Button>
         </motion.div>
 
@@ -204,29 +204,29 @@ export const DashboardPage: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
         >
           {isLoading ? (
             // Loading skeletons
             Array.from({ length: 3 }).map((_, index) => (
               <div 
                 key={index} 
-                className="rounded-2xl border border-gray-200 p-6 backdrop-blur-sm"
+                className="rounded-xl sm:rounded-2xl border border-gray-200 p-4 sm:p-6 backdrop-blur-sm"
                 style={{
                   backgroundColor: 'var(--dashboard-black)'
                 }}
               >
                 <div className="animate-pulse">
                   <div 
-                    className="h-4 rounded mb-2"
+                    className="h-3 sm:h-4 rounded mb-2"
                     style={{ backgroundColor: 'var(--dashboard-light-blue)30' }}
                   ></div>
                   <div 
-                    className="h-8 rounded mb-2"
+                    className="h-6 sm:h-8 rounded mb-2"
                     style={{ backgroundColor: 'var(--dashboard-light-blue)30' }}
                   ></div>
                   <div 
-                    className="h-4 rounded w-1/2"
+                    className="h-3 sm:h-4 rounded w-1/2"
                     style={{ backgroundColor: 'var(--dashboard-light-blue)30' }}
                   ></div>
                 </div>
@@ -247,9 +247,9 @@ export const DashboardPage: React.FC = () => {
         </motion.div>
 
         {/* Main Content Grid */}
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
           {/* Left Column - Charts and Meetings */}
-          <div className="xl:col-span-2 space-y-6">
+          <div className="xl:col-span-2 space-y-4 sm:space-y-6">
             {/* Meeting Activity Chart */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -264,14 +264,14 @@ export const DashboardPage: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="rounded-2xl border border-gray-200 p-6 backdrop-blur-sm"
+              className="rounded-xl sm:rounded-2xl border border-gray-200 p-4 sm:p-6 backdrop-blur-sm"
               style={{
                 backgroundColor: 'var(--dashboard-black)'
               }}
             >
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 space-y-2 sm:space-y-0">
                 <h3 
-                  className="text-xl font-bold"
+                  className="text-lg sm:text-xl font-bold"
                   style={{ color: 'var(--dashboard-very-light-blue)' }}
                 >
                   {t('dashboard.recent_meetings')}
@@ -279,73 +279,74 @@ export const DashboardPage: React.FC = () => {
                 <Button 
                   variant="ghost" 
                   size="sm" 
-                  className="text-sm font-medium"
+                  className="text-xs sm:text-sm font-medium"
                   style={{ color: 'var(--dashboard-bright-blue)' }}
                 >
                   View all
                 </Button>
               </div>
               
-              <div className="space-y-3">
+              <div className="space-y-2 sm:space-y-3">
                 {recentMeetings.length > 0 ? recentMeetings.map((meeting, index) => (
                   <motion.div
-                    key={meeting.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: 0.6 + index * 0.1 }}
-                    className="flex items-center justify-between p-4 rounded-xl border border-gray-200 transition-all duration-200 group cursor-pointer hover:border-gray-300"
-                    style={{
-                      backgroundColor: 'var(--dashboard-very-light-blue)10'
-                    }}
-                  >
-                    <div className="flex items-center space-x-4">
-                      <div 
-                        className="h-10 w-10 rounded-xl flex items-center justify-center"
-                        style={{
-                          background: `linear-gradient(135deg, var(--dashboard-bright-blue), var(--dashboard-light-blue))`
-                        }}
-                      >
-                        <Calendar 
-                          className="h-5 w-5" 
-                          style={{ color: 'var(--dashboard-black)' }}
-                        />
-                      </div>
-                      <div>
-                        <h4 
-                          className="font-medium group-hover:opacity-80 transition-opacity duration-200"
-                          style={{ color: 'var(--dashboard-very-light-blue)' }}
-                        >
-                          {meeting.meeting_platform} Meeting
-                        </h4>
-                        <p 
-                          className="text-sm"
-                          style={{ color: 'var(--dashboard-light-blue)' }}
-                        >
-                          {new Date(meeting.created_at).toLocaleDateString()} • {meeting.status}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      {meeting.summary && (
-                        <span 
-                          className="text-xs px-2 py-1 rounded-full border border-gray-200"
+                      key={meeting.id}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: 0.6 + index * 0.1 }}
+                      className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3 sm:p-4 rounded-xl border border-gray-200 transition-all duration-200 group cursor-pointer hover:border-gray-300 space-y-3 sm:space-y-0"
+                      style={{
+                        backgroundColor: 'var(--dashboard-very-light-blue)10'
+                      }}
+                    >
+                      <div className="flex items-center space-x-3 sm:space-x-4 w-full sm:w-auto">
+                        <div 
+                          className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl flex items-center justify-center flex-shrink-0"
                           style={{
-                            backgroundColor: 'var(--dashboard-bright-blue)20',
-                            color: 'var(--dashboard-bright-blue)'
+                            background: `linear-gradient(135deg, var(--dashboard-bright-blue), var(--dashboard-light-blue))`
                           }}
                         >
-                          Summary ready
-                        </span>
-                      )}
-                      <Button 
-                        variant="ghost" 
-                        size="sm"
-                        style={{ color: 'var(--dashboard-light-blue)' }}
-                      >
-                        <MoreHorizontal className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </motion.div>
+                          <Calendar 
+                            className="h-4 w-4 sm:h-5 sm:w-5" 
+                            style={{ color: 'var(--dashboard-black)' }}
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h4 
+                            className="font-medium group-hover:opacity-80 transition-opacity duration-200 text-sm sm:text-base truncate"
+                            style={{ color: 'var(--dashboard-very-light-blue)' }}
+                          >
+                            {meeting.meeting_platform} Meeting
+                          </h4>
+                          <p 
+                            className="text-xs sm:text-sm"
+                            style={{ color: 'var(--dashboard-light-blue)' }}
+                          >
+                            {new Date(meeting.created_at).toLocaleDateString()} • {meeting.status}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between w-full sm:w-auto sm:space-x-2">
+                        {meeting.summary && (
+                          <span 
+                            className="text-xs px-2 py-1 rounded-full border border-gray-200 flex-shrink-0"
+                            style={{
+                              backgroundColor: 'var(--dashboard-bright-blue)20',
+                              color: 'var(--dashboard-bright-blue)'
+                            }}
+                          >
+                            Summary ready
+                          </span>
+                        )}
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          style={{ color: 'var(--dashboard-light-blue)' }}
+                          className="ml-auto sm:ml-0"
+                        >
+                          <MoreHorizontal className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </motion.div>
                 )) : (
                   <div className="text-center py-8">
                     <Calendar 
@@ -366,7 +367,7 @@ export const DashboardPage: React.FC = () => {
           </div>
 
           {/* Right Column - Upcoming Events and Tasks Panel */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Upcoming Events Card */}
             <UpcomingEventsCard />
 
@@ -374,14 +375,14 @@ export const DashboardPage: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.6 }}
-              className="rounded-2xl border border-gray-200 p-6 backdrop-blur-sm"
+              className="rounded-xl sm:rounded-2xl border border-gray-200 p-4 sm:p-6 backdrop-blur-sm"
               style={{
                 backgroundColor: 'var(--dashboard-black)'
               }}
             >
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 space-y-2 sm:space-y-0">
                 <h3 
-                  className="text-xl font-bold"
+                  className="text-lg sm:text-xl font-bold"
                   style={{ color: 'var(--dashboard-very-light-blue)' }}
                 >
                   {t('dashboard.tasks')}
@@ -519,4 +520,4 @@ export const DashboardPage: React.FC = () => {
       />
     </DashboardLayout>
   );
-}; 
+};

@@ -39,7 +39,12 @@ export const SettingsPage: React.FC = () => {
 
   // Form states
   const [profileForm, setProfileForm] = useState<UserProfileUpdate>({});
-  const [preferencesForm, setPreferencesForm] = useState<UserPreferencesUpdate>({});
+  const [preferencesForm, setPreferencesForm] = useState<UserPreferencesUpdate>({
+    notifications_email: true,
+    notifications_push: true,
+    notifications_slack: false,
+    notifications_summary: true
+  });
   const [passwordForm, setPasswordForm] = useState<ChangePasswordRequest>({
     current_password: '',
     new_password: '',
@@ -85,7 +90,16 @@ export const SettingsPage: React.FC = () => {
         notifications_email: preferences.notifications_email,
         notifications_push: preferences.notifications_push,
         notifications_slack: preferences.notifications_slack,
-        notifications_summary: preferences.notifications_summary
+        notifications_summary: preferences.notifications_summary,
+        city: preferences.city || '',
+        date_format: preferences.date_format || 'DD/MM/YYYY',
+        time_format: preferences.time_format || '24h',
+        daily_time_utilization: preferences.daily_time_utilization || 8,
+        core_work_start: preferences.core_work_start || 9,
+        core_work_end: preferences.core_work_end || 17,
+        function: preferences.function || '',
+        job_title: preferences.job_title || '',
+        responsibilities: preferences.responsibilities || ''
       });
 
     } catch (err) {
@@ -189,7 +203,7 @@ export const SettingsPage: React.FC = () => {
   return (
     <DashboardLayout>
       <div className="min-h-screen bg-gray-50">
-        <div className="max-w-6xl mx-auto p-6">
+        <div className="max-w-6xl mx-auto p-3 sm:p-6">
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-2xl font-semibold text-gray-900 mb-2">{t('settings.title')}</h1>
@@ -220,13 +234,13 @@ export const SettingsPage: React.FC = () => {
           )}
 
           {/* Tabs */}
-          <div className="mb-8 border-b border-gray-200">
-            <nav className="-mb-px flex space-x-8">
+          <div className="mb-6 sm:mb-8 border-b border-gray-200">
+            <nav className="-mb-px flex space-x-2 sm:space-x-8 overflow-x-auto scrollbar-hide">
               {tabs.map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`py-2 px-1 border-b-2 font-medium text-sm transition-colors ${
+                  className={`py-2 px-2 sm:px-1 border-b-2 font-medium text-xs sm:text-sm transition-colors whitespace-nowrap flex-shrink-0 ${
                     activeTab === tab
                       ? 'border-black text-black'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -239,7 +253,7 @@ export const SettingsPage: React.FC = () => {
           </div>
 
           {/* Account Tab Content */}
-          {activeTab === 'Account' && (
+          {activeTab === t('settings.account') && (
             <div className="space-y-8">
               {/* Profile Section */}
               <div className="bg-white rounded-lg border border-gray-200 p-6">
@@ -261,7 +275,7 @@ export const SettingsPage: React.FC = () => {
               
                   {/* Name and Edit Photo */}
                   <div className="flex-1">
-                    <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                 <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.name')}</label>
                   <input
@@ -310,7 +324,7 @@ export const SettingsPage: React.FC = () => {
                   <p className="text-sm text-gray-600">{t('settings.timezone_preferences_subtitle')}</p>
                 </div>
 
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.city')}</label>
                   <input
@@ -362,7 +376,7 @@ export const SettingsPage: React.FC = () => {
                   <p className="text-sm text-gray-600">{t('settings.motivation_performance_setup_subtitle')}</p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
                   {/* Daily Time Utilization */}
                   <div>
                     <div className="flex justify-between items-center mb-3">
@@ -422,7 +436,7 @@ export const SettingsPage: React.FC = () => {
                   <p className="text-sm text-gray-600">{t('settings.your_work_subtitle')}</p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 mb-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">{t('settings.function')}</label>
                     <input
@@ -478,12 +492,112 @@ export const SettingsPage: React.FC = () => {
             </div>
           )}
 
+          {/* Notifications Tab Content */}
+          {activeTab === t('settings.notifications') && (
+            <div className="space-y-6">
+              <div className="bg-white rounded-lg border border-gray-200 p-6">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">{t('settings.notificationPreferences')}</h3>
+                
+                {/* Email Notifications */}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                    <div>
+                      <h4 className="font-medium text-gray-900">{t('settings.emailNotifications')}</h4>
+                      <p className="text-sm text-gray-600">{t('settings.emailNotificationsDesc')}</p>
+                    </div>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={preferencesForm.notifications_email}
+                        onChange={(e) => setPreferencesForm({ ...preferencesForm, notifications_email: e.target.checked })}
+                        className="sr-only peer"
+                      />
+                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
+                  </div>
+
+                  {/* Push Notifications */}
+                  <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                    <div>
+                      <h4 className="font-medium text-gray-900">{t('settings.pushNotifications')}</h4>
+                      <p className="text-sm text-gray-600">{t('settings.pushNotificationsDesc')}</p>
+                    </div>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={preferencesForm.notifications_push}
+                        onChange={(e) => setPreferencesForm({ ...preferencesForm, notifications_push: e.target.checked })}
+                        className="sr-only peer"
+                      />
+                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
+                  </div>
+
+                  {/* Slack Notifications */}
+                  <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                    <div>
+                      <h4 className="font-medium text-gray-900">{t('settings.slackNotifications')}</h4>
+                      <p className="text-sm text-gray-600">{t('settings.slackNotificationsDesc')}</p>
+                    </div>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={preferencesForm.notifications_slack}
+                        onChange={(e) => setPreferencesForm({ ...preferencesForm, notifications_slack: e.target.checked })}
+                        className="sr-only peer"
+                      />
+                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
+                  </div>
+
+                  {/* Summary Notifications */}
+                  <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                    <div>
+                      <h4 className="font-medium text-gray-900">{t('settings.summaryNotifications')}</h4>
+                      <p className="text-sm text-gray-600">{t('settings.summaryNotificationsDesc')}</p>
+                    </div>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={preferencesForm.notifications_summary}
+                        onChange={(e) => setPreferencesForm({ ...preferencesForm, notifications_summary: e.target.checked })}
+                        className="sr-only peer"
+                      />
+                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
+                  </div>
+                </div>
+
+                {/* Save Button */}
+                <div className="flex justify-end mt-6">
+                  <Button
+                    onClick={handlePreferencesSave}
+                    disabled={isSaving}
+                    className="bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-md font-medium transition-colors disabled:opacity-50"
+                  >
+                    {isSaving ? (
+                      <>
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                        {t('settings.saving')}...
+                      </>
+                    ) : (
+                      <>
+                        <Save className="h-4 w-4 mr-2" />
+                        {t('settings.save_changes')}
+                      </>
+                    )}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Other Tab Placeholders */}
-          {activeTab !== 'Account' && (
+          {activeTab !== t('settings.account') && activeTab !== t('settings.notifications') && (
             <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
               <h2 className="text-xl font-medium text-gray-900 mb-2">{activeTab}</h2>
               <p className="text-gray-600">{t('settings.coming_soon')}</p>
-          </div>
+            </div>
           )}
         </div>
 
@@ -513,4 +627,4 @@ export const SettingsPage: React.FC = () => {
       </div>
     </DashboardLayout>
   );
-}; 
+};

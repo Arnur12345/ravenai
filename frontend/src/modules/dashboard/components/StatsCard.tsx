@@ -41,8 +41,8 @@ export const StatsCard: React.FC<StatsCardProps> = ({
         transition: { duration: 0.2 }
       }}
       className={`
-        group relative backdrop-blur-sm rounded-2xl border border-gray-200 hover:border-gray-300
-        p-6 overflow-hidden cursor-pointer transition-all duration-300
+        group relative backdrop-blur-sm rounded-xl sm:rounded-2xl border border-gray-200 hover:border-gray-300
+        p-4 sm:p-6 overflow-hidden cursor-pointer transition-all duration-300
         ${onClick ? 'cursor-pointer' : 'cursor-default'}
       `}
       style={{
@@ -75,7 +75,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: index * 0.1 + 0.2, duration: 0.3 }}
-              className="inline-flex h-12 w-12 items-center justify-center rounded-xl mb-4 group-hover:scale-110 transition-transform duration-300 border border-gray-200"
+              className="inline-flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg sm:rounded-xl mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300 border border-gray-200"
               style={{
                 backgroundColor: 'var(--dashboard-bright-blue)20'
               }}
@@ -83,7 +83,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
               <div
                 style={{ color: 'var(--dashboard-bright-blue)' }}
               >
-                <Icon className="h-6 w-6" />
+                <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
               </div>
             </motion.div>
             
@@ -91,7 +91,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 + 0.3, duration: 0.3 }}
-              className="text-sm font-medium mb-1 group-hover:opacity-80 transition-opacity duration-300"
+              className="text-xs sm:text-sm font-medium mb-1 group-hover:opacity-80 transition-opacity duration-300"
               style={{ color: 'var(--dashboard-light-blue)' }}
             >
               {name}
@@ -101,7 +101,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 + 0.4, duration: 0.3 }}
-              className="text-3xl font-bold mb-2 group-hover:opacity-90 transition-opacity duration-300"
+              className="text-2xl sm:text-3xl font-bold mb-2 group-hover:opacity-90 transition-opacity duration-300"
               style={{ color: 'var(--dashboard-very-light-blue)' }}
             >
               {value}
@@ -133,10 +133,10 @@ export const StatsCard: React.FC<StatsCardProps> = ({
               ) : (
                 <TrendingDown className="h-3 w-3" />
               )}
-              <span>{Math.abs(trend.value)}%</span>
+              <span className="text-xs">{Math.abs(trend.value)}%</span>
             </div>
             <span 
-              className="text-xs"
+              className="text-xs hidden sm:inline"
               style={{ color: 'var(--dashboard-light-blue)' }}
             >
               {trend.label}
@@ -155,11 +155,11 @@ export const StatsCard: React.FC<StatsCardProps> = ({
       
       {/* Hover glow effect */}
       <div 
-        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none"
+        className="absolute inset-0 rounded-xl sm:rounded-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none"
         style={{
           background: `linear-gradient(135deg, var(--dashboard-bright-blue), var(--dashboard-light-blue))`
         }}
       />
     </motion.div>
   );
-}; 
+};

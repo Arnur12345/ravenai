@@ -103,15 +103,15 @@ export const UpcomingEventsCard: React.FC = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.4 }}
-      className="rounded-2xl border border-gray-200 p-6 backdrop-blur-sm"
+      className="rounded-xl sm:rounded-2xl border border-gray-200 p-4 sm:p-6 backdrop-blur-sm"
       style={{
         backgroundColor: 'var(--dashboard-black)',
         fontFamily: 'Gilroy, Inter, sans-serif'
       }}
     >
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 space-y-2 sm:space-y-0">
         <h3 
-          className="text-xl font-bold"
+          className="text-lg sm:text-xl font-bold"
           style={{ color: 'var(--dashboard-very-light-blue)' }}
         >
           {t('events.upcoming')}
@@ -119,7 +119,7 @@ export const UpcomingEventsCard: React.FC = () => {
         <Button 
           variant="ghost" 
           size="sm" 
-          className="text-sm font-medium"
+          className="text-xs sm:text-sm font-medium"
           style={{ color: 'var(--dashboard-bright-blue)' }}
           onClick={fetchUpcomingEvents}
         >
@@ -127,22 +127,22 @@ export const UpcomingEventsCard: React.FC = () => {
         </Button>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         {isLoading ? (
-          <div className="text-center py-8">
+          <div className="text-center py-6 sm:py-8">
             <div 
-              className="w-6 h-6 border-2 border-t-transparent rounded-full animate-spin mx-auto mb-4"
+              className="w-5 h-5 sm:w-6 sm:h-6 border-2 border-t-transparent rounded-full animate-spin mx-auto mb-3 sm:mb-4"
               style={{ borderColor: 'var(--dashboard-bright-blue)' }}
             />
-            <p style={{ color: 'var(--dashboard-light-blue)' }}>{t('events.loading')}</p>
+            <p className="text-sm" style={{ color: 'var(--dashboard-light-blue)' }}>{t('events.loading')}</p>
           </div>
         ) : error ? (
-          <div className="text-center py-8">
+          <div className="text-center py-6 sm:py-8">
             <Calendar 
-              className="h-12 w-12 mx-auto mb-4" 
+              className="h-10 w-10 sm:h-12 sm:w-12 mx-auto mb-3 sm:mb-4" 
               style={{ color: 'var(--dashboard-light-blue)50' }}
             />
-            <p style={{ color: 'var(--dashboard-light-blue)' }}>{t('events.failed_load')}</p>
+            <p className="text-sm" style={{ color: 'var(--dashboard-light-blue)' }}>{t('events.failed_load')}</p>
             <Button 
               onClick={fetchUpcomingEvents} 
               size="sm"
@@ -156,14 +156,14 @@ export const UpcomingEventsCard: React.FC = () => {
             </Button>
           </div>
         ) : events.length === 0 ? (
-          <div className="text-center py-8">
+          <div className="text-center py-6 sm:py-8">
             <Calendar 
-              className="h-12 w-12 mx-auto mb-4" 
+              className="h-10 w-10 sm:h-12 sm:w-12 mx-auto mb-3 sm:mb-4" 
               style={{ color: 'var(--dashboard-light-blue)50' }}
             />
-            <p style={{ color: 'var(--dashboard-light-blue)' }}>{t('events.no_upcoming')}</p>
+            <p className="text-sm" style={{ color: 'var(--dashboard-light-blue)' }}>{t('events.no_upcoming')}</p>
             <p 
-              className="text-sm mt-1"
+              className="text-xs sm:text-sm mt-1"
               style={{ color: 'var(--dashboard-light-blue)70' }}
             >
               {t('events.will_appear_here')}
@@ -176,33 +176,33 @@ export const UpcomingEventsCard: React.FC = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
-              className="flex items-center justify-between p-4 rounded-xl border border-gray-200 transition-all duration-200 group cursor-pointer hover:border-gray-300"
+              className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3 sm:p-4 rounded-xl border border-gray-200 transition-all duration-200 group cursor-pointer hover:border-gray-300 space-y-3 sm:space-y-0"
               style={{
                 backgroundColor: 'var(--dashboard-very-light-blue)10'
               }}
             >
-              <div className="flex items-center space-x-4 flex-1 min-w-0">
+              <div className="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0 w-full sm:w-auto">
                 <div 
-                  className="h-10 w-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                  className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0"
                   style={{
                     background: `linear-gradient(135deg, var(--dashboard-bright-blue), var(--dashboard-light-blue))`
                   }}
                 >
                   <Video 
-                    className="h-5 w-5" 
+                    className="h-4 w-4 sm:h-5 sm:w-5" 
                     style={{ color: 'var(--dashboard-black)' }}
                   />
                 </div>
                 
                 <div className="flex-1 min-w-0">
                   <h4 
-                    className="font-medium group-hover:opacity-80 transition-opacity duration-200 truncate"
+                    className="font-medium group-hover:opacity-80 transition-opacity duration-200 truncate text-sm sm:text-base"
                     style={{ color: 'var(--dashboard-very-light-blue)' }}
                     title={event.title}
                   >
                     {event.title}
                   </h4>
-                  <div className="flex items-center space-x-3 mt-1">
+                  <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-3 mt-1">
                     <div className="flex items-center space-x-1">
                       <Clock className="h-3 w-3" style={{ color: 'var(--dashboard-light-blue)' }} />
                       <span 
@@ -217,10 +217,10 @@ export const UpcomingEventsCard: React.FC = () => {
                       <div className="flex items-center space-x-1">
                         <Users className="h-3 w-3" style={{ color: 'var(--dashboard-light-blue)' }} />
                         <div className="flex -space-x-1">
-                          {event.attendees.slice(0, 3).map((attendee, idx) => (
+                          {event.attendees.slice(0, 2).map((attendee, idx) => (
                             <div
                               key={idx}
-                              className="h-5 w-5 rounded-full flex items-center justify-center text-xs font-medium border border-gray-300 cursor-pointer hover:z-10 relative"
+                              className="h-4 w-4 sm:h-5 sm:w-5 rounded-full flex items-center justify-center text-xs font-medium border border-gray-300 cursor-pointer hover:z-10 relative"
                               style={{
                                 backgroundColor: 'var(--dashboard-bright-blue)',
                                 color: 'var(--dashboard-black)'
@@ -230,16 +230,16 @@ export const UpcomingEventsCard: React.FC = () => {
                               {getAttendeeInitials(attendee)}
                             </div>
                           ))}
-                          {event.attendees.length > 3 && (
+                          {event.attendees.length > 2 && (
                             <div
-                              className="h-5 w-5 rounded-full flex items-center justify-center text-xs font-medium border border-gray-300"
+                              className="h-4 w-4 sm:h-5 sm:w-5 rounded-full flex items-center justify-center text-xs font-medium border border-gray-300"
                               style={{
                                 backgroundColor: 'var(--dashboard-light-blue)30',
                                 color: 'var(--dashboard-very-light-blue)'
                               }}
-                              title={`+${event.attendees.length - 3} more`}
+                              title={`+${event.attendees.length - 2} more`}
                             >
-                              +{event.attendees.length - 3}
+                              +{event.attendees.length - 2}
                             </div>
                           )}
                         </div>
@@ -249,7 +249,7 @@ export const UpcomingEventsCard: React.FC = () => {
                 </div>
               </div>
               
-              <div className="flex items-center space-x-2 flex-shrink-0">
+              <div className="flex items-center justify-between w-full sm:w-auto sm:justify-start space-x-2 flex-shrink-0">
                 {event.meeting_url ? (
                   <Button
                     variant="ghost"
@@ -258,14 +258,14 @@ export const UpcomingEventsCard: React.FC = () => {
                       e.stopPropagation();
                       window.open(event.meeting_url, '_blank');
                     }}
-                    className="h-8 w-8 p-0"
+                    className="h-7 w-7 sm:h-8 sm:w-8 p-0 ml-auto sm:ml-0"
                     style={{ color: 'var(--dashboard-bright-blue)' }}
                     title={t('events.join_meeting')}
                   >
-                    <ExternalLink className="h-4 w-4" />
+                    <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4" />
                   </Button>
                 ) : (
-                  <span className="text-xs" style={{ color: 'var(--dashboard-light-blue)' }}>{t('events.no_link')}</span>
+                  <span className="text-xs ml-auto sm:ml-0" style={{ color: 'var(--dashboard-light-blue)' }}>{t('events.no_link')}</span>
                 )}
               </div>
             </motion.div>
@@ -274,4 +274,4 @@ export const UpcomingEventsCard: React.FC = () => {
       </div>
     </motion.div>
   );
-}; 
+};

@@ -236,6 +236,7 @@ const translations = {
     'calendar.join_meeting': 'Присоединиться к встрече',
     'calendar.attendees': '{count} участников',
     'calendar.attendee': '{count} участник',
+    'calendar.status': 'Статус календаря',
     
     // Meeting Status
     'meeting.status.created': 'создано',
@@ -289,6 +290,15 @@ const translations = {
     'settings.saving': 'Сохранение',
     'settings.save_changes': 'Сохранить изменения',
     'settings.coming_soon': 'Настройки для этого раздела скоро будут доступны.',
+    'settings.notificationPreferences': 'Настройки уведомлений',
+    'settings.emailNotifications': 'Email уведомления',
+    'settings.emailNotificationsDesc': 'Получайте уведомления о важных событиях на email',
+    'settings.pushNotifications': 'Push уведомления',
+    'settings.pushNotificationsDesc': 'Получайте мгновенные уведомления в браузере',
+    'settings.slackNotifications': 'Slack уведомления',
+    'settings.slackNotificationsDesc': 'Получайте уведомления в Slack каналах',
+    'settings.summaryNotifications': 'Уведомления о сводках',
+    'settings.summaryNotificationsDesc': 'Получайте уведомления о готовых сводках встреч',
     'settings.new_settings_field': 'Новое поле настроек',
     'settings.new_section': 'Новая секция',
     'settings.save': 'Сохранить',
@@ -583,6 +593,7 @@ const translations = {
     'calendar.join_meeting': 'Join meeting',
     'calendar.attendees': '{count} attendees',
     'calendar.attendee': '{count} attendee',
+    'calendar.status': 'Calendar Status',
     
     // Meeting Status
     'meeting.status.created': 'created',
@@ -636,6 +647,15 @@ const translations = {
     'settings.saving': 'Saving',
     'settings.save_changes': 'Save Changes',
     'settings.coming_soon': 'Settings for this section will be available soon.',
+    'settings.notificationPreferences': 'Notification Preferences',
+    'settings.emailNotifications': 'Email Notifications',
+    'settings.emailNotificationsDesc': 'Receive notifications about important events via email',
+    'settings.pushNotifications': 'Push Notifications',
+    'settings.pushNotificationsDesc': 'Receive instant notifications in your browser',
+    'settings.slackNotifications': 'Slack Notifications',
+    'settings.slackNotificationsDesc': 'Receive notifications in Slack channels',
+    'settings.summaryNotifications': 'Summary Notifications',
+    'settings.summaryNotificationsDesc': 'Receive notifications when meeting summaries are ready',
     'settings.new_settings_field': 'New settings field',
     'settings.new_section': 'New section',
     'settings.save': 'Save',
@@ -727,4 +747,4 @@ export const useLanguage = (): LanguageContextType => {
     throw new Error('useLanguage must be used within a LanguageProvider');
   }
   return context;
-}; 
+};

@@ -48,24 +48,24 @@ export const MeetingChart: React.FC<MeetingChartProps> = ({ data, isLoading = fa
   if (isLoading) {
     return (
       <Card 
-        className="rounded-2xl border border-gray-200 backdrop-blur-sm"
+        className="rounded-xl sm:rounded-2xl border border-gray-200 backdrop-blur-sm"
         style={{
           backgroundColor: 'var(--dashboard-black)',
           fontFamily: 'Gilroy, Inter, sans-serif'
         }}
       >
-        <CardHeader>
-          <CardTitle style={{ color: 'var(--dashboard-very-light-blue)' }}>
+        <CardHeader className="p-4 sm:p-6">
+          <CardTitle className="text-lg sm:text-xl" style={{ color: 'var(--dashboard-very-light-blue)' }}>
             {t('chart.meeting_activity')}
           </CardTitle>
-          <CardDescription style={{ color: 'var(--dashboard-light-blue)' }}>
+          <CardDescription className="text-sm" style={{ color: 'var(--dashboard-light-blue)' }}>
             {t('dashboard.loading')}
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="h-[200px] flex items-center justify-center">
+        <CardContent className="p-4 sm:p-6">
+          <div className="h-[150px] sm:h-[200px] flex items-center justify-center">
             <div 
-              className="animate-spin rounded-full h-8 w-8 border-b-2"
+              className="animate-spin rounded-full h-6 w-6 sm:h-8 sm:w-8 border-b-2"
               style={{ borderColor: 'var(--dashboard-bright-blue)' }}
             ></div>
           </div>
@@ -76,28 +76,28 @@ export const MeetingChart: React.FC<MeetingChartProps> = ({ data, isLoading = fa
 
   return (
     <Card 
-      className="rounded-2xl border border-gray-200 backdrop-blur-sm"
+      className="rounded-xl sm:rounded-2xl border border-gray-200 backdrop-blur-sm"
       style={{
         backgroundColor: 'var(--dashboard-black)',
         fontFamily: 'Gilroy, Inter, sans-serif'
       }}
     >
-      <CardHeader>
-        <CardTitle style={{ color: 'var(--dashboard-very-light-blue)' }}>
+      <CardHeader className="p-4 sm:p-6">
+        <CardTitle className="text-lg sm:text-xl" style={{ color: 'var(--dashboard-very-light-blue)' }}>
           {t('chart.meeting_activity')}
         </CardTitle>
-        <CardDescription style={{ color: 'var(--dashboard-light-blue)' }}>
+        <CardDescription className="text-sm" style={{ color: 'var(--dashboard-light-blue)' }}>
           Total activity for the last {data.length} days
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <div className="h-[300px] w-full">
+      <CardContent className="p-4 sm:p-6">
+        <div className="h-[200px] sm:h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart
               data={chartData}
               margin={{
                 top: 10,
-                right: 30,
+                right: 10,
                 left: 0,
                 bottom: 0,
               }}
@@ -120,9 +120,10 @@ export const MeetingChart: React.FC<MeetingChartProps> = ({ data, isLoading = fa
                 axisLine={false}
                 tick={{ 
                   fill: 'var(--dashboard-light-blue)', 
-                  fontSize: 12,
+                  fontSize: 10,
                   fontFamily: 'Gilroy, Inter, sans-serif'
                 }}
+                className="text-xs sm:text-sm"
               />
               <Tooltip 
                 contentStyle={{
@@ -156,23 +157,25 @@ export const MeetingChart: React.FC<MeetingChartProps> = ({ data, isLoading = fa
           </ResponsiveContainer>
         </div>
       </CardContent>
-      <CardFooter>
-        <div className="flex w-full items-start gap-2 text-sm">
-          <div className="grid gap-2">
+      <CardFooter className="p-4 sm:p-6">
+        <div className="flex w-full items-start gap-2 text-xs sm:text-sm">
+          <div className="grid gap-1 sm:gap-2">
             <div 
-              className="flex items-center gap-2 leading-none font-medium"
+              className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 leading-none font-medium"
               style={{ color: 'var(--dashboard-very-light-blue)' }}
             >
-              {trendPercentage >= 0 ? 'Trending up' : 'Trending down'} by {Math.abs(trendPercentage).toFixed(1)}% this period
+              <span className="text-xs sm:text-sm">
+                {trendPercentage >= 0 ? 'Trending up' : 'Trending down'} by {Math.abs(trendPercentage).toFixed(1)}% this period
+              </span>
               <TrendingUp 
-                className={`h-4 w-4 ${trendPercentage < 0 ? 'rotate-180' : ''}`}
+                className={`h-3 w-3 sm:h-4 sm:w-4 ${trendPercentage < 0 ? 'rotate-180' : ''}`}
                 style={{ 
                   color: trendPercentage >= 0 ? 'var(--dashboard-bright-blue)' : 'var(--dashboard-light-blue)' 
                 }}
               />
             </div>
             <div 
-              className="flex items-center gap-2 leading-none"
+              className="flex items-center gap-2 leading-none text-xs"
               style={{ color: 'var(--dashboard-light-blue)' }}
             >
               {chartData[0]?.fullDate} - {chartData[chartData.length - 1]?.fullDate}
@@ -182,4 +185,4 @@ export const MeetingChart: React.FC<MeetingChartProps> = ({ data, isLoading = fa
       </CardFooter>
     </Card>
   );
-}; 
+};
