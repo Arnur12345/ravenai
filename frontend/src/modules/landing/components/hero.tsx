@@ -6,7 +6,7 @@ import silverLogo from '@/assets/silver.svg';
 const Hero = () => {
   const navigate = useNavigate();
   return (
-    <section className="relative w-full min-h-screen bg-black overflow-hidden pt-16 sm:pt-20 pb-8 flex items-center justify-center px-4 sm:px-6">
+    <section className="relative w-full min-h-screen bg-black overflow-hidden pb-8 flex items-center justify-center px-4 sm:px-6">
       {/* Main Background Container - Contains everything */}
       <div 
         className="relative w-full max-w-[1400px] mx-auto rounded-[14px] sm:rounded-[20px] overflow-hidden"
