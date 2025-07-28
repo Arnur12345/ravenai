@@ -2,10 +2,9 @@ import { useNavigate } from 'react-router-dom';
 import ldbackground from '@/assets/ldbackground.png';
 import lddemo from '@/assets/ravenscreen.png';
 import peerlistLogo from '@/assets/peerlist.svg';
-
+import silverLogo from '@/assets/silver.svg';
 const Hero = () => {
   const navigate = useNavigate();
-
   return (
     <section className="relative w-full min-h-screen bg-black overflow-hidden pt-16 sm:pt-20 pb-8 flex items-center justify-center px-4 sm:px-6">
       {/* Main Background Container - Contains everything */}
@@ -27,11 +26,22 @@ const Hero = () => {
           
           {/* Text Content Section - Upper portion */}
           <div className="w-full flex flex-col items-center text-center space-y-4 sm:space-y-6 pt-8 sm:pt-12">
-            {/* Peerlist Logo */}
-            <div className="mb-2 sm:mb-4">
+            {/* Logos */}
+            <div className="mb-2 sm:mb-4 flex items-center justify-center gap-4 sm:gap-6">
+              <a 
+                href="https://peerlist.io/artykbay/project/ravenaicreate"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img 
+                  src={peerlistLogo}
+                  alt="Peerlist" 
+                  className="h-6 sm:h-8 md:h-10 lg:h-12 opacity-80 hover:opacity-100 transition-opacity duration-300"
+                />
+              </a>
               <img 
-                src={peerlistLogo} 
-                alt="Peerlist" 
+                src={silverLogo} 
+                alt="Silver" 
                 className="h-6 sm:h-8 md:h-10 lg:h-12 opacity-80 hover:opacity-100 transition-opacity duration-300"
               />
             </div>
