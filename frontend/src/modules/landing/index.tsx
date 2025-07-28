@@ -8,7 +8,6 @@ import Hero from './components/hero';
 import Features from './components/features';
 import Integrations from './components/integrations';
 import Reviews from './components/reviews';
-import Pricing from './components/pricing';
 import FAQ from './components/faq';
 import Footer from './components/footer';
 import MobileCTA from './components/mobile-cta';
@@ -55,7 +54,6 @@ const Landing: React.FC = () => {
       <Header />
       <Hero />
       <Features />
-      <Pricing />
       <Integrations />
       <Reviews />
       <FAQ />

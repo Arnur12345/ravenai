@@ -43,6 +43,21 @@ class Settings(BaseSettings):
     SMTP_FROM_EMAIL: str = os.getenv('SMTP_FROM_EMAIL', 'noreply@ravenai.site')
     SMTP_USE_TLS: bool = os.getenv('SMTP_USE_TLS', 'true').lower() == 'true'
     
+    # Polar Integration
+    polar_environment: Optional[str] = os.getenv('POLAR_ENVIRONMENT')
+    polar_access_token: Optional[str] = os.getenv('POLAR_ACCESS_TOKEN')
+    polar_webhook_secret: Optional[str] = os.getenv('POLAR_WEBHOOK_SECRET')
+    polar_organization_id: Optional[str] = os.getenv('POLAR_ORGANIZATION_ID')
+    polar_pro_monthly_price_id: Optional[str] = os.getenv('POLAR_PRO_MONTHLY_PRICE_ID')
+    polar_pro_yearly_price_id: Optional[str] = os.getenv('POLAR_PRO_YEARLY_PRICE_ID')
+    polar_enterprise_monthly_price_id: Optional[str] = os.getenv('POLAR_ENTERPRISE_MONTHLY_PRICE_ID')
+    polar_enterprise_yearly_price_id: Optional[str] = os.getenv('POLAR_ENTERPRISE_YEARLY_PRICE_ID')
+    
+    # App URLs
+    app_base_url: Optional[str] = os.getenv('APP_BASE_URL')
+    frontend_success_url: Optional[str] = os.getenv('FRONTEND_SUCCESS_URL')
+    frontend_cancel_url: Optional[str] = os.getenv('FRONTEND_CANCEL_URL')
+    
     class Config:
         env_file = os.path.join(os.path.dirname(__file__), '..', '..', '.env')
 

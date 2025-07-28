@@ -7,12 +7,15 @@ const Hero = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="relative w-full min-h-screen bg-black overflow-hidden pt-20 pb-8 flex items-center justify-center">
+    <section className="relative w-full min-h-screen bg-black overflow-hidden pt-16 sm:pt-20 pb-8 flex items-center justify-center px-4 sm:px-6">
       {/* Main Background Container - Contains everything */}
       <div 
-        className="relative w-full max-w-[1400px] mx-auto rounded-[14px] overflow-hidden"
+        className="relative w-full max-w-[1400px] mx-auto rounded-[14px] sm:rounded-[20px] overflow-hidden"
         style={{
-          height: '800px',
+          height: 'auto',
+          minHeight: '600px',
+          aspectRatio: '1080 / 1920',
+          maxHeight: '90vh',
           backgroundImage: `url(${ldbackground})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -20,32 +23,32 @@ const Hero = () => {
         }}
       >
         {/* Content Container - All text and elements inside background */}
-        <div className="relative w-full h-full flex flex-col items-center p-8">
+        <div className="relative w-full h-full flex flex-col items-center p-4 sm:p-6 lg:p-8">
           
           {/* Text Content Section - Upper portion */}
-          <div className="w-full flex flex-col items-center text-center space-y-6 pt-12">
+          <div className="w-full flex flex-col items-center text-center space-y-4 sm:space-y-6 pt-8 sm:pt-12">
             {/* Peerlist Logo */}
-            <div className="mb-4">
+            <div className="mb-2 sm:mb-4">
               <img 
                 src={peerlistLogo} 
                 alt="Peerlist" 
-                className="h-8 sm:h-10 md:h-12 opacity-80 hover:opacity-100 transition-opacity duration-300"
+                className="h-6 sm:h-8 md:h-10 lg:h-12 opacity-80 hover:opacity-100 transition-opacity duration-300"
               />
             </div>
             
             {/* Main Heading */}
             <h1 
-              className="text-white text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal leading-[1.2em] tracking-[-0.02em] max-w-full px-4"
+              className="text-white text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-normal leading-[1.2em] tracking-[-0.02em] max-w-full px-2 sm:px-4"
               style={{
                 fontFamily: 'Helvetica, Arial, sans-serif',
               }}
             >
-              Never Type Meeting Notes
+              Never Type <br className="sm:hidden" />Meeting Notes
             </h1>
             
             {/* Subheading */}
             <p 
-              className="text-white text-center text-sm sm:text-base md:text-lg lg:text-xl font-normal leading-[1.4em] max-w-[500px] px-4"
+              className="text-white text-center text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-normal leading-[1.4em] max-w-[280px] sm:max-w-[400px] lg:max-w-[500px] px-2 sm:px-4"
               style={{
                 fontFamily: 'Helvetica, Arial, sans-serif',
               }}
@@ -54,9 +57,9 @@ const Hero = () => {
             </p>
             
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 lg:gap-6 mt-6">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-6 mt-4 sm:mt-6 w-full max-w-[600px] justify-center items-center">
               {/* Get Started Button */}
-              <div className="relative">
+              <div className="relative w-full sm:w-auto sm:flex-shrink-0">
                 {/* Shade/Glow Effect */}
                 <div className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-80 transition-opacity">
                   <div 
@@ -89,7 +92,7 @@ const Hero = () => {
                 {/* Button Content */}
                 <button 
                   onClick={() => navigate('/auth')}
-                  className="relative bg-white hover:bg-gray-100 transition-colors duration-200 w-[200px] lg:w-[244px] h-[48px] lg:h-[60px]"
+                  className="relative bg-white hover:bg-gray-100 transition-colors duration-200 w-full sm:w-[180px] lg:w-[200px] xl:w-[244px] h-[44px] sm:h-[48px] lg:h-[60px]"
                   style={{
                     borderRadius: '9px',
                     display: 'flex',
@@ -98,7 +101,7 @@ const Hero = () => {
                   }}
                 >
                   <span 
-                    className="text-black text-base lg:text-lg xl:text-[20.98px]"
+                    className="text-black text-sm sm:text-base lg:text-lg xl:text-[20.98px]"
                     style={{
                       fontFamily: 'Poppins, sans-serif',
                       fontWeight: 'normal',
@@ -111,7 +114,7 @@ const Hero = () => {
               </div>
               
               {/* View Demo Button */}
-              <div className="relative">
+              <div className="relative w-full sm:w-auto sm:flex-shrink-0">
                 {/* Shade/Glow Effect */}
                 <div className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-80 transition-opacity">
                   <div 
@@ -143,7 +146,8 @@ const Hero = () => {
                 
                 {/* Button Content */}
                 <button 
-                  className="relative bg-transparent hover:bg-white/5 transition-colors duration-200 w-[200px] lg:w-[244px] h-[48px] lg:h-[60px]"
+                  onClick={() => window.open('https://drive.google.com/file/d/188a495PAykmMw4QF-0o6Ze3bEL8dmmMI/view?usp=sharing', '_blank')}
+                  className="relative bg-transparent hover:bg-white/5 transition-colors duration-200 w-full sm:w-[180px] lg:w-[200px] xl:w-[244px] h-[44px] sm:h-[48px] lg:h-[60px]"
                   style={{
                     borderRadius: '9px',
                     display: 'flex',
@@ -152,7 +156,7 @@ const Hero = () => {
                   }}
                 >
                   <span 
-                    className="text-white text-sm lg:text-base xl:text-[17.63px]"
+                    className="text-white text-sm sm:text-base lg:text-lg xl:text-[17.63px]"
                     style={{
                       fontFamily: 'Poppins, sans-serif',
                       fontWeight: 'normal',
@@ -166,16 +170,17 @@ const Hero = () => {
             </div>
           </div>
           
-          {/* Demo Image Section - Lower portion, contained within background */}
-          <div className="flex-1 w-full flex items-center justify-center mt-12">
+          {/* Demo Image Section - Lower portion, contained within background - Hidden on mobile */}
+          <div className="hidden sm:flex w-full items-center justify-center mt-8 sm:mt-10 lg:mt-16 pb-4 sm:pb-6">
             <div 
-              className="rounded-[10px] w-full max-w-[85%] lg:max-w-[1000px]"
+              className="rounded-[8px] sm:rounded-[10px] lg:rounded-[17px] w-full max-w-[90%] sm:max-w-[85%] lg:max-w-[80%] xl:max-w-[900px]"
               style={{
                 aspectRatio: '1178 / 527',
                 height: 'auto',
-                maxHeight: '400px',
+                maxHeight: '300px',
+                minHeight: '150px',
                 backgroundImage: `url(${lddemo})`,
-                backgroundSize: 'cover',
+                backgroundSize: 'contain',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
               }}

@@ -14,7 +14,7 @@ const GoogleCallback: React.FC = () => {
   const navigate = useNavigate();
   const { handleGoogleCallback, isLoading } = useAuth();
   const { theme } = useTheme();
-  const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
+  const [status, setStatus] = useState<'loading' | 'error'>('loading');
   const [error, setError] = useState<AuthError | null>(null);
 
   useEffect(() => {
@@ -40,12 +40,8 @@ const GoogleCallback: React.FC = () => {
         // Handle the callback
         await handleGoogleCallback(code, state, redirectUri);
         
-        setStatus('success');
-        
-        // Redirect to dashboard after success
-        setTimeout(() => {
-          navigate('/dashboard', { replace: true });
-        }, 2000);
+        // Redirect immediately to dashboard without showing success screen
+        navigate('/dashboard', { replace: true });
 
       } catch (error: any) {
         console.error('Google OAuth callback failed:', error);
@@ -109,30 +105,7 @@ const GoogleCallback: React.FC = () => {
           </motion.div>
         );
 
-      case 'success':
-        return (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="text-center space-y-4"
-          >
-            <div className="flex justify-center">
-              <CheckCircle className={`h-12 w-12 ${themeClasses.successIcon}`} />
-            </div>
-            <h2 
-              className={`text-2xl font-semibold ${themeClasses.title}`}
-              style={{ fontFamily: 'Gilroy, sans-serif' }}
-            >
-              Welcome to AfterTalk!
-            </h2>
-            <p 
-              className={themeClasses.successText}
-              style={{ fontFamily: 'Gilroy, sans-serif' }}
-            >
-              Successfully signed in with Google. Redirecting to your dashboard...
-            </p>
-          </motion.div>
-        );
+
 
       case 'error':
         return (
@@ -175,4 +148,4 @@ const GoogleCallback: React.FC = () => {
   );
 };
 
-export default GoogleCallback; 
+export default GoogleCallback;

@@ -31,6 +31,14 @@ const Auth: React.FC = () => {
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
+    // Check for mode parameter to set initial auth mode
+    const mode = searchParams.get('mode');
+    if (mode === 'register') {
+      setAuthMode('register');
+    } else if (mode === 'login') {
+      setAuthMode('login');
+    }
+
     // Load Gilroy font
     const fontFace = new FontFace('Gilroy', `url(${gilroyFont})`);
     fontFace.load().then(() => {

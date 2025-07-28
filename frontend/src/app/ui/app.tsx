@@ -18,7 +18,7 @@ function App() {
   const location = useLocation();
   
   // Don't show header on auth pages, dashboard, and meeting workspace
-  const hideHeader = ['/register', '/login', '/dashboard', '/integrations', '/settings', '/meetings', '/auth/google/callback', '/auth/google/success', '/integrations/slack/callback'].includes(location.pathname) || location.pathname.startsWith('/meetings/');
+  const hideHeader = ['/register', '/login', '/auth', '/dashboard', '/integrations', '/settings', '/meetings', '/auth/google/callback', '/auth/google/success', '/integrations/slack/callback'].includes(location.pathname) || location.pathname.startsWith('/meetings/') || location.pathname.startsWith('/auth');
 
   return (
     <ThemeProvider>

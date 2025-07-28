@@ -10,7 +10,7 @@ class VexaService:
     """Service for interacting with Vexa.ai API"""
     
     def __init__(self):
-        self.base_url = "https://gateway.dev.vexa.ai"
+        self.base_url = "http://74.161.160.54:18056"
         self.api_key = settings.VEXA_ADMIN_KEY
         
         if not self.api_key or self.api_key == "your-vexa-admin-key-here":

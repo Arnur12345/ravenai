@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/shared/ui/button';
 import ClickSpark from '@/shared/ui/click-spark';
 import { useLanguage } from '@/shared/contexts/LanguageContext';
@@ -8,6 +9,7 @@ import { useTheme } from '@/shared/contexts/ThemeContext';
 const MobileCTA: React.FC = () => {
   const { t } = useLanguage();
   const { theme } = useTheme();
+  const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
   const { scrollY } = useScroll();
 
@@ -52,8 +54,9 @@ const MobileCTA: React.FC = () => {
         >
           <ClickSpark sparkColor="#ffffff" sparkCount={8} sparkSize={4}>
             <Button
+              onClick={() => navigate('/auth')}
               className={`w-full py-2.5 sm:py-3 text-sm sm:text-base font-semibold shadow-lg focus:ring-1 ring-gray-300 ${themeClasses.primaryButton}`}
-              style={{ fontFamily: 'Gilroy, sans-serif' }}
+              style={{ fontFamily: 'Poppins, sans-serif' }}
             >
               Get Started
             </Button>
@@ -69,9 +72,9 @@ const MobileCTA: React.FC = () => {
             <Button
               variant="ghost"
               className={`px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-semibold border shadow-lg focus:ring-1 ring-gray-300 ${themeClasses.secondaryButton}`}
-              style={{ fontFamily: 'Gilroy, sans-serif' }}
+              style={{ fontFamily: 'Poppins, sans-serif' }}
             >
-              Demo
+              View Demo
             </Button>
           </ClickSpark>
         </motion.div>
